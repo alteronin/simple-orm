@@ -20,12 +20,12 @@ export default function EditRecordPage() {
   useEffect(() => {
     let cancelled = false
     setLoading(true)
-    supabase.from('records').select('*').eq('id', params.id).single()
+    Promise.resolve(supabase.from('records').select('*').eq('id', params.id).single()
       .then(({ data, error }) => {
         if (cancelled) return
         if (error) { router.push(`/${params.slug}`); return }
         setRecord(data as AppRecord)
-      })
+      }))
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
   }, [params.id, params.slug, router])
