@@ -6,7 +6,7 @@ import { recordTypes } from '@/config/record-types'
 export function RecordTypeNav() {
   const pathname = usePathname()
   const router = useRouter()
-  const currentSlug = pathname.split('/')[1] || ''
+  const currentSlug = pathname ? pathname.split('/')[1] || '' : ''
 
   return (
     <nav className="flex gap-2 border-b border-border pb-2 mb-6">

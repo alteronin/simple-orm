@@ -11,15 +11,15 @@ import { AppRecord } from '@/types'
 export default function EditRecordPage() {
   const params = useParams<{ slug: string; id: string }>()
   const router = useRouter()
-  if (!params) return <div className="p-8 text-text-muted">Loading...</div>
-  const rt = getRecordTypeBySlug(params.slug)
   const { mutate, pending, error } = useUpdateRecord()
   const [record, setRecord] = useState<AppRecord | null>(null)
   const [loading, setLoading] = useState(true)
+  const rt = params ? getRecordTypeBySlug(params.slug) : undefined
 
   useEffect(() => {
     let cancelled = false
     setLoading(true)
+    if (!params) return
     Promise.resolve(supabase.from('records').select('*').eq('id', params.id).single()
       .then(({ data, error }) => {
         if (cancelled) return
@@ -28,9 +28,9 @@ export default function EditRecordPage() {
       }))
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
-  }, [params.id, params.slug, router])
+  }, [params, params?.id, params?.slug, router])
 
-  if (!rt || loading) {
+  if (!params || !rt || loading) {
     return <div className="p-8 text-text-muted">Loading...</div>
   }
 

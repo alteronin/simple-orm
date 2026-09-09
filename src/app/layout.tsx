@@ -5,7 +5,7 @@ import { RecordTypeNav } from '@/components/RecordTypeNav'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const isRecordPage = /^\/[a-z]+/.test(pathname)
+  const isRecordPage = pathname ? /^\/[a-z]+/.test(pathname) : false
 
   return (
     <html lang="en" suppressHydrationWarning>
