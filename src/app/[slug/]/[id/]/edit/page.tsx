@@ -1,26 +1,39 @@
 'use client'
 
-import { getRecordById } from '@/lib/record-operations'
+import { useParams, useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { supabase } from '@/lib/supabase'
 import { RecordForm } from '@/components/RecordForm'
 import { getFieldConfig, getRecordTypeBySlug } from '@/config/record-types'
 import { useUpdateRecord } from '@/hooks/useRecords'
-import { useRouter } from 'next/navigation'
-import { notFound } from 'next/navigation'
+import { AppRecord } from '@/types'
 
-interface PageProps {
-  params: { slug: string; id: string }
-}
-
-export default async function EditRecordPage({ params }: PageProps) {
+export default function EditRecordPage() {
+  const params = useParams<{ slug: string; id: string }>()
+  const router = useRouter()
   const rt = getRecordTypeBySlug(params.slug)
-  if (!rt) notFound()
+  const { mutate, pending, error } = useUpdateRecord()
+  const [record, setRecord] = useState<AppRecord | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  const record = await getRecordById(params.id)
-  if (!record) notFound()
+  useEffect(() => {
+    let cancelled = false
+    setLoading(true)
+    supabase.from('records').select('*').eq('id', params.id).single()
+      .then(({ data, error }) => {
+        if (cancelled) return
+        if (error) { router.push(`/${params.slug}`); return }
+        setRecord(data as AppRecord)
+      })
+      .finally(() => { if (!cancelled) setLoading(false) })
+    return () => { cancelled = true }
+  }, [params.id, params.slug])
+
+  if (!rt || loading) {
+    return <div className="p-8 text-text-muted">Loading...</div>
+  }
 
   const fields = getFieldConfig(rt.id)
-  const { mutate, pending, error } = useUpdateRecord()
-  const router = useRouter()
 
   const handleSubmit = (data: Record<string, string | number | boolean | null>) => {
     mutate(params.id, data)
@@ -36,7 +49,7 @@ export default async function EditRecordPage({ params }: PageProps) {
       </button>
       <h1 className="text-2xl font-bold text-text mb-6">Edit {rt.name}</h1>
       {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
-      <RecordForm fields={fields} initialData={record.data} onSubmit={handleSubmit} submitting={pending} submitLabel="Save Changes" />
+      {record && <RecordForm fields={fields} initialData={record.data} onSubmit={handleSubmit} submitting={pending} submitLabel="Save Changes" />}
     </div>
   )
 }
