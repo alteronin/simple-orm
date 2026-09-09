@@ -16,7 +16,7 @@ export interface RecordType {
   updated_at: string
 }
 
-export interface Record {
+export interface AppRecord {
   id: string
   record_type_id: string
   data: Record<string, string | number | boolean | null>

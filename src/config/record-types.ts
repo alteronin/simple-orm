@@ -1,4 +1,4 @@
-import { RecordType } from '@/types'
+import { RecordType, FieldDefinition } from '@/types'
 
 export const recordTypes: RecordType[] = [
   {
@@ -28,6 +28,11 @@ export const recordTypes: RecordType[] = [
   },
 ]
 
-export function getRecordType(slug: string): RecordType | undefined {
+export function getRecordTypeBySlug(slug: string): RecordType | undefined {
   return recordTypes.find((rt) => rt.slug === slug)
+}
+
+export function getFieldConfig(recordTypeId: string): FieldDefinition[] {
+  const rt = recordTypes.find((r) => r.id === recordTypeId)
+  return rt?.fields || []
 }
