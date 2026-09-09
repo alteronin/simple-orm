@@ -3,11 +3,6 @@
 import { usePathname } from 'next/navigation'
 import { RecordTypeNav } from '@/components/RecordTypeNav'
 
-export const metadata = {
-  title: 'simple-orm',
-  description: 'Minimal Salesforce-lite CRUD',
-}
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isRecordPage = /^\/[a-z]+/.test(pathname)

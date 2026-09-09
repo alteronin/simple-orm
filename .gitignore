@@ -6,3 +6,5 @@ node_modules
 !context/*.md
 !.github/
 !README.md
+
+.vercel

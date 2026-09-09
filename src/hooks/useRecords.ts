@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { AppRecord } from '@/types'
 import { recordTypes } from '@/config/record-types'
-import { createRecord as createRecordServer, updateRecord as updateRecordServer, deleteRecord as deleteRecordServer } from '@/lib/record-operations'
+import { createRecord as createRecordServer, updateRecord as updateRecordServer, deleteRecord as deleteRecordServer } from '@/lib/actions'
 
 export function useRecordTypes() {
   return { types: recordTypes, getRecordTypeBySlug: (slug: string) => recordTypes.find((r) => r.slug === slug) }
