@@ -11,6 +11,7 @@ import { AppRecord } from '@/types'
 export default function EditRecordPage() {
   const params = useParams<{ slug: string; id: string }>()
   const router = useRouter()
+  if (!params) return <div className="p-8 text-text-muted">Loading...</div>
   const rt = getRecordTypeBySlug(params.slug)
   const { mutate, pending, error } = useUpdateRecord()
   const [record, setRecord] = useState<AppRecord | null>(null)
@@ -27,7 +28,7 @@ export default function EditRecordPage() {
       })
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
-  }, [params.id, params.slug])
+  }, [params.id, params.slug, router])
 
   if (!rt || loading) {
     return <div className="p-8 text-text-muted">Loading...</div>
