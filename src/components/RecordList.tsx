@@ -8,7 +8,6 @@ import { RecordToolbar } from './RecordToolbar'
 import { Pagination } from './Pagination'
 import { useToast } from './Toast'
 import { deleteRecords, updateRecordField } from '@/lib/actions'
-import { recordTypes } from '@/config/record-types'
 
 const PAGE_SIZE = 10
 
@@ -30,8 +29,7 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
   const [page, setPage] = useState(1)
   const [selected, setSelected] = useState<Set<string>>(new Set())
 
-  const rt = recordTypes.find(r => r.id === recordTypeId)
-  const statusField = rt?.fields.find(f => f.name === 'status')
+  const statusField = fields.find(f => f.name === 'status')
   const statusOptions = statusField?.options
 
   const filterState = useMemo(() => ({ search, sortBy, sortDir, filters }), [search, sortBy, sortDir, filters])

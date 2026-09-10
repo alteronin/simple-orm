@@ -1,9 +1,38 @@
 import { supabase } from './supabase'
 import { RecordType, AppRecord, FieldDefinition } from '@/types'
-import { recordTypes } from '@/config/record-types'
 
 export async function getRecordTypes(): Promise<RecordType[]> {
-  return recordTypes
+  const { data, error } = await supabase
+    .from('record_types')
+    .select('*')
+    .order('created_at', { ascending: true })
+  if (error) throw new Error(error.message)
+  return (data || []) as RecordType[]
+}
+
+export async function getRecordTypeById(id: string): Promise<RecordType | null> {
+  const { data, error } = await supabase
+    .from('record_types')
+    .select('*')
+    .eq('id', id)
+    .single()
+  if (error) return null
+  return data as RecordType
+}
+
+export async function getRecordTypeBySlug(slug: string): Promise<RecordType | undefined> {
+  const { data, error } = await supabase
+    .from('record_types')
+    .select('*')
+    .eq('slug', slug)
+    .single()
+  if (error) return undefined
+  return data as RecordType
+}
+
+export async function getFieldConfig(recordTypeId: string): Promise<FieldDefinition[]> {
+  const rt = await getRecordTypeById(recordTypeId)
+  return rt?.fields || []
 }
 
 export async function getRecordsByTypeId(recordTypeId: string): Promise<AppRecord[]> {
@@ -24,13 +53,4 @@ export async function getRecordById(id: string): Promise<AppRecord | null> {
     .single()
   if (error) return null
   return (data || null) as AppRecord
-}
-
-export function getFieldConfig(recordTypeId: string): FieldDefinition[] {
-  const rt = recordTypes.find((r) => r.id === recordTypeId)
-  return rt?.fields || []
-}
-
-export function getRecordTypeBySlug(slug: string): RecordType | undefined {
-  return recordTypes.find((rt) => rt.slug === slug)
 }

@@ -1,7 +1,7 @@
 'use server'
 
 import { supabase } from './supabase'
-import { AppRecord } from '@/types'
+import { AppRecord, RecordType, FieldDefinition } from '@/types'
 
 export async function createRecord(recordTypeId: string, data: Record<string, string | number | boolean | null>): Promise<AppRecord> {
   const { data: record, error } = await supabase
@@ -82,5 +82,33 @@ export async function createNote(recordId: string, content: string): Promise<Not
 
 export async function deleteNote(id: string): Promise<void> {
   const { error } = await supabase.from('notes').delete().eq('id', id)
+  if (error) throw new Error(error.message)
+}
+
+// Record Type CRUD
+
+export async function createRecordType(data: { id: string; name: string; slug: string; fields: FieldDefinition[] }): Promise<RecordType> {
+  const { data: record, error } = await supabase
+    .from('record_types')
+    .insert(data)
+    .select()
+    .single()
+  if (error) throw new Error(error.message)
+  return record as RecordType
+}
+
+export async function updateRecordType(id: string, data: { name?: string; slug?: string; fields?: FieldDefinition[] }): Promise<RecordType> {
+  const { data: record, error } = await supabase
+    .from('record_types')
+    .update({ ...data, updated_at: new Date().toISOString() })
+    .eq('id', id)
+    .select()
+    .single()
+  if (error) throw new Error(error.message)
+  return record as RecordType
+}
+
+export async function deleteRecordType(id: string): Promise<void> {
+  const { error } = await supabase.from('record_types').delete().eq('id', id)
   if (error) throw new Error(error.message)
 }

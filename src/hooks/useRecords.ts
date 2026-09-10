@@ -4,13 +4,8 @@ import { useState, useEffect, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { AppRecord } from '@/types'
-import { recordTypes } from '@/config/record-types'
 import { createRecord as createRecordServer, updateRecord as updateRecordServer, deleteRecord as deleteRecordServer } from '@/lib/actions'
 import { useToast } from '@/components/Toast'
-
-export function useRecordTypes() {
-  return { types: recordTypes, getRecordTypeBySlug: (slug: string) => recordTypes.find((r) => r.slug === slug) }
-}
 
 export function useRecords(recordTypeId: string) {
   const [records, setRecords] = useState<AppRecord[]>([])

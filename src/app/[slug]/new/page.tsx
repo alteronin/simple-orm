@@ -1,21 +1,27 @@
 'use client'
 
 import { useParams, useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
 import { RecordForm } from '@/components/RecordForm'
-import { getRecordTypeBySlug, getFieldConfig } from '@/config/record-types'
 import { useCreateRecord } from '@/hooks/useRecords'
+import { supabase } from '@/lib/supabase'
+import { RecordType } from '@/types'
 
 export default function NewRecordPage() {
   const params = useParams<{ slug: string }>()
   const router = useRouter()
   const { mutate, pending, error } = useCreateRecord()
-  const rt = params ? getRecordTypeBySlug(params.slug) : undefined
+  const [rt, setRt] = useState<RecordType | null>(null)
+
+  useEffect(() => {
+    if (!params) return
+    supabase.from('record_types').select('*').eq('slug', params.slug).single()
+      .then(({ data }) => { if (data) setRt(data as RecordType) })
+  }, [params])
 
   if (!params || !rt) {
     return <div className="flex items-center justify-center py-16 text-muted-foreground">Loading...</div>
   }
-
-  const fields = getFieldConfig(rt.id)
 
   const handleSubmit = (data: Record<string, string | number | boolean | null>) => {
     mutate(rt.id, data)
@@ -43,7 +49,7 @@ export default function NewRecordPage() {
             {error}
           </div>
         )}
-        <RecordForm fields={fields} onSubmit={handleSubmit} submitting={pending} submitLabel={`Create ${rt.name}`} />
+        <RecordForm fields={rt.fields} onSubmit={handleSubmit} submitting={pending} submitLabel={`Create ${rt.name}`} />
       </div>
     </div>
   )

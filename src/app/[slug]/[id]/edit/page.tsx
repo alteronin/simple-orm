@@ -4,37 +4,41 @@ import { useParams, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { RecordForm } from '@/components/RecordForm'
-import { getFieldConfig, getRecordTypeBySlug } from '@/config/record-types'
 import { useUpdateRecord } from '@/hooks/useRecords'
-import { AppRecord } from '@/types'
+import { AppRecord, RecordType } from '@/types'
 
 export default function EditRecordPage() {
   const params = useParams<{ slug: string; id: string }>()
   const router = useRouter()
   const { mutate, pending, error } = useUpdateRecord()
   const [record, setRecord] = useState<AppRecord | null>(null)
+  const [rt, setRt] = useState<RecordType | null>(null)
   const [loading, setLoading] = useState(true)
-  const rt = params ? getRecordTypeBySlug(params.slug) : undefined
 
   useEffect(() => {
     let cancelled = false
     setLoading(true)
     if (!params) return
-    Promise.resolve(supabase.from('records').select('*').eq('id', params.id).single()
-      .then(({ data, error }) => {
-        if (cancelled) return
-        if (error) { router.push(`/${params.slug}`); return }
-        setRecord(data as AppRecord)
-      }))
-      .finally(() => { if (!cancelled) setLoading(false) })
+
+    const fetchData = async () => {
+      const [recordRes, typeRes] = await Promise.all([
+        supabase.from('records').select('*').eq('id', params.id).single(),
+        supabase.from('record_types').select('*').eq('slug', params.slug).single()
+      ])
+      if (cancelled) return
+      if (recordRes.error || !recordRes.data) { router.push(`/${params.slug}`); return }
+      if (typeRes.data) setRt(typeRes.data as RecordType)
+      setRecord(recordRes.data as AppRecord)
+      setLoading(false)
+    }
+    fetchData()
+
     return () => { cancelled = true }
   }, [params, params?.id, params?.slug, router])
 
   if (!params || !rt || loading) {
     return <div className="flex items-center justify-center py-16 text-muted-foreground">Loading...</div>
   }
-
-  const fields = getFieldConfig(rt.id)
 
   const handleSubmit = (data: Record<string, string | number | boolean | null>) => {
     mutate(params.id, data)
@@ -62,7 +66,7 @@ export default function EditRecordPage() {
             {error}
           </div>
         )}
-        {record && <RecordForm fields={fields} initialData={record.data} onSubmit={handleSubmit} submitting={pending} submitLabel="Save Changes" />}
+        {record && <RecordForm fields={rt.fields} initialData={record.data} onSubmit={handleSubmit} submitting={pending} submitLabel="Save Changes" />}
       </div>
     </div>
   )
