@@ -1,4 +1,4 @@
-import { getRecordById, getRecordTypes } from '@/lib/record-operations'
+import { getRecordById } from '@/lib/record-operations'
 import { RecordDetail } from '@/components/RecordDetail'
 import { getFieldConfig, getRecordTypeBySlug } from '@/config/record-types'
 import { notFound } from 'next/navigation'

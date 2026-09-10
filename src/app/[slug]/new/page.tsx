@@ -1,21 +1,21 @@
 'use client'
 
-import { getRecordTypeBySlug, getFieldConfig } from '@/config/record-types'
+import { useParams, useRouter } from 'next/navigation'
 import { RecordForm } from '@/components/RecordForm'
+import { getRecordTypeBySlug, getFieldConfig } from '@/config/record-types'
 import { useCreateRecord } from '@/hooks/useRecords'
-import { useRouter } from 'next/navigation'
-import { notFound } from 'next/navigation'
 
-interface PageProps {
-  params: { slug: string }
-}
-
-export default function NewRecordPage({ params }: PageProps) {
-  const rt = getRecordTypeBySlug(params.slug)
-  if (!rt) notFound()
-  const fields = getFieldConfig(rt.id)
-  const { mutate, pending, error } = useCreateRecord()
+export default function NewRecordPage() {
+  const params = useParams<{ slug: string }>()
   const router = useRouter()
+  const { mutate, pending, error } = useCreateRecord()
+  const rt = params ? getRecordTypeBySlug(params.slug) : undefined
+
+  if (!params || !rt) {
+    return <div className="p-8 text-text-muted">Loading...</div>
+  }
+
+  const fields = getFieldConfig(rt.id)
 
   const handleSubmit = (data: Record<string, string | number | boolean | null>) => {
     mutate(rt.id, data)

@@ -3,7 +3,7 @@
 
 -- Create record_types table
 create table record_types (
-  id uuid default gen_random_uuid() primary key,
+  id text primary key,
   name text not null,
   slug text not null unique,
   fields jsonb not null default '[]',
@@ -14,7 +14,7 @@ create table record_types (
 -- Create records table
 create table records (
   id uuid default gen_random_uuid() primary key,
-  record_type_id uuid references record_types(id) on delete cascade,
+  record_type_id text references record_types(id) on delete cascade,
   data jsonb not null default '{}',
   created_at timestamptz default now(),
   updated_at timestamptz default now()
@@ -23,10 +23,6 @@ create table records (
 -- Create indexes
 create index idx_records_record_type_id on records(record_type_id);
 create index idx_records_data on records using gin(data);
-
--- Enable RLS (will disable for now, enable later when auth is added)
-alter table record_types enable row level security;
-alter table records enable row level security;
 
 -- Insert default record types
 insert into record_types (id, name, slug, fields) values
