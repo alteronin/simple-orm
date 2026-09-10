@@ -1,0 +1,11 @@
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3456
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1519ms
+ ○ Compiling /[slug] ...
+ ✓ Compiled /[slug] in 2s (508 modules)
+ GET /deal 200 in 2526ms
+ GET /deal 200 in 66ms
+ GET /deal 200 in 39ms
