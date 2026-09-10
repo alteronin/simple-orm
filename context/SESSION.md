@@ -20,10 +20,10 @@ All 14/14 UAC checks passed — record types now fully DB-driven.
 
 ### Status
 - **Initialized**: 2026-09-09
-- **Phase**: Bucket 3 Complete + Dynamic Record Types live
+- **Phase**: Bucket 4 in progress (B4-1, B4-2, B4-3 complete)
 - **Deployed**: https://simple-orm.vercel.app (master)
 - **Supabase**: Connected and operational (ref: vhcgmdgmmvarkqjfcytj)
-- **Pending**: Run `docs/002-notes-table.sql` migration for notes feature
+- **Migrations run**: 001-schema.sql, 002-notes-table.sql, 003-history-table.sql
 
 ### Requirements Summary
 - Generic record-type CRUD app (Salesforce-lite)

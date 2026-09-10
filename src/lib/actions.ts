@@ -3,6 +3,38 @@
 import { supabase } from './supabase'
 import { AppRecord, RecordType, FieldDefinition } from '@/types'
 
+// --- History types ---
+
+export interface RecordHistoryEntry {
+  id: string
+  record_id: string
+  action: string
+  changes: Record<string, { old: any; new: any }> | null
+  created_at: string
+}
+
+// --- History helpers ---
+
+async function logRecordChange(recordId: string, action: string, changes?: Record<string, { old: any; new: any }> | null) {
+  await supabase.from('record_history').insert({
+    record_id: recordId,
+    action,
+    changes: changes || null,
+  })
+}
+
+export async function getRecordHistory(recordId: string): Promise<RecordHistoryEntry[]> {
+  const { data, error } = await supabase
+    .from('record_history')
+    .select('*')
+    .eq('record_id', recordId)
+    .order('created_at', { ascending: false })
+  if (error) throw new Error(error.message)
+  return (data || []) as RecordHistoryEntry[]
+}
+
+// --- Record CRUD ---
+
 export async function createRecord(recordTypeId: string, data: Record<string, string | number | boolean | null>): Promise<AppRecord> {
   const { data: record, error } = await supabase
     .from('records')
@@ -10,10 +42,28 @@ export async function createRecord(recordTypeId: string, data: Record<string, st
     .select()
     .single()
   if (error) throw new Error(error.message)
+  await logRecordChange(record.id, 'created')
   return record as AppRecord
 }
 
 export async function updateRecord(id: string, data: Record<string, string | number | boolean | null>): Promise<AppRecord> {
+  const { data: existing, error: fetchError } = await supabase
+    .from('records')
+    .select('data')
+    .eq('id', id)
+    .single()
+  if (fetchError) throw new Error(fetchError.message)
+
+  const changes: Record<string, { old: any; new: any }> = {}
+  const allKeys = new Set([...Object.keys(existing.data || {}), ...Object.keys(data)])
+  for (const key of allKeys) {
+    const oldVal = (existing.data as Record<string, any>)?.[key] ?? null
+    const newVal = data[key] ?? null
+    if (JSON.stringify(oldVal) !== JSON.stringify(newVal)) {
+      changes[key] = { old: oldVal, new: newVal }
+    }
+  }
+
   const { data: record, error } = await supabase
     .from('records')
     .update({ data, updated_at: new Date().toISOString() })
@@ -21,6 +71,9 @@ export async function updateRecord(id: string, data: Record<string, string | num
     .select()
     .single()
   if (error) throw new Error(error.message)
+  if (Object.keys(changes).length > 0) {
+    await logRecordChange(id, 'updated', changes)
+  }
   return record as AppRecord
 }
 
@@ -42,6 +95,10 @@ export async function updateRecordField(id: string, fieldName: string, value: st
     .single()
   if (fetchError) throw new Error(fetchError.message)
 
+  const oldVal = (existing.data as Record<string, any>)?.[fieldName] ?? null
+  const changes: Record<string, { old: any; new: any }> | null =
+    JSON.stringify(oldVal) !== JSON.stringify(value) ? { [fieldName]: { old: oldVal, new: value } } : null
+
   const newData = { ...(existing.data as Record<string, any>), [fieldName]: value }
   const { data: record, error } = await supabase
     .from('records')
@@ -50,8 +107,13 @@ export async function updateRecordField(id: string, fieldName: string, value: st
     .select()
     .single()
   if (error) throw new Error(error.message)
+  if (changes) {
+    await logRecordChange(id, 'updated', changes)
+  }
   return record as AppRecord
 }
+
+// --- Notes ---
 
 export interface Note {
   id: string
@@ -85,7 +147,7 @@ export async function deleteNote(id: string): Promise<void> {
   if (error) throw new Error(error.message)
 }
 
-// Record Type CRUD
+// --- Record Type CRUD ---
 
 export async function createRecordType(data: { id: string; name: string; slug: string; fields: FieldDefinition[] }): Promise<RecordType> {
   const { data: record, error } = await supabase

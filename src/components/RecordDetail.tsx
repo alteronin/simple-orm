@@ -6,6 +6,7 @@ import { AppRecord, FieldDefinition } from '@/types'
 import { ConfirmDialog } from './ConfirmDialog'
 import { useDeleteRecord } from '@/hooks/useRecords'
 import { RecordNotes } from './RecordNotes'
+import { RecordHistory } from './RecordHistory'
 import { supabase } from '@/lib/supabase'
 
 interface RecordDetailProps {
@@ -88,6 +89,11 @@ export function RecordDetail({ record, fields, recordTypeName }: RecordDetailPro
       {/* Notes section */}
       <div className="rounded-lg border border-border bg-card p-6">
         <RecordNotes recordId={record.id} />
+      </div>
+
+      {/* History section */}
+      <div className="rounded-lg border border-border bg-card p-6">
+        <RecordHistory recordId={record.id} />
       </div>
 
       <ConfirmDialog

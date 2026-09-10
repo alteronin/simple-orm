@@ -129,3 +129,25 @@
 - src/lib/actions.ts — Added deleteRecords, updateRecordField, getNotes, createNote, deleteNote
 - src/app/[slug]/page.tsx — Pass recordTypeId to RecordList
 - docs/002-notes-table.sql — Notes table migration
+
+## 2026-09-10 — Bucket 4: Responsive Sidebar, Inline Edit, Record Relationships
+- **B4-1: Responsive/Mobile Sidebar** (13/13 UAC): hamburger on mobile, slide-out overlay, backdrop close
+- **B4-2: Inline Quick-Edit** (7/7 UAC): single-click edit on field badges, select/boolean/text/number support
+- **B4-3: Record Relationships / Link Field Type** (7/7 UAC): link field type, LinkFieldEditor, LinkedRecordName/Badge
+- **Migrations run**: 002-notes-table.sql, 003-history-table.sql (record_history table)
+- **RLS fix**: Added full-access policy on record_types + disabled RLS on record_history
+- **Stress test passed**: Created record types (contact, vendor, upcoming), created records, verified cascade delete, duplicate slug rejection, null field handling
+- **Final DB state**: 4 record types (deal, task, upcoming, contact), 19 total records
+
+### Files Created/Modified (Bucket 4)
+- src/components/Sidebar.tsx — Responsive sidebar with slide-out overlay
+- src/components/InlineEditableField.tsx — Single-click inline edit component
+- src/components/LinkFieldEditor.tsx — Search dropdown for linked records
+- src/components/RecordForm.tsx — Added link field type rendering
+- src/components/RecordDetail.tsx — Added LinkedRecordName component
+- src/components/RecordList.tsx — Added LinkedRecordBadge component
+- src/app/settings/page.tsx — Added link field type with target selector
+- src/app/layout.tsx — Mobile hamburger, sidebar state, record types from DB
+- src/lib/actions.ts — Added createRecordType, updateRecordType, deleteRecordType
+- src/types/index.ts — Extended FieldDefinition with 'link' type and targetType
+- docs/003-history-table.sql — Audit log table migration
