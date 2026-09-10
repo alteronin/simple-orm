@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-09-10 — Dynamic Record Types
+- Record types now fully DB-driven (read from `record_types` Supabase table)
+- New `/settings` page: create, edit, delete record types + fields from UI
+- Removed hardcoded `src/config/record-types.ts` dependency
+- Sidebar, server pages, client pages all fetch record types from DB
+- Adding record types/fields no longer requires code changes or SQL migrations
+- UAC: 14/14 passed
+
 ## 2026-09-09 — Project Init
 - Initialized project structure and context files
 - Requirements gathered: generic CRUD, dynamic fields, dark mode, Vercel deploy

@@ -31,6 +31,7 @@ simple-orm/
 │   └── app/            # Next.js App Router pages
 │       ├── layout.tsx          # Root layout (sidebar + CSS import)
 │       ├── page.tsx            # Home/redirect
+│       ├── settings/page.tsx   # Record Type Manager (create/edit/delete types + fields)
 │       ├── [slug]/
 │       │   ├── page.tsx        # List page for record type
 │       │   ├── new/page.tsx    # Create page
@@ -59,13 +60,13 @@ simple-orm/
 
 | File | Purpose |
 |------|---------|
-| `src/lib/actions.ts` | Server actions for mutations (create, update, delete) |
-| `src/lib/record-operations.ts` | Server functions for reads (getRecordTypes, getRecords, getRecordById) |
+| `src/lib/actions.ts` | Server actions for mutations (create, update, delete record types + records) |
+| `src/lib/record-operations.ts` | Server functions for reads (all from Supabase DB) |
 | `src/lib/supabase.ts` | Supabase client with custom fetch (bypasses Next.js cache) |
 | `src/hooks/useRecords.ts` | Client-side hooks wrapping server actions |
-| `src/config/record-types.ts` | Record type and field definitions |
+| `src/app/settings/page.tsx` | Record Type Manager — create/edit/delete record types + fields |
 | `src/types/index.ts` | Core TypeScript types (AppRecord, FieldDefinition, RecordType) |
-| `src/components/Sidebar.tsx` | Sidebar navigation with icons |
+| `src/components/Sidebar.tsx` | Sidebar navigation (reads record types from props) |
 | `src/components/RecordToolbar.tsx` | Search, sort, filter, export, bulk action controls |
 | `src/components/Pagination.tsx` | Page controls with ellipsis |
 | `src/components/Toast.tsx` | Toast notification system (context + UI) |
