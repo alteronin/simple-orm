@@ -21,7 +21,7 @@ export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging }:
 
   return (
     <div
-      className={`flex-shrink-0 w-80 rounded-lg border bg-card transition-colors ${
+      className={`rounded-lg border bg-card transition-colors ${
         isDragging ? 'border-primary/50 bg-primary/5' : 'border-border'
       } ${isOver ? 'border-accent-foreground/50' : ''}`}
     >
@@ -63,7 +63,7 @@ export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging }:
         </div>
       </div>
 
-      <div ref={setNodeRef} className="p-3 min-h-[200px] max-h-[600px] overflow-y-auto">
+      <div ref={setNodeRef} className="p-3 min-h-[200px] max-h-[calc(100vh-12rem)] overflow-y-auto">
         <SortableContext items={cardIds} strategy={verticalListSortingStrategy}>
           {stack.cards.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-8 text-muted-foreground text-center">

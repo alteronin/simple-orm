@@ -120,7 +120,7 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate }
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex gap-4 overflow-x-auto pb-4">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
         {localStacks.map(stack => (
           <StackColumn
             key={stack.id}

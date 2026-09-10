@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </>
             )}
             <main className="flex-1 min-w-0">
-              <div className="mx-auto max-w-4xl px-4 py-8 pt-16 md:px-6 md:pt-8">
+              <div className={`px-4 py-8 pt-16 md:px-6 md:pt-8 ${pathname === '/stacks' ? '' : 'mx-auto max-w-4xl'}`}>
                 {children}
               </div>
             </main>
