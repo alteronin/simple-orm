@@ -7,11 +7,14 @@ simple-orm/
 ├── src/
 │   ├── components/     # Reusable UI components
 │   │   ├── Sidebar.tsx         # Sidebar navigation with icons
-│   │   ├── RecordList.tsx      # List view with cards
+│   │   ├── RecordList.tsx      # List view with search/sort/filter/pagination
+│   │   ├── RecordToolbar.tsx   # Search, sort, filter controls
+│   │   ├── Pagination.tsx      # Page controls
 │   │   ├── RecordForm.tsx      # Dynamic create/edit form
 │   │   ├── RecordDetail.tsx    # Detail view with actions
 │   │   ├── EmptyState.tsx      # Empty list state
-│   │   └── ConfirmDialog.tsx   # Delete confirmation modal
+│   │   ├── ConfirmDialog.tsx   # Delete confirmation modal
+│   │   └── Toast.tsx           # Toast notification system
 │   ├── hooks/          # Custom React hooks for CRUD operations
 │   │   └── useRecords.ts       # useCreateRecord, useUpdateRecord, useDeleteRecord
 │   ├── lib/            # Utilities, Supabase client, DB operations
@@ -62,8 +65,11 @@ simple-orm/
 | `src/config/record-types.ts` | Record type and field definitions |
 | `src/types/index.ts` | Core TypeScript types (AppRecord, FieldDefinition, RecordType) |
 | `src/components/Sidebar.tsx` | Sidebar navigation with icons |
+| `src/components/RecordToolbar.tsx` | Search, sort, filter controls |
+| `src/components/Pagination.tsx` | Page controls with ellipsis |
+| `src/components/Toast.tsx` | Toast notification system (context + UI) |
 | `src/components/RecordForm.tsx` | Dynamic form rendering based on field config |
-| `src/components/RecordList.tsx` | List view with record cards and badges |
+| `src/components/RecordList.tsx` | List view with search/sort/filter/pagination |
 | `src/components/RecordDetail.tsx` | Detail view with edit/delete actions |
 | `src/styles/globals.css` | Tailwind v4 theme tokens and base styles |
 | `postcss.config.mjs` | PostCSS with @tailwindcss/postcss plugin |

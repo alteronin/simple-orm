@@ -57,9 +57,21 @@ interface FieldDefinition {
 
 ### Server/Client Split
 - **Server components**: List page, detail page (data fetching)
-- **Client components**: Form, detail (actions), sidebar (navigation)
+- **Client components**: Form, detail (actions), sidebar (navigation), record list (search/sort/filter)
 - **Server actions**: `src/lib/actions.ts` (mutations from client)
 - **Server reads**: `src/lib/record-operations.ts` (no 'use server' directive)
+
+### Client-Side Search/Sort/Filter
+- RecordList handles all filtering client-side (small dataset)
+- RecordToolbar provides search input, sort dropdown, filter chips
+- Pagination: 10 records per page, client-side
+- Filter chips appear dynamically based on select fields in record type config
+
+### Toast Notifications
+- Simple context-based system (ToastProvider wraps app)
+- Auto-dismiss after 4 seconds
+- Shows on create/update/delete success/error
+- Styled with green (success), red (error), neutral (info)
 
 ## Deployment Flow
 1. Push to master on GitHub

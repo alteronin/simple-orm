@@ -84,3 +84,23 @@
 - src/app/[slug]/[id]/edit/page.tsx — Updated styling
 - src/app/page.tsx — Updated styling
 - src/components/RecordTypeNav.tsx — Deleted (replaced by Sidebar)
+
+## 2026-09-10 — Bucket 2: Search/Filter/Sort/Pagination/Toasts/Skeletons
+- **Search bar**: text input filters records across all fields client-side
+- **Sort dropdown**: sort by any field (A→Z, Z→A) or by date (newest/oldest)
+- **Filter chips**: dropdown filters for select fields (status for Deals, priority for Tasks)
+- **Pagination**: page controls with ellipsis, 10 records per page
+- **Toast notifications**: success/error toasts on create/update/delete actions
+- **Skeleton loaders**: card-based animated placeholders during data loading
+- All filtering is client-side (no server roundtrips for search/sort/filter)
+- Updated hooks (useCreateRecord, useUpdateRecord, useDeleteRecord) to trigger toasts
+- Root layout wrapped with ToastProvider
+- All 12 UAC checks passed against production
+
+### Files Created/Modified (Bucket 2)
+- src/components/Toast.tsx — Toast context provider + UI
+- src/components/RecordToolbar.tsx — Search/sort/filter toolbar
+- src/components/Pagination.tsx — Page controls
+- src/components/RecordList.tsx — Added search/sort/filter/pagination logic
+- src/hooks/useRecords.ts — Added toast callbacks to mutations
+- src/app/layout.tsx — Wrapped with ToastProvider
