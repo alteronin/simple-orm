@@ -90,10 +90,13 @@ export async function deleteNote(id: string): Promise<void> {
 export async function createRecordType(data: { id: string; name: string; slug: string; fields: FieldDefinition[] }): Promise<RecordType> {
   const { data: record, error } = await supabase
     .from('record_types')
-    .insert(data)
+    .insert({ id: data.id, name: data.name, slug: data.slug, fields: data.fields })
     .select()
     .single()
-  if (error) throw new Error(error.message)
+  if (error) {
+    console.error('createRecordType error:', error.message, error.details, error.hint)
+    throw new Error(error.message)
+  }
   return record as RecordType
 }
 
