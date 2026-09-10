@@ -28,12 +28,16 @@ interface StackBoardProps {
   onEdit: (stack: StackWithCards) => void
   onDelete: (id: string) => void
   onPopulate: (id: string) => void
-  onReorderCards: () => void
 }
 
-export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, onReorderCards }: StackBoardProps) {
+export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate }: StackBoardProps) {
   const [activeStackId, setActiveStackId] = useState<string | null>(null)
   const [localStacks, setLocalStacks] = useState(stacks)
+
+  // Sync local state when parent stacks change (after create/delete/populate)
+  if (JSON.stringify(stacks.map(s => s.id)) !== JSON.stringify(localStacks.map(s => s.id))) {
+    setLocalStacks(stacks)
+  }
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -71,18 +75,12 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
     const { active, over } = event
     setActiveStackId(null)
 
-    if (!over) {
-      onReorderCards()
-      return
-    }
+    if (!over) return
 
     const activeStack = localStacks.find(s => s.cards.some(c => c.id === active.id))
     const overStack = localStacks.find(s => s.cards.some(c => c.id === over.id))
 
-    if (!activeStack || !overStack) {
-      onReorderCards()
-      return
-    }
+    if (!activeStack || !overStack) return
 
     if (activeStack.id === overStack.id) {
       const oldIdx = activeStack.cards.findIndex(c => c.id === active.id)
@@ -98,12 +96,20 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
       const overIdx = overStack.cards.findIndex(c => c.id === over.id)
       const movedCard = activeStack.cards.find(c => c.id === active.id)
       if (movedCard) {
+        const newFromCards = activeStack.cards.filter(c => c.id !== active.id)
         const newOverCards = [...overStack.cards]
         newOverCards.splice(overIdx >= 0 ? overIdx : newOverCards.length, 0, movedCard)
+        setLocalStacks(prev =>
+          prev.map(s => {
+            if (s.id === activeStack.id) return { ...s, cards: newFromCards }
+            if (s.id === overStack.id) return { ...s, cards: newOverCards }
+            return s
+          })
+        )
         await reorderStackCards(overStack.id, newOverCards.map(c => c.id))
+        await reorderStackCards(activeStack.id, newFromCards.map(c => c.id))
       }
     }
-    onReorderCards()
   }
 
   return (

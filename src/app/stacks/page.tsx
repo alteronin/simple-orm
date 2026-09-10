@@ -97,7 +97,6 @@ export default function StacksPage() {
           onEdit={setEditingStack}
           onDelete={handleDelete}
           onPopulate={handlePopulate}
-          onReorderCards={loadData}
         />
       )}
 
