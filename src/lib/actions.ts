@@ -188,26 +188,32 @@ export async function getStacks(): Promise<StackWithCards[]> {
     .select('*')
     .order('position', { ascending: true })
   if (stacksError) throw new Error(stacksError.message)
+  if (!stacks || stacks.length === 0) return []
 
-  const result: StackWithCards[] = []
-  for (const stack of (stacks || [])) {
-    const { data: cards } = await supabase
-      .from('stack_cards')
-      .select('*, record:records(*)')
-      .eq('stack_id', stack.id)
-      .order('position', { ascending: true })
-    const { data: rt } = await supabase
-      .from('record_types')
-      .select('*')
-      .eq('id', stack.record_type_id)
-      .single()
-    result.push({
-      ...stack,
-      cards: (cards || []) as any,
-      record_type: rt as RecordType || undefined,
-    })
+  const stackIds = stacks.map(s => s.id)
+  const rtIds = [...new Set(stacks.map(s => s.record_type_id))]
+
+  const [cardsResult, rtResult] = await Promise.all([
+    supabase.from('stack_cards').select('*, record:records(*)').in('stack_id', stackIds).order('position', { ascending: true }),
+    supabase.from('record_types').select('*').in('id', rtIds),
+  ])
+
+  const cardsByStack = new Map<string, any[]>()
+  for (const card of (cardsResult.data || [])) {
+    const list = cardsByStack.get(card.stack_id) || []
+    list.push(card)
+    cardsByStack.set(card.stack_id, list)
   }
-  return result
+  const rtMap = new Map<string, RecordType>()
+  for (const rt of (rtResult.data || [])) {
+    rtMap.set(rt.id, rt as RecordType)
+  }
+
+  return stacks.map(stack => ({
+    ...stack,
+    cards: (cardsByStack.get(stack.id) || []) as any,
+    record_type: rtMap.get(stack.record_type_id),
+  }))
 }
 
 export async function getStack(id: string): Promise<StackWithCards | null> {
