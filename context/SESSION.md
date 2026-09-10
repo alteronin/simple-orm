@@ -20,10 +20,10 @@ All 14/14 UAC checks passed — record types now fully DB-driven.
 
 ### Status
 - **Initialized**: 2026-09-09
-- **Phase**: Bucket 4 complete
+- **Phase**: Bucket 5 planned
 - **Deployed**: https://simple-orm.vercel.app (master)
 - **Supabase**: Connected and operational (ref: vhcgmdgmmvarkqjfcytj)
-- **Migrations run**: 001-schema.sql, 002-notes-table.sql, 003-history-table.sql
+- **Migrations run**: 001-schema.sql, 002-notes-table.sql, 003-history-table.sql, 005-stack-filter-criteria.sql
 
 ### Requirements Summary
 - Generic record-type CRUD app (Salesforce-lite)
@@ -40,6 +40,7 @@ All 14/14 UAC checks passed — record types now fully DB-driven.
 - [x] Bucket 3: CSV export, bulk actions, record notes
 - [x] Dynamic Record Types: fully DB-driven, UI for CRUD on record types
 - [x] Bucket 4: Responsive sidebar, inline edit, record relationships, audit log
+- [ ] Bucket 5: Performance & data efficiency (planned)
 
 ### UAC Results
 - Bucket 1: 6/6 passed
@@ -55,7 +56,7 @@ All 14/14 UAC checks passed — record types now fully DB-driven.
 - **Tailwind v4**: Uses `@import "tailwindcss"` + `@theme` block (NOT tailwind.config.ts)
 - **PostCSS**: Requires `@tailwindcss/postcss` plugin (not `tailwindcss`)
 - **CSS Import**: Must be in root layout (`import '@/styles/globals.css'`)
-- **Custom fetch**: Supabase client needs `next: { revalidate: 0 }` to bypass Next.js data cache
+- **Custom fetch**: Removed broken `noStoreFetch` wrapper (next.revalidate was a no-op on POST). Supabase client now uses default fetch. Column pruning via `select()` on all queries.
 - **record_types.id**: `text` type (not `uuid`) to match code's string IDs
 - **Pagination**: Client-side, 10 records per page, ellipsis for large sets
 - **Toast**: Simple context-based system, auto-dismiss after 4 seconds

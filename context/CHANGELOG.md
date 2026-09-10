@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026-09-11 — Performance Quick Wins
+- Removed broken `noStoreFetch` wrapper (next.revalidate was no-op on POST)
+- Added column pruning (`select('id, name, ...')`) on all Supabase queries
+- Parallelized RecordDetailPage queries with `Promise.all`
+- Deduplicated record_types fetch on stacks page
+- Playwright test suite: 41 tests (API, E2E, performance audits)
+- All 41 tests passing
+
+## 2026-09-11 — Stack Filter Criteria + Delete Fix
+- Added `filter_criteria` column to stacks (migration 005)
+- Stack population now supports field-level filters (eq, neq, contains, gt, lt, gte, lte)
+- Multiple filters supported (AND logic)
+- Filter badges display on stack column headers
+- Stack delete now shows confirmation dialog + error handling + toasts
+- All stack actions (create, update, delete, populate) have try/catch + toast feedback
+
+## 2026-09-11 — System Validation
+- Reserved slug validation: settings, stacks, api, new, edit blocked
+- Duplicate slug check with friendly error message
+- `recurring` field type added to settings UI with interval selector
+- Cascade delete: deleting record type now removes associated records, stacks, stack_cards
+- Client-side error display in settings form
+
 ## 2026-09-10 — Dynamic Record Types
 - Record types now fully DB-driven (read from `record_types` Supabase table)
 - New `/settings` page: create, edit, delete record types + fields from UI
