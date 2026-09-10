@@ -23,7 +23,7 @@ export default function StacksPage() {
     try {
       const [stacksData, typesData] = await Promise.all([
         getStacks(),
-        supabase.from('record_types').select('*').order('name'),
+        supabase.from('record_types').select('id, name, slug, fields').order('name'),
       ])
       setStacks(stacksData)
       if (typesData.data) setRecordTypes(typesData.data as RecordType[])

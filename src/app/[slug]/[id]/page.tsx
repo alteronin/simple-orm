@@ -7,11 +7,12 @@ interface PageProps {
 }
 
 export default async function RecordDetailPage({ params }: PageProps) {
-  const rt = await getRecordTypeBySlug(params.slug)
-  if (!rt) notFound()
+  const [rt, record] = await Promise.all([
+    getRecordTypeBySlug(params.slug),
+    getRecordById(params.id),
+  ])
 
-  const record = await getRecordById(params.id)
-  if (!record) notFound()
+  if (!rt || !record) notFound()
 
   return <RecordDetail record={record} fields={rt.fields} recordTypeName={rt.name} />
 }
