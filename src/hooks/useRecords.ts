@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase'
 import { AppRecord } from '@/types'
 import { recordTypes } from '@/config/record-types'
 import { createRecord as createRecordServer, updateRecord as updateRecordServer, deleteRecord as deleteRecordServer } from '@/lib/actions'
+import { useToast } from '@/components/Toast'
 
 export function useRecordTypes() {
   return { types: recordTypes, getRecordTypeBySlug: (slug: string) => recordTypes.find((r) => r.slug === slug) }
@@ -65,16 +66,19 @@ export function useCreateRecord() {
   const [pending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+  const { addToast } = useToast()
 
   const mutate = (recordTypeId: string, data: Record<string, string | number | boolean | null>) => {
     return startTransition(async () => {
       try {
         setError(null)
         await createRecordServer(recordTypeId, data)
+        addToast('Record created successfully', 'success')
         router.refresh()
         router.push(`/${recordTypeId}`)
       } catch (e: any) {
         setError(e.message)
+        addToast(e.message || 'Failed to create record', 'error')
       }
     })
   }
@@ -86,15 +90,18 @@ export function useUpdateRecord() {
   const [pending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+  const { addToast } = useToast()
 
   const mutate = (id: string, data: Record<string, string | number | boolean | null>) => {
     return startTransition(async () => {
       try {
         setError(null)
         await updateRecordServer(id, data)
+        addToast('Record updated successfully', 'success')
         router.refresh()
       } catch (e: any) {
         setError(e.message)
+        addToast(e.message || 'Failed to update record', 'error')
       }
     })
   }
@@ -106,15 +113,18 @@ export function useDeleteRecord() {
   const [pending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+  const { addToast } = useToast()
 
   const mutate = (id: string) => {
     return startTransition(async () => {
       try {
         setError(null)
         await deleteRecordServer(id)
+        addToast('Record deleted', 'success')
         router.refresh()
       } catch (e: any) {
         setError(e.message)
+        addToast(e.message || 'Failed to delete record', 'error')
       }
     })
   }

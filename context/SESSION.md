@@ -2,6 +2,16 @@
 
 ## Project: simple-orm
 
+### UAC Re-verification (2026-09-10)
+All 7 Bucket 1 UAC checks passed against production:
+- ✅ AC1: List Records — 13 deal cards rendered
+- ✅ AC2: Create Record — form fields correct (text, number, select, date), creates in Supabase
+- ✅ AC2b: Create → appears in list — created record shows on list page
+- ✅ AC3: Record Detail — displays title, value, Edit/Delete buttons
+- ✅ AC4: Edit Record — page renders, pre-fills existing data
+- ✅ AC5: Delete Record — removes from Supabase, gone from list
+- ✅ AC6: Record Type Selection — Deal/Task nav works, different fields per type
+
 ### Live Test Results (2026-09-10)
 - ✅ Dark mode renders correctly (bg: rgb(9,9,11), text: rgb(250,250,250))
 - ✅ Sidebar nav with icons (256px wide, hidden on mobile)

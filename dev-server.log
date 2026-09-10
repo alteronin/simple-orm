@@ -1,11 +1,24 @@
+
+> simple-orm@0.1.0 dev
+> next dev --port 3099
+
   ▲ Next.js 14.2.35
-  - Local:        http://localhost:3456
+  - Local:        http://localhost:3099
   - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1519ms
+ ✓ Ready in 2.1s
  ○ Compiling /[slug] ...
- ✓ Compiled /[slug] in 2s (508 modules)
- GET /deal 200 in 2526ms
- GET /deal 200 in 66ms
- GET /deal 200 in 39ms
+ ✓ Compiled /[slug] in 6.8s (569 modules)
+ GET /deal 200 in 9174ms
+ GET /deal 200 in 4184ms
+ ✓ Compiled in 217ms (266 modules)
+ ○ Compiling /[slug]/[id] ...
+ ✓ Compiled /[slug]/[id] in 1484ms (723 modules)
+ ✓ Compiled in 302ms (317 modules)
+ GET /task 200 in 599ms
+ ✓ Compiled /[slug]/new in 367ms (731 modules)
+ GET /deal/new 200 in 929ms
+ ✓ Compiled in 141ms (320 modules)
+ GET /deal 200 in 403ms
+ ✓ Compiled in 157ms (320 modules)
