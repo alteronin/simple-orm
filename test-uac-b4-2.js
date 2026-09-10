@@ -27,9 +27,9 @@ async function run() {
       await booleanBadges[0].click();
       await page.waitForTimeout(1500);
 
-      // Toast appears at bottom-right with fixed positioning
-      const toasts = await page.$$('.fixed.bottom-4.right-4 > div');
-      check('B4-2.5: Toast on boolean toggle', toasts.length > 0, `${toasts.length} toast(s)`);
+      // Toast — look for any fixed-position element with text
+      const toastText = await page.$eval('.fixed.bottom-4.right-4', el => el.textContent || '').catch(() => '');
+      check('B4-2.5: Toast on boolean toggle', toastText.length > 0, toastText.slice(0, 50));
 
       // Refresh and verify value changed
       await page.goto(`${BASE}/task`, { waitUntil: 'networkidle' });
@@ -37,33 +37,33 @@ async function run() {
       check('B4-2.7: Boolean value updated', true);
     }
 
-    // B4-2.1: Double-click a text badge to edit
+    // B4-2.1: Click a text badge to edit (single-click)
     const textBadges = await page.$$('span[class*="rounded-full"][class*="bg-secondary"]');
     if (textBadges.length > 0) {
-      await textBadges[0].dblclick();
+      await textBadges[0].click();
       await page.waitForTimeout(500);
 
       const input = await page.$('input[class*="rounded-md"][class*="border-primary"]');
-      check('B4-2.1: Input appears on double-click', !!input);
+      check('B4-2.1: Input appears on click', !!input);
 
       if (input) {
-        check('B4-2.6: Input enabled (loading check)', true);
+        check('B4-2.6: Input enabled', true);
 
         // B4-2.4: Press Escape to cancel
         await input.press('Escape');
         await page.waitForTimeout(300);
-        const inputAfterEscape = await page.$('input[class*="rounded-md"][class*="border-primary"]');
-        check('B4-2.4: Escape cancels edit', !inputAfterEscape);
+        const inputGone = !(await page.$('input[class*="rounded-md"][class*="border-primary"]'));
+        check('B4-2.4: Escape cancels edit', inputGone);
 
-        // Re-open and test Enter to save
-        await textBadges[0].dblclick();
+        // Re-open and test Enter to save (without changing value)
+        await textBadges[0].click();
         await page.waitForTimeout(500);
         const input2 = await page.$('input[class*="rounded-md"][class*="border-primary"]');
         if (input2) {
           await input2.press('Enter');
           await page.waitForTimeout(1000);
-          const inputAfterEnter = await page.$('input[class*="rounded-md"][class*="border-primary"]');
-          check('B4-2.4: Enter saves and closes', !inputAfterEnter);
+          const inputGone2 = !(await page.$('input[class*="rounded-md"][class*="border-primary"]'));
+          check('B4-2.4: Enter saves and closes', inputGone2);
         }
       }
     }
@@ -74,16 +74,16 @@ async function run() {
 
     const selectBadges = await page.$$('button[class*="rounded-full"][class*="bg-secondary"]');
     if (selectBadges.length > 0) {
-      await selectBadges[0].dblclick();
+      await selectBadges[0].click();
       await page.waitForTimeout(500);
 
       const select = await page.$('select[class*="rounded-md"][class*="border-primary"]');
       if (select) {
-        check('B4-2.2: Select dropdown on double-click', true);
+        check('B4-2.2: Select dropdown on click', true);
         await select.press('Escape');
       } else {
         const input = await page.$('input[class*="rounded-md"][class*="border-primary"]');
-        check('B4-2.2: Editor appears on double-click', !!input);
+        check('B4-2.2: Editor appears on click', !!input);
         if (input) await input.press('Escape');
       }
     }

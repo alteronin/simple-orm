@@ -126,8 +126,7 @@ export function InlineEditableField({ recordId, field, value, onSaved }: InlineE
     return (
       <button
         onMouseDown={(e) => e.stopPropagation()}
-        onDoubleClick={(e) => { e.stopPropagation(); setEditValue(String(value ?? '')); setEditing(true) }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => { e.stopPropagation(); setEditValue(String(value ?? '')); setEditing(true) }}
         className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-semibold transition-colors cursor-pointer hover:border-primary ${
           displayValue ? 'bg-secondary text-secondary-foreground border-border' : 'bg-muted text-muted-foreground border-transparent'
         }`}
@@ -140,8 +139,7 @@ export function InlineEditableField({ recordId, field, value, onSaved }: InlineE
   return (
     <span
       onMouseDown={(e) => e.stopPropagation()}
-      onDoubleClick={(e) => { e.stopPropagation(); setEditValue(String(value ?? '')); setEditing(true) }}
-      onClick={(e) => e.stopPropagation()}
+      onClick={(e) => { e.stopPropagation(); setEditValue(String(value ?? '')); setEditing(true) }}
       className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-semibold transition-colors cursor-pointer hover:border-primary ${
         displayValue ? 'bg-secondary text-secondary-foreground border-border' : 'bg-muted text-muted-foreground border-transparent'
       }`}
