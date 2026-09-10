@@ -6,6 +6,7 @@ import { AppRecord, FieldDefinition } from '@/types'
 import { EmptyState } from './EmptyState'
 import { RecordToolbar } from './RecordToolbar'
 import { Pagination } from './Pagination'
+import { InlineEditableField } from './InlineEditableField'
 import { useToast } from './Toast'
 import { deleteRecords, updateRecordField } from '@/lib/actions'
 
@@ -28,6 +29,7 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
   const [filters, setFilters] = useState<Record<string, string>>({})
   const [page, setPage] = useState(1)
   const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [editingValues, setEditingValues] = useState<Record<string, Record<string, string | number | boolean | null>>>({})
 
   const statusField = fields.find(f => f.name === 'status')
   const statusOptions = statusField?.options
@@ -116,6 +118,14 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
       addToast(e.message || 'Failed to update records', 'error')
     }
   }, [selected, addToast, router])
+
+  const handleInlineSaved = useCallback((recordId: string, fieldName: string, newValue: string | number | boolean | null) => {
+    setEditingValues(prev => ({
+      ...prev,
+      [recordId]: { ...(prev[recordId] || {}), [fieldName]: newValue }
+    }))
+    router.refresh()
+  }, [router])
 
   const handleExportCsv = useCallback(() => {
     const headers = ['id', ...fields.map(f => f.label)]
@@ -232,12 +242,16 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {fields.slice(1).map((field) => {
-                      const val = record.data[field.name]
-                      if (val === null || val === undefined || val === '') return null
+                      const override = editingValues[record.id]?.[field.name]
+                      const val = override !== undefined ? override : record.data[field.name]
                       return (
-                        <span key={field.name} className="inline-flex items-center rounded-full border border-border px-2.5 py-0.5 text-[10px] font-semibold bg-secondary text-secondary-foreground">
-                          {field.label}: {String(val)}
-                        </span>
+                        <InlineEditableField
+                          key={field.name}
+                          recordId={record.id}
+                          field={field}
+                          value={val}
+                          onSaved={(v) => handleInlineSaved(record.id, field.name, v)}
+                        />
                       )
                     })}
                   </div>
