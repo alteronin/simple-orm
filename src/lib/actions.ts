@@ -149,10 +149,26 @@ export async function deleteNote(id: string): Promise<void> {
 
 // --- Record Type CRUD ---
 
+const RESERVED_SLUGS = ['settings', 'stacks', 'api', 'new', 'edit']
+
+function validateRecordTypeSlug(slug: string, existingId?: string) {
+  const s = slug.trim().toLowerCase()
+  if (!s) throw new Error('Slug cannot be empty')
+  if (!/^[a-z0-9]+$/.test(s)) throw new Error('Slug can only contain lowercase letters and numbers')
+  if (RESERVED_SLUGS.includes(s)) throw new Error(`"${s}" is a reserved name and cannot be used`)
+  if (s.length > 50) throw new Error('Slug is too long (max 50 characters)')
+}
+
 export async function createRecordType(data: { id: string; name: string; slug: string; fields: FieldDefinition[] }): Promise<RecordType> {
+  validateRecordTypeSlug(data.slug)
+  if (!data.name.trim()) throw new Error('Name cannot be empty')
+
+  const { data: existing } = await supabase.from('record_types').select('id').eq('slug', data.slug.trim().toLowerCase()).single()
+  if (existing) throw new Error(`A record type with slug "${data.slug}" already exists`)
+
   const { data: record, error } = await supabase
     .from('record_types')
-    .insert({ id: data.id, name: data.name, slug: data.slug, fields: data.fields })
+    .insert({ id: data.id, name: data.name.trim(), slug: data.slug.trim().toLowerCase(), fields: data.fields })
     .select()
     .single()
   if (error) {
@@ -163,6 +179,8 @@ export async function createRecordType(data: { id: string; name: string; slug: s
 }
 
 export async function updateRecordType(id: string, data: { name?: string; slug?: string; fields?: FieldDefinition[] }): Promise<RecordType> {
+  if (data.name !== undefined && !data.name.trim()) throw new Error('Name cannot be empty')
+
   const { data: record, error } = await supabase
     .from('record_types')
     .update({ ...data, updated_at: new Date().toISOString() })
@@ -174,6 +192,12 @@ export async function updateRecordType(id: string, data: { name?: string; slug?:
 }
 
 export async function deleteRecordType(id: string): Promise<void> {
+  if (RESERVED_SLUGS.includes(id)) throw new Error(`"${id}" is a system type and cannot be deleted`)
+
+  await supabase.from('records').delete().eq('record_type_id', id)
+  await supabase.from('stack_cards').delete().eq('stack_id', id).select()
+  await supabase.from('stacks').delete().eq('record_type_id', id)
+
   const { error } = await supabase.from('record_types').delete().eq('id', id)
   if (error) throw new Error(error.message)
 }

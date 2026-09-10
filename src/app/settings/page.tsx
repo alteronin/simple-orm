@@ -7,7 +7,8 @@ import { createRecordType, updateRecordType, deleteRecordType } from '@/lib/acti
 import { RecordType, FieldDefinition } from '@/types'
 import { useToast } from '@/components/Toast'
 
-const FIELD_TYPES = ['text', 'number', 'select', 'boolean', 'date', 'link']
+const FIELD_TYPES = ['text', 'number', 'select', 'boolean', 'date', 'link', 'recurring']
+const RESERVED_SLUGS = ['settings', 'stacks', 'api', 'new', 'edit']
 
 export default function SettingsPage() {
   const router = useRouter()
@@ -147,6 +148,7 @@ function RecordTypeForm({
   const [slug, setSlug] = useState(initial?.slug || '')
   const [fields, setFields] = useState<FieldDefinition[]>(initial?.fields || [])
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState('')
 
   const addField = () => {
     setFields([...fields, { name: '', type: 'text', label: '', required: false }])
@@ -164,16 +166,32 @@ function RecordTypeForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!name.trim() || !slug.trim()) return
+    setError('')
+    const s = slug.trim().toLowerCase()
+    const n = name.trim()
+    if (!n) { setError('Name is required'); return }
+    if (!s) { setError('Slug is required'); return }
+    if (!/^[a-z0-9]+$/.test(s)) { setError('Slug can only contain lowercase letters and numbers'); return }
+    if (RESERVED_SLUGS.includes(s)) { setError(`"${s}" is a reserved name and cannot be used`); return }
+    if (s.length > 50) { setError('Slug is too long (max 50 characters)'); return }
+    if (!initial) {
+      const exists = recordTypes.some(rt => rt.slug === s)
+      if (exists) { setError(`A record type with slug "${s}" already exists`); return }
+    }
     const validFields = fields.filter(f => f.name.trim())
+    const dupNames = validFields.filter((f, i) => validFields.findIndex(x => x.name === f.name) !== i)
+    if (dupNames.length > 0) { setError(`Duplicate field name: "${dupNames[0].name}"`); return }
     setSaving(true)
-    await onSave({ id: slug.trim(), name: name.trim(), slug: slug.trim(), fields: validFields })
+    await onSave({ id: s, name: n, slug: s, fields: validFields })
     setSaving(false)
   }
 
   return (
     <form onSubmit={handleSubmit} className="rounded-lg border border-border bg-card p-6 space-y-4">
       <h3 className="font-semibold text-foreground">{initial ? 'Edit Record Type' : 'New Record Type'}</h3>
+      {error && (
+        <div className="rounded-md bg-destructive/10 border border-destructive/20 px-3 py-2 text-sm text-destructive">{error}</div>
+      )}
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-foreground mb-1.5">Name</label>
@@ -247,6 +265,17 @@ function RecordTypeForm({
                 {recordTypes.filter(rt => rt.id !== slug).map(rt => (
                   <option key={rt.id} value={rt.id}>{rt.name}</option>
                 ))}
+              </select>
+            )}
+            {field.type === 'recurring' && (
+              <select
+                value={field.interval || 'day'}
+                onChange={(e) => updateField(i, { interval: e.target.value as 'day' | 'week' | 'month' })}
+                className="w-32 rounded-md border border-border bg-background px-2.5 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              >
+                <option value="day">Daily</option>
+                <option value="week">Weekly</option>
+                <option value="month">Monthly</option>
               </select>
             )}
             <button type="button" onClick={() => removeField(i)} className="text-muted-foreground hover:text-destructive p-1">
