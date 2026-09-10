@@ -1,4 +1,4 @@
-import { getRecordById, getRecordTypeBySlug, getFieldConfig } from '@/lib/record-operations'
+import { getRecordById, getRecordTypeBySlug } from '@/lib/record-operations'
 import { RecordDetail } from '@/components/RecordDetail'
 import { notFound } from 'next/navigation'
 
@@ -13,7 +13,5 @@ export default async function RecordDetailPage({ params }: PageProps) {
   const record = await getRecordById(params.id)
   if (!record) notFound()
 
-  const fields = await getFieldConfig(rt.id)
-
-  return <RecordDetail record={record} fields={fields} recordTypeName={rt.name} />
+  return <RecordDetail record={record} fields={rt.fields} recordTypeName={rt.name} />
 }

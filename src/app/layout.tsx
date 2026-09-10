@@ -20,12 +20,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }, [])
 
   useEffect(() => {
-    supabase.from('record_types').select('*').order('created_at', { ascending: true })
-      .then(({ data }) => { if (data) setRecordTypes(data as RecordType[]) })
-  }, [pathname])
-
-  // Close sidebar on navigation
-  useEffect(() => {
     setSidebarOpen(false)
   }, [pathname])
 

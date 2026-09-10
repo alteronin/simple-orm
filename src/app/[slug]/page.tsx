@@ -1,4 +1,4 @@
-import { getRecordsByTypeId, getRecordTypeBySlug, getFieldConfig } from '@/lib/record-operations'
+import { getRecordsByTypeId, getRecordTypeBySlug } from '@/lib/record-operations'
 import { RecordList } from '@/components/RecordList'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -14,7 +14,6 @@ export default async function RecordTypePage({ params }: PageProps) {
   if (!rt) notFound()
 
   const records = await getRecordsByTypeId(rt.id)
-  const fields = await getFieldConfig(rt.id)
 
   return (
     <div className="space-y-6">
@@ -35,7 +34,7 @@ export default async function RecordTypePage({ params }: PageProps) {
           New {rt.name}
         </Link>
       </div>
-      <RecordList records={records} loading={false} fields={fields} recordTypeName={rt.name} recordTypeId={rt.id} />
+      <RecordList records={records} loading={false} fields={rt.fields} recordTypeName={rt.name} recordTypeId={rt.id} />
     </div>
   )
 }
