@@ -1,11 +1,12 @@
 export interface FieldDefinition {
   name: string
-  type: 'text' | 'number' | 'date' | 'select' | 'boolean' | 'textarea' | 'link'
+  type: 'text' | 'number' | 'date' | 'select' | 'boolean' | 'textarea' | 'link' | 'recurring'
   label: string
   required?: boolean
   options?: string[]
-  targetType?: string // for link type: record type id to link to
+  targetType?: string
   default?: string | number | boolean
+  interval?: 'day' | 'week' | 'month' | number // for recurring type
 }
 
 export interface RecordType {

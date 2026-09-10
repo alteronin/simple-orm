@@ -6,6 +6,7 @@ import { getStacks, createStack, deleteStack, updateStack, populateStackFromType
 import { supabase } from '@/lib/supabase'
 import { StackBoard } from '@/components/StackBoard'
 import { StackCreateModal } from '@/components/StackCreateModal'
+import { RecordModal } from '@/components/RecordModal'
 
 export default function StacksPage() {
   const [stacks, setStacks] = useState<StackWithCards[]>([])
@@ -13,6 +14,7 @@ export default function StacksPage() {
   const [loading, setLoading] = useState(true)
   const [showCreate, setShowCreate] = useState(false)
   const [editingStack, setEditingStack] = useState<StackWithCards | null>(null)
+  const [modalRecordId, setModalRecordId] = useState<string | null>(null)
 
   const loadData = async () => {
     setLoading(true)
@@ -97,6 +99,7 @@ export default function StacksPage() {
           onEdit={setEditingStack}
           onDelete={handleDelete}
           onPopulate={handlePopulate}
+          onCardClick={setModalRecordId}
         />
       )}
 
@@ -114,6 +117,15 @@ export default function StacksPage() {
           stack={editingStack}
           onSubmit={handleUpdate}
           onClose={() => setEditingStack(null)}
+        />
+      )}
+
+      {modalRecordId && (
+        <RecordModal
+          recordId={modalRecordId}
+          onClose={() => setModalRecordId(null)}
+          onSaved={() => {}}
+          onDeleted={loadData}
         />
       )}
     </div>

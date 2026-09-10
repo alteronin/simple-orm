@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { FieldDefinition } from '@/types'
 import { LinkFieldEditor } from './LinkFieldEditor'
+import { RecurringField } from './RecurringField'
+import { RecurringValue } from '@/lib/recurring'
 
 export function RecordForm({
   fields,
@@ -159,6 +161,14 @@ function renderFieldInput(
           targetType={field.targetType || ''}
           value={(value as string) || null}
           onChange={(id) => onChange(id)}
+        />
+      )
+    case 'recurring':
+      return (
+        <RecurringField
+          field={field}
+          value={(value as unknown as RecurringValue) || null}
+          onChange={(v) => onChange(v as any)}
         />
       )
     default:

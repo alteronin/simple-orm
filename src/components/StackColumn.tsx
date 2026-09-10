@@ -11,9 +11,10 @@ interface StackColumnProps {
   onDelete: () => void
   onPopulate: () => void
   isDragging: boolean
+  onCardClick: (recordId: string) => void
 }
 
-export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging }: StackColumnProps) {
+export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging, onCardClick }: StackColumnProps) {
   const { setNodeRef, isOver } = useDroppable({ id: `stack-${stack.id}` })
   const cardIds = stack.cards.map(c => c.id)
   const fields = stack.record_type?.fields || []
@@ -78,6 +79,7 @@ export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging }:
                   card={card}
                   displayFields={displayFields}
                   fields={fields}
+                  onClick={onCardClick}
                 />
               ))}
             </div>
