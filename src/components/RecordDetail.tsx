@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { AppRecord, FieldDefinition } from '@/types'
 import { ConfirmDialog } from './ConfirmDialog'
 import { useDeleteRecord } from '@/hooks/useRecords'
+import { RecordNotes } from './RecordNotes'
 
 interface RecordDetailProps {
   record: AppRecord
@@ -79,6 +80,11 @@ export function RecordDetail({ record, fields, recordTypeName }: RecordDetailPro
           </svg>
           Delete
         </button>
+      </div>
+
+      {/* Notes section */}
+      <div className="rounded-lg border border-border bg-card p-6">
+        <RecordNotes recordId={record.id} />
       </div>
 
       <ConfirmDialog

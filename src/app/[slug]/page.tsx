@@ -36,7 +36,7 @@ export default async function RecordTypePage({ params }: PageProps) {
           New {rt.name}
         </Link>
       </div>
-      <RecordList records={records} loading={false} fields={fields} recordTypeName={rt.name} />
+      <RecordList records={records} loading={false} fields={fields} recordTypeName={rt.name} recordTypeId={rt.id} />
     </div>
   )
 }
