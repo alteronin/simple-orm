@@ -2,7 +2,7 @@
 
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import { StackWithCards } from '@/types'
+import { StackWithCards, FilterCriterion } from '@/types'
 import { StackCardItem } from './StackCardItem'
 
 interface StackColumnProps {
@@ -14,11 +14,14 @@ interface StackColumnProps {
   onCardClick: (recordId: string) => void
 }
 
+const OP_LABELS: Record<string, string> = { eq: '=', neq: '≠', contains: '~', gt: '>', lt: '<', gte: '≥', lte: '≤' }
+
 export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging, onCardClick }: StackColumnProps) {
   const { setNodeRef, isOver } = useDroppable({ id: `stack-${stack.id}` })
   const cardIds = stack.cards.map(c => c.id)
   const fields = stack.record_type?.fields || []
   const displayFields = stack.display_fields || []
+  const filters = stack.filter_criteria || []
 
   return (
     <div
@@ -32,11 +35,22 @@ export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging, o
           <p className="text-xs text-muted-foreground mt-0.5">
             {stack.cards.length} {stack.cards.length === 1 ? 'card' : 'cards'}
           </p>
+          {filters.length > 0 && (
+            <div className="flex flex-wrap gap-1 mt-1.5">
+              {filters.map((f, i) => (
+                <span key={i} className="inline-flex items-center gap-0.5 rounded bg-secondary px-1.5 py-0.5 text-[10px] text-secondary-foreground">
+                  {fields.find(ff => ff.name === f.field)?.label || f.field}
+                  <span className="text-muted-foreground">{OP_LABELS[f.operator] || f.operator}</span>
+                  {f.value}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-1">
           <button
             onClick={onPopulate}
-            title="Sync records from type"
+            title={filters.length > 0 ? `Sync records (filtered by ${filters.length} rule${filters.length > 1 ? 's' : ''})` : 'Sync all records from type'}
             className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground h-8 w-8"
           >
             <svg className="shrink-0 h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">

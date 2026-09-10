@@ -204,7 +204,7 @@ export async function deleteRecordType(id: string): Promise<void> {
 
 // --- Stack CRUD ---
 
-import { Stack, StackCard, StackWithCards } from '@/types'
+import { Stack, StackCard, StackWithCards, FilterCriterion } from '@/types'
 
 export async function getStacks(): Promise<StackWithCards[]> {
   const { data: stacks, error: stacksError } = await supabase
@@ -265,7 +265,7 @@ export async function getStack(id: string): Promise<StackWithCards | null> {
   }
 }
 
-export async function createStack(data: { name: string; record_type_id: string; display_fields: string[] }): Promise<Stack> {
+export async function createStack(data: { name: string; record_type_id: string; display_fields: string[]; filter_criteria?: FilterCriterion[] }): Promise<Stack> {
   const { data: maxPos } = await supabase
     .from('stacks')
     .select('position')
@@ -276,14 +276,20 @@ export async function createStack(data: { name: string; record_type_id: string; 
 
   const { data: stack, error } = await supabase
     .from('stacks')
-    .insert({ name: data.name, record_type_id: data.record_type_id, display_fields: data.display_fields, position: nextPos })
+    .insert({
+      name: data.name,
+      record_type_id: data.record_type_id,
+      display_fields: data.display_fields,
+      filter_criteria: data.filter_criteria || [],
+      position: nextPos,
+    })
     .select()
     .single()
   if (error) throw new Error(error.message)
   return stack as Stack
 }
 
-export async function updateStack(id: string, data: { name?: string; display_fields?: string[] }): Promise<Stack> {
+export async function updateStack(id: string, data: { name?: string; display_fields?: string[]; filter_criteria?: FilterCriterion[] }): Promise<Stack> {
   const { data: stack, error } = await supabase
     .from('stacks')
     .update({ ...data, updated_at: new Date().toISOString() })
@@ -338,13 +344,13 @@ export async function reorderStackCards(stackId: string, cardIds: string[]): Pro
   await Promise.all(updates)
 }
 
-export async function populateStackFromType(stackId: string): Promise<void> {
+export async function populateStackFromType(stackId: string): Promise<number> {
   const { data: stack } = await supabase
     .from('stacks')
-    .select('record_type_id')
+    .select('record_type_id, filter_criteria')
     .eq('id', stackId)
     .single()
-  if (!stack) return
+  if (!stack) return 0
 
   const { data: existingCards } = await supabase
     .from('stack_cards')
@@ -352,21 +358,46 @@ export async function populateStackFromType(stackId: string): Promise<void> {
     .eq('stack_id', stackId)
   const existingIds = new Set((existingCards || []).map(c => c.record_id))
 
-  const { data: records } = await supabase
+  let query = supabase
     .from('records')
-    .select('id')
+    .select('id, data')
     .eq('record_type_id', stack.record_type_id)
 
-  const newCards = (records || [])
-    .filter(r => !existingIds.has(r.id))
-    .map((r, i) => ({
-      stack_id: stackId,
-      record_id: r.id,
-      position: (existingCards?.length || 0) + i,
-    }))
+  const { data: records } = await query
+
+  let filtered = (records || []).filter(r => !existingIds.has(r.id))
+
+  const criteria: FilterCriterion[] = stack.filter_criteria || []
+  if (criteria.length > 0) {
+    filtered = filtered.filter(record => {
+      return criteria.every(c => {
+        const val = record.data?.[c.field]
+        if (val === undefined || val === null) return false
+        const s = String(val).toLowerCase()
+        const target = c.value.toLowerCase()
+        switch (c.operator) {
+          case 'eq': return s === target
+          case 'neq': return s !== target
+          case 'contains': return s.includes(target)
+          case 'gt': return Number(val) > Number(c.value)
+          case 'lt': return Number(val) < Number(c.value)
+          case 'gte': return Number(val) >= Number(c.value)
+          case 'lte': return Number(val) <= Number(c.value)
+          default: return true
+        }
+      })
+    })
+  }
+
+  const newCards = filtered.map((r, i) => ({
+    stack_id: stackId,
+    record_id: r.id,
+    position: (existingCards?.length || 0) + i,
+  }))
 
   if (newCards.length > 0) {
     const { error } = await supabase.from('stack_cards').insert(newCards)
     if (error) throw new Error(error.message)
   }
+  return newCards.length
 }

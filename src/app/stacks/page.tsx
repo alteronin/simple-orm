@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase'
 import { StackBoard } from '@/components/StackBoard'
 import { StackCreateModal } from '@/components/StackCreateModal'
 import { RecordModal } from '@/components/RecordModal'
+import { useToast } from '@/components/Toast'
 
 export default function StacksPage() {
   const [stacks, setStacks] = useState<StackWithCards[]>([])
@@ -15,6 +16,7 @@ export default function StacksPage() {
   const [showCreate, setShowCreate] = useState(false)
   const [editingStack, setEditingStack] = useState<StackWithCards | null>(null)
   const [modalRecordId, setModalRecordId] = useState<string | null>(null)
+  const { addToast } = useToast()
 
   const loadData = async () => {
     setLoading(true)
@@ -32,28 +34,50 @@ export default function StacksPage() {
 
   useEffect(() => { loadData() }, [])
 
-  const handleCreate = async (data: { name: string; record_type_id?: string; display_fields: string[] }) => {
+  const handleCreate = async (data: { name: string; record_type_id?: string; display_fields: string[]; filter_criteria?: any }) => {
     if (!data.record_type_id) return
-    await createStack({ name: data.name, record_type_id: data.record_type_id, display_fields: data.display_fields })
-    await loadData()
-    setShowCreate(false)
+    try {
+      await createStack({ name: data.name, record_type_id: data.record_type_id, display_fields: data.display_fields, filter_criteria: data.filter_criteria })
+      addToast('Stack created', 'success')
+      await loadData()
+      setShowCreate(false)
+    } catch (e: any) {
+      addToast(e.message || 'Failed to create stack', 'error')
+    }
   }
 
-  const handleUpdate = async (data: { name: string; display_fields: string[] }) => {
+  const handleUpdate = async (data: { name: string; display_fields: string[]; filter_criteria?: any }) => {
     if (!editingStack) return
-    await updateStack(editingStack.id, data)
-    await loadData()
-    setEditingStack(null)
+    try {
+      await updateStack(editingStack.id, data)
+      addToast('Stack updated', 'success')
+      await loadData()
+      setEditingStack(null)
+    } catch (e: any) {
+      addToast(e.message || 'Failed to update stack', 'error')
+    }
   }
 
   const handleDelete = async (id: string) => {
-    await deleteStack(id)
-    await loadData()
+    const stack = stacks.find(s => s.id === id)
+    if (!confirm(`Delete "${stack?.name || 'this stack'}"? This will remove all cards but keep the records.`)) return
+    try {
+      await deleteStack(id)
+      addToast('Stack deleted', 'success')
+      await loadData()
+    } catch (e: any) {
+      addToast(e.message || 'Failed to delete stack', 'error')
+    }
   }
 
   const handlePopulate = async (stackId: string) => {
-    await populateStackFromType(stackId)
-    await loadData()
+    try {
+      const count = await populateStackFromType(stackId)
+      addToast(count > 0 ? `Added ${count} card${count === 1 ? '' : 's'}` : 'No new records to add', 'success')
+      await loadData()
+    } catch (e: any) {
+      addToast(e.message || 'Failed to sync records', 'error')
+    }
   }
 
   return (

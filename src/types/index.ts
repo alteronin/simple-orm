@@ -9,6 +9,14 @@ export interface FieldDefinition {
   interval?: 'day' | 'week' | 'month' | number // for recurring type
 }
 
+export interface FilterCriterion {
+  field: string
+  operator: 'eq' | 'neq' | 'contains' | 'gt' | 'lt' | 'gte' | 'lte'
+  value: string
+}
+
+export type FilterCriteria = FilterCriterion[]
+
 export interface RecordType {
   id: string
   name: string
@@ -31,6 +39,7 @@ export interface Stack {
   name: string
   record_type_id: string
   display_fields: string[]
+  filter_criteria: FilterCriteria
   position: number
   created_at: string
   updated_at: string
