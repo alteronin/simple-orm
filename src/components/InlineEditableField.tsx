@@ -70,6 +70,7 @@ export function InlineEditableField({ recordId, field, value, onSaved }: InlineE
   if (field.type === 'boolean') {
     return (
       <button
+        onMouseDown={(e) => e.stopPropagation()}
         onClick={(e) => { e.stopPropagation(); save() }}
         className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-semibold transition-colors ${
           value
@@ -90,6 +91,7 @@ export function InlineEditableField({ recordId, field, value, onSaved }: InlineE
         onChange={(e) => { setEditValue(e.target.value); save() }}
         onBlur={() => setEditing(false)}
         onKeyDown={handleKeyDown}
+        onMouseDown={(e) => e.stopPropagation()}
         onClick={(e) => e.stopPropagation()}
         className="rounded-md border border-primary bg-background px-2 py-0.5 text-[10px] font-semibold text-foreground focus:outline-none focus:ring-1 focus:ring-ring"
       >
@@ -110,6 +112,7 @@ export function InlineEditableField({ recordId, field, value, onSaved }: InlineE
         onChange={(e) => setEditValue(e.target.value)}
         onBlur={save}
         onKeyDown={handleKeyDown}
+        onMouseDown={(e) => e.stopPropagation()}
         onClick={(e) => e.stopPropagation()}
         disabled={saving}
         className="w-24 rounded-md border border-primary bg-background px-2 py-0.5 text-[10px] font-semibold text-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:opacity-50"
@@ -122,6 +125,7 @@ export function InlineEditableField({ recordId, field, value, onSaved }: InlineE
   if (field.type === 'select') {
     return (
       <button
+        onMouseDown={(e) => e.stopPropagation()}
         onDoubleClick={(e) => { e.stopPropagation(); setEditValue(String(value ?? '')); setEditing(true) }}
         onClick={(e) => e.stopPropagation()}
         className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-semibold transition-colors cursor-pointer hover:border-primary ${
@@ -135,6 +139,7 @@ export function InlineEditableField({ recordId, field, value, onSaved }: InlineE
 
   return (
     <span
+      onMouseDown={(e) => e.stopPropagation()}
       onDoubleClick={(e) => { e.stopPropagation(); setEditValue(String(value ?? '')); setEditing(true) }}
       onClick={(e) => e.stopPropagation()}
       className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-semibold transition-colors cursor-pointer hover:border-primary ${
