@@ -20,71 +20,100 @@ async function run() {
     check('Task list loaded', cards.length > 0, `${cards.length} cards`);
 
     // B4-2.3: Boolean field — click to toggle
-    const booleanBadges = await page.$$('button[class*="rounded-full"]');
-    check('B4-2.3: Boolean badges exist', booleanBadges.length > 0, `${booleanBadges.length} badges`);
+    const boolBadge = await page.$('button:has-text("Completed")');
+    check('B4-2.3: Boolean badge exists', !!boolBadge);
 
-    if (booleanBadges.length > 0) {
-      await booleanBadges[0].click();
-      await page.waitForTimeout(1500);
+    if (boolBadge) {
+      const boolText = await boolBadge.textContent();
+      await boolBadge.click();
 
-      // Toast — look for any fixed-position element with text
-      const toastText = await page.$eval('.fixed.bottom-4.right-4', el => el.textContent || '').catch(() => '');
-      check('B4-2.5: Toast on boolean toggle', toastText.length > 0, toastText.slice(0, 50));
+      // Wait for toast to appear (check every 200ms for 3 seconds)
+      let toastFound = false;
+      for (let i = 0; i < 15; i++) {
+        await page.waitForTimeout(200);
+        const toastText = await page.$eval('.fixed.bottom-4.right-4', el => el.textContent || '').catch(() => '');
+        if (toastText.length > 0) {
+          check('B4-2.5: Toast on boolean toggle', true, toastText.slice(0, 50));
+          toastFound = true;
+          break;
+        }
+      }
+      if (!toastFound) {
+        check('B4-2.5: Toast on boolean toggle', false, 'no toast appeared');
+      }
 
       // Refresh and verify value changed
       await page.goto(`${BASE}/task`, { waitUntil: 'networkidle' });
       await page.waitForTimeout(2000);
-      check('B4-2.7: Boolean value updated', true);
+      const newBoolBadge = await page.$('button:has-text("Completed")');
+      const newText = newBoolBadge ? await newBoolBadge.textContent() : '';
+      check('B4-2.7: Boolean value updated', newText !== boolText, `${boolText} -> ${newText}`);
     }
 
-    // B4-2.1: Click a text badge to edit (single-click)
-    const textBadges = await page.$$('span[class*="rounded-full"][class*="bg-secondary"]');
-    if (textBadges.length > 0) {
-      await textBadges[0].click();
+    // B4-2.1 + B4-2.2: Click a select field badge to edit
+    const priorityBadge = await page.$('button:has-text("Priority:")');
+    if (priorityBadge) {
+      await priorityBadge.click();
       await page.waitForTimeout(500);
 
-      const input = await page.$('input[class*="rounded-md"][class*="border-primary"]');
-      check('B4-2.1: Input appears on click', !!input);
+      const select = await page.$('select[class*="border-primary"]');
+      check('B4-2.2: Select dropdown for select field', !!select);
 
-      if (input) {
-        check('B4-2.6: Input enabled', true);
-
-        // B4-2.4: Press Escape to cancel
-        await input.press('Escape');
+      if (select) {
+        // B4-2.4: Escape to cancel
+        await select.press('Escape');
         await page.waitForTimeout(300);
-        const inputGone = !(await page.$('input[class*="rounded-md"][class*="border-primary"]'));
-        check('B4-2.4: Escape cancels edit', inputGone);
+        const gone = !(await page.$('select[class*="border-primary"]'));
+        check('B4-2.4: Escape cancels edit', gone);
 
-        // Re-open and test Enter to save (without changing value)
-        await textBadges[0].click();
-        await page.waitForTimeout(500);
-        const input2 = await page.$('input[class*="rounded-md"][class*="border-primary"]');
-        if (input2) {
-          await input2.press('Enter');
-          await page.waitForTimeout(1000);
-          const inputGone2 = !(await page.$('input[class*="rounded-md"][class*="border-primary"]'));
-          check('B4-2.4: Enter saves and closes', inputGone2);
+        // Re-query and test Enter — re-query because DOM changed
+        const priorityBadge2 = await page.$('button:has-text("Priority:")');
+        if (priorityBadge2) {
+          await priorityBadge2.click();
+          await page.waitForTimeout(500);
+          const select2 = await page.$('select[class*="border-primary"]');
+          if (select2) {
+            await select2.press('Enter');
+            await page.waitForTimeout(1000);
+            const gone2 = !(await page.$('select[class*="border-primary"]'));
+            check('B4-2.4: Enter saves and closes', gone2);
+          }
         }
       }
     }
 
-    // Navigate to deal page to test select field
+    // Navigate to deal page for text field test
     await page.goto(`${BASE}/deal`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(2000);
 
-    const selectBadges = await page.$$('button[class*="rounded-full"][class*="bg-secondary"]');
-    if (selectBadges.length > 0) {
-      await selectBadges[0].click();
+    // Find a Value badge (number field)
+    const valueBadge = await page.$('button:has-text("Value:")');
+    if (valueBadge) {
+      await valueBadge.click();
       await page.waitForTimeout(500);
 
-      const select = await page.$('select[class*="rounded-md"][class*="border-primary"]');
-      if (select) {
-        check('B4-2.2: Select dropdown on click', true);
-        await select.press('Escape');
-      } else {
-        const input = await page.$('input[class*="rounded-md"][class*="border-primary"]');
-        check('B4-2.2: Editor appears on click', !!input);
-        if (input) await input.press('Escape');
+      const input = await page.$('input[class*="border-primary"]');
+      check('B4-2.1: Input appears on click', !!input);
+
+      if (input) {
+        await input.fill('77777');
+        await input.press('Enter');
+        await page.waitForTimeout(1500);
+
+        // Wait for toast
+        let toastFound2 = false;
+        for (let i = 0; i < 10; i++) {
+          await page.waitForTimeout(200);
+          const toastText = await page.$eval('.fixed.bottom-4.right-4', el => el.textContent || '').catch(() => '');
+          if (toastText.length > 0) {
+            check('B4-2.5: Toast on text save', true, toastText.slice(0, 50));
+            toastFound2 = true;
+            break;
+          }
+        }
+        if (!toastFound2) {
+          check('B4-2.5: Toast on text save', false, 'no toast');
+        }
       }
     }
 

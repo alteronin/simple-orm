@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { AppRecord, FieldDefinition } from '@/types'
 import { ConfirmDialog } from './ConfirmDialog'
 import { useDeleteRecord } from '@/hooks/useRecords'
 import { RecordNotes } from './RecordNotes'
+import { supabase } from '@/lib/supabase'
 
 interface RecordDetailProps {
   record: AppRecord
@@ -52,6 +53,8 @@ export function RecordDetail({ record, fields, recordTypeName }: RecordDetailPro
                   <span className={val ? 'text-green-500' : 'text-red-500'}>
                     {val ? 'Yes' : 'No'}
                   </span>
+                ) : field.type === 'link' ? (
+                  <LinkedRecordName recordId={String(val)} targetType={field.targetType || ''} />
                 ) : (
                   String(val)
                 )}
@@ -95,5 +98,34 @@ export function RecordDetail({ record, fields, recordTypeName }: RecordDetailPro
         message={`Are you sure you want to delete this ${recordTypeName}? This action cannot be undone.`}
       />
     </div>
+  )
+}
+
+function LinkedRecordName({ recordId, targetType }: { recordId: string; targetType: string }) {
+  const [record, setRecord] = useState<AppRecord | null>(null)
+  const [recordType, setRecordType] = useState<any>(null)
+
+  useEffect(() => {
+    if (!recordId) return
+    supabase.from('records').select('*').eq('id', recordId).single()
+      .then(({ data }) => { if (data) setRecord(data as AppRecord) })
+    if (targetType) {
+      supabase.from('record_types').select('*').eq('id', targetType).single()
+        .then(({ data }) => { if (data) setRecordType(data) })
+    }
+  }, [recordId, targetType])
+
+  if (!record) return <span className="text-muted-foreground italic">Loading...</span>
+
+  const titleField = recordType?.fields?.[0]?.name || 'title'
+  const title = String(record.data[titleField] || record.id)
+
+  return (
+    <a
+      href={`/${targetType}/${recordId}`}
+      className="text-primary hover:underline font-medium"
+    >
+      {title}
+    </a>
   )
 }

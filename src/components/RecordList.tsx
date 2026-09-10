@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { AppRecord, FieldDefinition } from '@/types'
 import { EmptyState } from './EmptyState'
@@ -9,6 +9,7 @@ import { Pagination } from './Pagination'
 import { InlineEditableField } from './InlineEditableField'
 import { useToast } from './Toast'
 import { deleteRecords, updateRecordField } from '@/lib/actions'
+import { supabase } from '@/lib/supabase'
 
 const PAGE_SIZE = 10
 
@@ -244,6 +245,17 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
                     {fields.slice(1).map((field) => {
                       const override = editingValues[record.id]?.[field.name]
                       const val = override !== undefined ? override : record.data[field.name]
+                      if (field.type === 'link') {
+                        if (!val) return null
+                        return (
+                          <LinkedRecordBadge
+                            key={field.name}
+                            recordId={String(val)}
+                            targetType={field.targetType || ''}
+                            label={field.label}
+                          />
+                        )
+                      }
                       return (
                         <InlineEditableField
                           key={field.name}
@@ -264,5 +276,37 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
 
       <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
     </div>
+  )
+}
+
+function LinkedRecordBadge({ recordId, targetType, label }: { recordId: string; targetType: string; label: string }) {
+  const [title, setTitle] = useState<string>(recordId.slice(0, 8))
+  const [recordType, setRecordType] = useState<any>(null)
+
+  useEffect(() => {
+    if (!targetType) return
+    supabase.from('record_types').select('*').eq('id', targetType).single()
+      .then(({ data }) => { if (data) setRecordType(data) })
+  }, [targetType])
+
+  useEffect(() => {
+    if (!recordId) return
+    supabase.from('records').select('*').eq('id', recordId).single()
+      .then(({ data }) => {
+        if (data) {
+          const titleField = recordType?.fields?.[0]?.name || 'title'
+          setTitle(String(data.data?.[titleField] || recordId.slice(0, 8)))
+        }
+      })
+  }, [recordId, recordType])
+
+  return (
+    <a
+      href={`/${targetType}/${recordId}`}
+      onClick={(e) => e.stopPropagation()}
+      className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold text-primary hover:bg-primary/20 transition-colors"
+    >
+      {label}: {title}
+    </a>
   )
 }

@@ -1,9 +1,10 @@
 export interface FieldDefinition {
   name: string
-  type: 'text' | 'number' | 'date' | 'select' | 'boolean' | 'textarea'
+  type: 'text' | 'number' | 'date' | 'select' | 'boolean' | 'textarea' | 'link'
   label: string
   required?: boolean
   options?: string[]
+  targetType?: string // for link type: record type id to link to
   default?: string | number | boolean
 }
 

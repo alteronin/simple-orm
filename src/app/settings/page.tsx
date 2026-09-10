@@ -7,7 +7,7 @@ import { createRecordType, updateRecordType, deleteRecordType } from '@/lib/acti
 import { RecordType, FieldDefinition } from '@/types'
 import { useToast } from '@/components/Toast'
 
-const FIELD_TYPES = ['text', 'number', 'select', 'boolean', 'date']
+const FIELD_TYPES = ['text', 'number', 'select', 'boolean', 'date', 'link']
 
 export default function SettingsPage() {
   const router = useRouter()
@@ -49,6 +49,7 @@ export default function SettingsPage() {
 
       {(showNewForm || editing) && (
         <RecordTypeForm
+          recordTypes={recordTypes}
           initial={editing}
           onCancel={() => { setShowNewForm(false); setEditing(null) }}
           onSave={async (data) => {
@@ -132,10 +133,12 @@ export default function SettingsPage() {
 }
 
 function RecordTypeForm({
+  recordTypes,
   initial,
   onCancel,
   onSave,
 }: {
+  recordTypes: RecordType[]
   initial: RecordType | null
   onCancel: () => void
   onSave: (data: any) => void
@@ -233,6 +236,18 @@ function RecordTypeForm({
                 placeholder="opt1, opt2"
                 className="w-40 rounded-md border border-border bg-background px-2.5 py-1.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
+            )}
+            {field.type === 'link' && (
+              <select
+                value={field.targetType || ''}
+                onChange={(e) => updateField(i, { targetType: e.target.value })}
+                className="w-40 rounded-md border border-border bg-background px-2.5 py-1.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              >
+                <option value="">Link to...</option>
+                {recordTypes.filter(rt => rt.id !== slug).map(rt => (
+                  <option key={rt.id} value={rt.id}>{rt.name}</option>
+                ))}
+              </select>
             )}
             <button type="button" onClick={() => removeField(i)} className="text-muted-foreground hover:text-destructive p-1">
               <svg className="shrink-0 h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
