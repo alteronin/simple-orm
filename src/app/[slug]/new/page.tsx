@@ -12,7 +12,7 @@ export default function NewRecordPage() {
   const rt = params ? getRecordTypeBySlug(params.slug) : undefined
 
   if (!params || !rt) {
-    return <div className="p-8 text-text-muted">Loading...</div>
+    return <div className="flex items-center justify-center py-16 text-muted-foreground">Loading...</div>
   }
 
   const fields = getFieldConfig(rt.id)
@@ -22,16 +22,26 @@ export default function NewRecordPage() {
   }
 
   return (
-    <div>
-      <button
-        onClick={() => router.back()}
-        className="text-text-muted hover:text-text text-sm transition-colors mb-4"
-      >
-        ← Back
-      </button>
-      <h1 className="text-2xl font-bold text-text mb-6">New {rt.name}</h1>
-      {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
-      <RecordForm fields={fields} onSubmit={handleSubmit} submitting={pending} submitLabel={`Create ${rt.name}`} />
+    <div className="space-y-6">
+      <div className="flex items-center gap-3">
+        <button onClick={() => router.back()} className="btn-ghost btn-icon btn-sm">
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+          </svg>
+        </button>
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">New {rt.name}</h1>
+          <p className="text-sm text-muted-foreground mt-0.5">Create a new {rt.name.toLowerCase()} record</p>
+        </div>
+      </div>
+      <div className="card p-6">
+        {error && (
+          <div className="mb-4 rounded-md bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive">
+            {error}
+          </div>
+        )}
+        <RecordForm fields={fields} onSubmit={handleSubmit} submitting={pending} submitLabel={`Create ${rt.name}`} />
+      </div>
     </div>
   )
 }

@@ -57,26 +57,34 @@ export function RecordForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-lg">
+    <form onSubmit={handleSubmit} className="space-y-5 max-w-lg">
       {fields.map((field) => (
-        <div key={field.name} className="space-y-1">
-          <label className="block text-sm font-medium text-text">
+        <div key={field.name} className="space-y-2">
+          <label className="label">
             {field.label}
-            {field.required && <span className="text-red-400 ml-1">*</span>}
+            {field.required && <span className="text-destructive ml-1">*</span>}
           </label>
           {renderFieldInput(field, values[field.name], (val) => handleChange(field.name, val))}
           {validationErrors[field.name] && (
-            <p className="text-xs text-red-400">{validationErrors[field.name]}</p>
+            <p className="text-xs text-destructive">{validationErrors[field.name]}</p>
           )}
         </div>
       ))}
-      <button
-        type="submit"
-        disabled={submitting}
-        className="w-full py-2.5 bg-text-accent text-white rounded-lg font-medium hover:opacity-90 disabled:opacity-50 transition-opacity mt-6"
-      >
-        {submitting ? 'Saving...' : submitLabel}
-      </button>
+      <div className="pt-2">
+        <button type="submit" disabled={submitting} className="btn-primary w-full">
+          {submitting ? (
+            <span className="flex items-center gap-2">
+              <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              Saving...
+            </span>
+          ) : (
+            submitLabel
+          )}
+        </button>
+      </div>
     </form>
   )
 }
@@ -94,7 +102,7 @@ function renderFieldInput(
           type={field.type}
           value={(value as string) || ''}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full px-3 py-2 bg-bg border border-border rounded-lg text-text text-sm focus:outline-none focus:border-text-accent"
+          className="input"
         />
       )
     case 'number':
@@ -103,7 +111,7 @@ function renderFieldInput(
           type="number"
           value={(value as number) || ''}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="w-full px-3 py-2 bg-bg border border-border rounded-lg text-text text-sm focus:outline-none focus:border-text-accent"
+          className="input"
         />
       )
     case 'select':
@@ -111,7 +119,7 @@ function renderFieldInput(
         <select
           value={(value as string) || ''}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full px-3 py-2 bg-bg border border-border rounded-lg text-text text-sm focus:outline-none focus:border-text-accent"
+          className="select"
         >
           <option value="">Select...</option>
           {field.options?.map((opt) => (
@@ -126,9 +134,9 @@ function renderFieldInput(
             type="checkbox"
             checked={(value as boolean) || false}
             onChange={(e) => onChange(e.target.checked)}
-            className="w-4 h-4 rounded border-border bg-bg text-text-accent focus:ring-text-accent"
+            className="h-4 w-4 rounded border-border bg-background text-primary focus:ring-ring focus:ring-offset-0"
           />
-          <span className="text-sm text-text-muted">{value ? 'Yes' : 'No'}</span>
+          <span className="text-sm text-muted-foreground">{value ? 'Yes' : 'No'}</span>
         </label>
       )
     case 'textarea':
@@ -136,7 +144,7 @@ function renderFieldInput(
         <textarea
           value={(value as string) || ''}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full px-3 py-2 bg-bg border border-border rounded-lg text-text text-sm focus:outline-none focus:border-text-accent"
+          className="textarea"
           rows={3}
         />
       )
