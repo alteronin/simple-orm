@@ -19,11 +19,6 @@ function getFieldLabel(fields: FieldDefinition[], name: string): string {
 function formatValue(value: any, type?: string): string {
   if (value === null || value === undefined || value === '') return '—'
   if (type === 'boolean') return value ? 'Yes' : 'No'
-  if (type === 'recurring') {
-    const v = value as RecurringValue
-    if (!v?.completed) return 'Not done'
-    return isRecurringExpired(v, (arguments as any)[1]) ? 'Expired' : 'Done'
-  }
   if (type === 'date' && typeof value === 'string') {
     try { return new Date(value).toLocaleDateString() } catch { return value }
   }
