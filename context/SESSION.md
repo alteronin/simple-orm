@@ -20,10 +20,10 @@ All 14/14 UAC checks passed — record types now fully DB-driven.
 
 ### Status
 - **Initialized**: 2026-09-09
-- **Phase**: Bucket 5 planned
+- **Phase**: Bucket 5 — Performance & Data Efficiency (IN PROGRESS)
 - **Deployed**: https://simple-orm.vercel.app (master)
 - **Supabase**: Connected and operational (ref: vhcgmdgmmvarkqjfcytj)
-- **Migrations run**: 001-schema.sql, 002-notes-table.sql, 003-history-table.sql, 005-stack-filter-criteria.sql
+- **Migrations run**: 001-schema.sql, 002-notes-table.sql, 003-history-table.sql, 004-stacks-table.sql, 005-stack-filter-criteria.sql
 
 ### Requirements Summary
 - Generic record-type CRUD app (Salesforce-lite)
@@ -40,7 +40,12 @@ All 14/14 UAC checks passed — record types now fully DB-driven.
 - [x] Bucket 3: CSV export, bulk actions, record notes
 - [x] Dynamic Record Types: fully DB-driven, UI for CRUD on record types
 - [x] Bucket 4: Responsive sidebar, inline edit, record relationships, audit log
-- [ ] Bucket 5: Performance & data efficiency (planned)
+- [ ] Bucket 5: Performance & data efficiency (IN PROGRESS)
+  - [ ] B5-1: Server-side pagination
+  - [ ] B5-2: Eliminate N+1 link badge queries
+  - [ ] B5-3: Push stack filters to DB level
+  - [ ] B5-4: Batch stack card reorder updates
+  - [ ] B5-5: Optimize StackBoard re-render
 
 ### UAC Results
 - Bucket 1: 6/6 passed

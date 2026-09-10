@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-11 — Bucket 5: Performance & Data Efficiency (IN PROGRESS)
+- Server-side pagination: B5-1 (pending)
+- N+1 link badge queries: B5-2 (pending)
+- DB-level stack filters: B5-3 (pending)
+- Batch stack card reorder: B5-4 (pending)
+- StackBoard re-render optimization: B5-5 (pending)
+
 ## 2026-09-11 — Performance Quick Wins
 - Removed broken `noStoreFetch` wrapper (next.revalidate was no-op on POST)
 - Added column pruning (`select('id, name, ...')`) on all Supabase queries
