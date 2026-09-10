@@ -1,0 +1,1758 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Onin\\ocs\\simple-orm\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "D:\\Onin\\ocs\\simple-orm\\playwright.config.ts",
+    "rootDir": "D:/Onin/ocs/simple-orm/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 3
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Onin/ocs/simple-orm/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 3
+        },
+        "id": "api",
+        "name": "api",
+        "testDir": "D:/Onin/ocs/simple-orm/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "api.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Onin/ocs/simple-orm/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 3
+        },
+        "id": "e2e",
+        "name": "e2e",
+        "testDir": "D:/Onin/ocs/simple-orm/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "e2e.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Onin/ocs/simple-orm/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 3
+        },
+        "id": "lighthouse",
+        "name": "lighthouse",
+        "testDir": "D:/Onin/ocs/simple-orm/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "lighthouse.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "tests/results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "tests/report",
+          "open": "never"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 6,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "api.spec.ts",
+      "file": "api.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Record Type CRUD",
+          "file": "api.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create record type",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 467,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:29.557Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-60427376e65dc9f3fa3f",
+              "file": "api.spec.ts",
+              "line": 18,
+              "column": 7
+            },
+            {
+              "title": "read record type",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 338,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:30.061Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-a8f146bf88b789aef54f",
+              "file": "api.spec.ts",
+              "line": 33,
+              "column": 7
+            },
+            {
+              "title": "update record type",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 338,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:30.411Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-c82bd63354e006611b59",
+              "file": "api.spec.ts",
+              "line": 44,
+              "column": 7
+            },
+            {
+              "title": "delete record type",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 348,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:30.762Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-ee0fabc4df0cf075432b",
+              "file": "api.spec.ts",
+              "line": 57,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Record CRUD",
+          "file": "api.spec.ts",
+          "line": 68,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create record",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 332,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:31.125Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-9bbfcee40cc3fb1e6aa0",
+              "file": "api.spec.ts",
+              "line": 71,
+              "column": 7
+            },
+            {
+              "title": "read record",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 245,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:31.480Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-bf8106e1e7a3aff43474",
+              "file": "api.spec.ts",
+              "line": 85,
+              "column": 7
+            },
+            {
+              "title": "update record",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 344,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:31.736Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-d426c28e1b3aaf94ba4d",
+              "file": "api.spec.ts",
+              "line": 95,
+              "column": 7
+            },
+            {
+              "title": "delete record",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 350,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:32.096Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-1ddba1ca54cb19729edb",
+              "file": "api.spec.ts",
+              "line": 108,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Stack CRUD + Filters",
+          "file": "api.spec.ts",
+          "line": 119,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create stack with filter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 365,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:32.461Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-30751849dd7fab0b2728",
+              "file": "api.spec.ts",
+              "line": 122,
+              "column": 7
+            },
+            {
+              "title": "read stack with filters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 337,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:32.841Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-efefa211cf92fbb1924f",
+              "file": "api.spec.ts",
+              "line": 139,
+              "column": 7
+            },
+            {
+              "title": "update stack filters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 338,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:33.187Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-4d7f6dcc0959b85b1b4c",
+              "file": "api.spec.ts",
+              "line": 149,
+              "column": 7
+            },
+            {
+              "title": "cascade delete stack + cards",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1400,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:33.535Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-c9bc143cfce09b146874",
+              "file": "api.spec.ts",
+              "line": 166,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Reserved Slug Validation",
+          "file": "api.spec.ts",
+          "line": 204,
+          "column": 6,
+          "specs": [
+            {
+              "title": "block reserved slug \"settings\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 681,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:34.948Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-cf9daf69066785c9b1ea",
+              "file": "api.spec.ts",
+              "line": 208,
+              "column": 9
+            },
+            {
+              "title": "block reserved slug \"stacks\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 650,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:35.642Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-e55ed1264a5a3075b74a",
+              "file": "api.spec.ts",
+              "line": 208,
+              "column": 9
+            },
+            {
+              "title": "block reserved slug \"api\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 495,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:36.302Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-d51e5e7d72f56dd486d6",
+              "file": "api.spec.ts",
+              "line": 208,
+              "column": 9
+            },
+            {
+              "title": "block reserved slug \"new\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 589,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:36.807Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-c7634c63b35aad764208",
+              "file": "api.spec.ts",
+              "line": 208,
+              "column": 9
+            },
+            {
+              "title": "block reserved slug \"edit\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 633,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:37.407Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-9648b893ce7667df403b",
+              "file": "api.spec.ts",
+              "line": 208,
+              "column": 9
+            }
+          ]
+        },
+        {
+          "title": "Performance",
+          "file": "api.spec.ts",
+          "line": 227,
+          "column": 6,
+          "specs": [
+            {
+              "title": "read 100 records < 2s",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 289,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Read 100 records in 271ms\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:38.051Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-6a2fba2ea827873de04a",
+              "file": "api.spec.ts",
+              "line": 228,
+              "column": 7
+            },
+            {
+              "title": "read record_types < 500ms",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 253,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Read record_types in 249ms\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:38.350Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-6be0744dfe6c9b2bba7e",
+              "file": "api.spec.ts",
+              "line": 241,
+              "column": 7
+            },
+            {
+              "title": "read stacks with cards < 1s",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "api",
+                  "projectName": "api",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 648,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Read stacks with cards in 642ms\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:38.611Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1ea1b1599cbc08f16936-2a9fc3024c50dc64dd02",
+              "file": "api.spec.ts",
+              "line": 253,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "e2e.spec.ts",
+      "file": "e2e.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Page Loads",
+          "file": "e2e.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "/task loads and shows heading",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2587,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:29.570Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-e7da6fba971861c8709d",
+              "file": "e2e.spec.ts",
+              "line": 19,
+              "column": 9
+            },
+            {
+              "title": "/goal loads and shows heading",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2432,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:32.359Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-06b44afe61ceeb3208a2",
+              "file": "e2e.spec.ts",
+              "line": 19,
+              "column": 9
+            },
+            {
+              "title": "/note loads and shows heading",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2007,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:34.812Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-595311df7cbd63023f98",
+              "file": "e2e.spec.ts",
+              "line": 19,
+              "column": 9
+            },
+            {
+              "title": "/event loads and shows heading",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2064,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:36.831Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-b29328e9829e8327dde0",
+              "file": "e2e.spec.ts",
+              "line": 19,
+              "column": 9
+            },
+            {
+              "title": "/backlog loads and shows heading",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2123,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:38.907Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-f837e401d314810cffa8",
+              "file": "e2e.spec.ts",
+              "line": 19,
+              "column": 9
+            },
+            {
+              "title": "/stacks loads and shows heading",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2211,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:41.040Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-89dff9f866c345ed65fc",
+              "file": "e2e.spec.ts",
+              "line": 19,
+              "column": 9
+            },
+            {
+              "title": "/settings loads and shows heading",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2179,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:43.264Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-7c6d2dec06dca8ea9d99",
+              "file": "e2e.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        },
+        {
+          "title": "Navigation",
+          "file": "e2e.spec.ts",
+          "line": 31,
+          "column": 6,
+          "specs": [
+            {
+              "title": "sidebar links work",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2072,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:45.458Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-6b900307501603b85904",
+              "file": "e2e.spec.ts",
+              "line": 32,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Record List",
+          "file": "e2e.spec.ts",
+          "line": 48,
+          "column": 6,
+          "specs": [
+            {
+              "title": "task list shows records",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 5257,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:47.542Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-041c0eeddc8f036cc8f0",
+              "file": "e2e.spec.ts",
+              "line": 49,
+              "column": 7
+            },
+            {
+              "title": "search filters records",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1575,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:52.811Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-ba5624d60e64b53e4618",
+              "file": "e2e.spec.ts",
+              "line": 65,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Settings",
+          "file": "e2e.spec.ts",
+          "line": 83,
+          "column": 6,
+          "specs": [
+            {
+              "title": "settings page shows record types",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2385,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:54.402Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-28ffc8e51689b753934a",
+              "file": "e2e.spec.ts",
+              "line": 84,
+              "column": 7
+            },
+            {
+              "title": "New Record Type button opens form",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2476,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:56.806Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-8b0c0623bf5d8ed43e77",
+              "file": "e2e.spec.ts",
+              "line": 92,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Stacks",
+          "file": "e2e.spec.ts",
+          "line": 104,
+          "column": 6,
+          "specs": [
+            {
+              "title": "stacks page loads with board",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 3413,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:59.293Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-3edbc8430c943d4d7b1a",
+              "file": "e2e.spec.ts",
+              "line": 105,
+              "column": 7
+            },
+            {
+              "title": "New Stack button opens modal",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 3572,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:17:02.718Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-12c668cef1b9e6ac2401",
+              "file": "e2e.spec.ts",
+              "line": 116,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Responsive",
+          "file": "e2e.spec.ts",
+          "line": 130,
+          "column": 6,
+          "specs": [
+            {
+              "title": "mobile viewport shows sidebar toggle",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1714,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:17:06.302Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-3f1b94d3888adb9f4440",
+              "file": "e2e.spec.ts",
+              "line": 131,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Performance",
+          "file": "e2e.spec.ts",
+          "line": 146,
+          "column": 6,
+          "specs": [
+            {
+              "title": "task page loads in under 3s",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2126,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Task page loaded in 2023ms\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:17:08.027Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-f27f12bccf07a9ce9aa8",
+              "file": "e2e.spec.ts",
+              "line": 147,
+              "column": 7
+            },
+            {
+              "title": "stacks page loads in under 4s",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2107,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Stacks page loaded in 2005ms\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:17:10.165Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-9a2f82450d9e70e37373",
+              "file": "e2e.spec.ts",
+              "line": 156,
+              "column": 7
+            },
+            {
+              "title": "settings page loads in under 3s",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1981,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Settings page loaded in 1880ms\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:17:12.283Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-d634d5cfbce7bcd10395",
+              "file": "e2e.spec.ts",
+              "line": 165,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "lighthouse.spec.ts",
+      "file": "lighthouse.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Lighthouse Audit",
+          "file": "lighthouse.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "/task - performance audit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "lighthouse",
+                  "projectName": "lighthouse",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 2573,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n=== /task Performance Metrics ===\n"
+                        },
+                        {
+                          "text": "DNS Lookup:     5ms\n"
+                        },
+                        {
+                          "text": "TCP Connect:    72ms\n"
+                        },
+                        {
+                          "text": "TTFB:           32ms\n"
+                        },
+                        {
+                          "text": "First Paint:    692ms\n"
+                        },
+                        {
+                          "text": "FCP:            692ms\n"
+                        },
+                        {
+                          "text": "DOM Ready:      772ms\n"
+                        },
+                        {
+                          "text": "Load:           772ms\n"
+                        },
+                        {
+                          "text": "Resources:      27\n"
+                        },
+                        {
+                          "text": "Transfer Size:  222.7KB\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:29.566Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "cf859ece42b60ea1c522-c31840d798677b5e621d",
+              "file": "lighthouse.spec.ts",
+              "line": 9,
+              "column": 9
+            },
+            {
+              "title": "/stacks - performance audit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "lighthouse",
+                  "projectName": "lighthouse",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 3738,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n=== /stacks Performance Metrics ===\n"
+                        },
+                        {
+                          "text": "DNS Lookup:     1ms\n"
+                        },
+                        {
+                          "text": "TCP Connect:    74ms\n"
+                        },
+                        {
+                          "text": "TTFB:           33ms\n"
+                        },
+                        {
+                          "text": "First Paint:    200ms\n"
+                        },
+                        {
+                          "text": "FCP:            200ms\n"
+                        },
+                        {
+                          "text": "DOM Ready:      186ms\n"
+                        },
+                        {
+                          "text": "Load:           240ms\n"
+                        },
+                        {
+                          "text": "Resources:      27\n"
+                        },
+                        {
+                          "text": "Transfer Size:  229.8KB\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:32.353Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "cf859ece42b60ea1c522-c71187c7ecaba4cc48d9",
+              "file": "lighthouse.spec.ts",
+              "line": 9,
+              "column": 9
+            },
+            {
+              "title": "/settings - performance audit",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "lighthouse",
+                  "projectName": "lighthouse",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 2016,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "\n=== /settings Performance Metrics ===\n"
+                        },
+                        {
+                          "text": "DNS Lookup:     1ms\n"
+                        },
+                        {
+                          "text": "TCP Connect:    76ms\n"
+                        },
+                        {
+                          "text": "TTFB:           36ms\n"
+                        },
+                        {
+                          "text": "First Paint:    224ms\n"
+                        },
+                        {
+                          "text": "FCP:            224ms\n"
+                        },
+                        {
+                          "text": "DOM Ready:      202ms\n"
+                        },
+                        {
+                          "text": "Load:           256ms\n"
+                        },
+                        {
+                          "text": "Resources:      26\n"
+                        },
+                        {
+                          "text": "Transfer Size:  214.4KB\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-10T21:16:36.112Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "cf859ece42b60ea1c522-7917705a09ffd1c5bd9e",
+              "file": "lighthouse.spec.ts",
+              "line": 9,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-10T21:16:28.920Z",
+    "duration": 45458.784,
+    "expected": 41,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
