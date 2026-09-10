@@ -24,3 +24,26 @@ export interface AppRecord {
   created_at: string
   updated_at: string
 }
+
+export interface Stack {
+  id: string
+  name: string
+  record_type_id: string
+  display_fields: string[]
+  position: number
+  created_at: string
+  updated_at: string
+}
+
+export interface StackCard {
+  id: string
+  stack_id: string
+  record_id: string
+  position: number
+  created_at: string
+}
+
+export interface StackWithCards extends Stack {
+  cards: (StackCard & { record: AppRecord })[]
+  record_type?: RecordType
+}

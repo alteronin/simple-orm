@@ -55,6 +55,20 @@ export function Sidebar({ recordTypes, open, onClose }: { recordTypes: RecordTyp
             </svg>
             Dashboard
           </Link>
+          <Link
+            href="/stacks"
+            onClick={onClose}
+            className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+              currentSlug === 'stacks'
+                ? 'bg-accent text-accent-foreground'
+                : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+            }`}
+          >
+            <svg className="shrink-0 h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+            </svg>
+            Stacks
+          </Link>
           <div className="pt-2 pb-1 px-3">
             <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Records</p>
           </div>

@@ -177,3 +177,166 @@ export async function deleteRecordType(id: string): Promise<void> {
   const { error } = await supabase.from('record_types').delete().eq('id', id)
   if (error) throw new Error(error.message)
 }
+
+// --- Stack CRUD ---
+
+import { Stack, StackCard, StackWithCards } from '@/types'
+
+export async function getStacks(): Promise<StackWithCards[]> {
+  const { data: stacks, error: stacksError } = await supabase
+    .from('stacks')
+    .select('*')
+    .order('position', { ascending: true })
+  if (stacksError) throw new Error(stacksError.message)
+
+  const result: StackWithCards[] = []
+  for (const stack of (stacks || [])) {
+    const { data: cards } = await supabase
+      .from('stack_cards')
+      .select('*, record:records(*)')
+      .eq('stack_id', stack.id)
+      .order('position', { ascending: true })
+    const { data: rt } = await supabase
+      .from('record_types')
+      .select('*')
+      .eq('id', stack.record_type_id)
+      .single()
+    result.push({
+      ...stack,
+      cards: (cards || []) as any,
+      record_type: rt as RecordType || undefined,
+    })
+  }
+  return result
+}
+
+export async function getStack(id: string): Promise<StackWithCards | null> {
+  const { data: stack, error } = await supabase
+    .from('stacks')
+    .select('*')
+    .eq('id', id)
+    .single()
+  if (error) return null
+
+  const { data: cards } = await supabase
+    .from('stack_cards')
+    .select('*, record:records(*)')
+    .eq('stack_id', id)
+    .order('position', { ascending: true })
+  const { data: rt } = await supabase
+    .from('record_types')
+    .select('*')
+    .eq('id', stack.record_type_id)
+    .single()
+  return {
+    ...stack,
+    cards: (cards || []) as any,
+    record_type: rt as RecordType || undefined,
+  }
+}
+
+export async function createStack(data: { name: string; record_type_id: string; display_fields: string[] }): Promise<Stack> {
+  const { data: maxPos } = await supabase
+    .from('stacks')
+    .select('position')
+    .order('position', { ascending: false })
+    .limit(1)
+    .single()
+  const nextPos = (maxPos?.position ?? -1) + 1
+
+  const { data: stack, error } = await supabase
+    .from('stacks')
+    .insert({ name: data.name, record_type_id: data.record_type_id, display_fields: data.display_fields, position: nextPos })
+    .select()
+    .single()
+  if (error) throw new Error(error.message)
+  return stack as Stack
+}
+
+export async function updateStack(id: string, data: { name?: string; display_fields?: string[] }): Promise<Stack> {
+  const { data: stack, error } = await supabase
+    .from('stacks')
+    .update({ ...data, updated_at: new Date().toISOString() })
+    .eq('id', id)
+    .select()
+    .single()
+  if (error) throw new Error(error.message)
+  return stack as Stack
+}
+
+export async function deleteStack(id: string): Promise<void> {
+  const { error } = await supabase.from('stacks').delete().eq('id', id)
+  if (error) throw new Error(error.message)
+}
+
+export async function addCardToStack(stackId: string, recordId: string): Promise<StackCard> {
+  const { data: maxPos } = await supabase
+    .from('stack_cards')
+    .select('position')
+    .eq('stack_id', stackId)
+    .order('position', { ascending: false })
+    .limit(1)
+    .single()
+  const nextPos = (maxPos?.position ?? -1) + 1
+
+  const { data: card, error } = await supabase
+    .from('stack_cards')
+    .insert({ stack_id: stackId, record_id: recordId, position: nextPos })
+    .select()
+    .single()
+  if (error) throw new Error(error.message)
+  return card as StackCard
+}
+
+export async function removeCardFromStack(stackId: string, recordId: string): Promise<void> {
+  const { error } = await supabase
+    .from('stack_cards')
+    .delete()
+    .eq('stack_id', stackId)
+    .eq('record_id', recordId)
+  if (error) throw new Error(error.message)
+}
+
+export async function reorderStackCards(stackId: string, cardIds: string[]): Promise<void> {
+  const updates = cardIds.map((cardId, index) =>
+    supabase
+      .from('stack_cards')
+      .update({ position: index })
+      .eq('id', cardId)
+      .eq('stack_id', stackId)
+  )
+  await Promise.all(updates)
+}
+
+export async function populateStackFromType(stackId: string): Promise<void> {
+  const { data: stack } = await supabase
+    .from('stacks')
+    .select('record_type_id')
+    .eq('id', stackId)
+    .single()
+  if (!stack) return
+
+  const { data: existingCards } = await supabase
+    .from('stack_cards')
+    .select('record_id')
+    .eq('stack_id', stackId)
+  const existingIds = new Set((existingCards || []).map(c => c.record_id))
+
+  const { data: records } = await supabase
+    .from('records')
+    .select('id')
+    .eq('record_type_id', stack.record_type_id)
+
+  const newCards = (records || [])
+    .filter(r => !existingIds.has(r.id))
+    .map((r, i) => ({
+      stack_id: stackId,
+      record_id: r.id,
+      position: (existingCards?.length || 0) + i,
+    }))
+
+  if (newCards.length > 0) {
+    const { error } = await supabase.from('stack_cards').insert(newCards)
+    if (error) throw new Error(error.message)
+  }
+}

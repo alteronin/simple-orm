@@ -10,7 +10,7 @@ import '@/styles/globals.css'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const isRecordPage = pathname ? /^\/[a-z]+/.test(pathname) : false
+  const isRecordPage = pathname ? /^\/(stacks|settings|([a-z]+))/.test(pathname) : false
   const [recordTypes, setRecordTypes] = useState<RecordType[]>([])
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
