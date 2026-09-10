@@ -151,3 +151,12 @@
 - src/lib/actions.ts — Added createRecordType, updateRecordType, deleteRecordType
 - src/types/index.ts — Extended FieldDefinition with 'link' type and targetType
 - docs/003-history-table.sql — Audit log table migration
+- src/components/RecordHistory.tsx — Audit log component (created/updated/deleted with field-level changes)
+- src/lib/actions.ts — Added history logging to createRecord, updateRecord, updateRecordField
+
+## 2026-09-10 — B4-4: Record History/Audit Log
+- **History table**: `record_history` with record_id FK, action text, changes jsonb
+- **Auto-logging**: createRecord logs "created", updateRecord/updateRecordField log "updated" with field-level old/new diff
+- **RecordHistory component**: collapsible section on detail page, shows timestamped entries with action badges + change details
+- **Cascade delete**: history entries auto-deleted when record is deleted
+- All 6 B4-4 UAC checks passed

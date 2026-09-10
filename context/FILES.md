@@ -11,8 +11,9 @@ simple-orm/
 │   │   ├── RecordToolbar.tsx   # Search, sort, filter, export, bulk action controls
 │   │   ├── Pagination.tsx      # Page controls
 │   │   ├── RecordForm.tsx      # Dynamic create/edit form
-│   │   ├── RecordDetail.tsx    # Detail view with actions + notes
+│   │   ├── RecordDetail.tsx    # Detail view with actions + notes + history
 │   │   ├── RecordNotes.tsx     # Notes CRUD component
+│   │   ├── RecordHistory.tsx   # Audit log / history component
 │   │   ├── EmptyState.tsx      # Empty list state
 │   │   ├── ConfirmDialog.tsx   # Delete confirmation modal
 │   │   └── Toast.tsx           # Toast notification system
@@ -72,10 +73,12 @@ simple-orm/
 | `src/components/Toast.tsx` | Toast notification system (context + UI) |
 | `src/components/RecordForm.tsx` | Dynamic form rendering based on field config |
 | `src/components/RecordList.tsx` | List view with search/sort/filter/pagination/bulk select |
-| `src/components/RecordDetail.tsx` | Detail view with edit/delete + notes section |
+| `src/components/RecordDetail.tsx` | Detail view with edit/delete + notes + history section |
 | `src/components/RecordNotes.tsx` | Notes CRUD (add/view/delete) |
+| `src/components/RecordHistory.tsx` | Audit log (created/updated/deleted with field-level changes) |
 | `docs/001-schema.sql` | Supabase database migration (record_types, records) |
-| `docs/002-notes-table.sql` | Notes table migration (requires manual run) |
+| `docs/002-notes-table.sql` | Notes table migration |
+| `docs/003-history-table.sql` | Record history/audit log table migration |
 | `src/styles/globals.css` | Tailwind v4 theme tokens and base styles |
 | `postcss.config.mjs` | PostCSS with @tailwindcss/postcss plugin |
 | `docs/001-schema.sql` | Supabase database migration |

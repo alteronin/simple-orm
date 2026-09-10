@@ -20,7 +20,7 @@ All 14/14 UAC checks passed — record types now fully DB-driven.
 
 ### Status
 - **Initialized**: 2026-09-09
-- **Phase**: Bucket 4 in progress (B4-1, B4-2, B4-3 complete)
+- **Phase**: Bucket 4 complete
 - **Deployed**: https://simple-orm.vercel.app (master)
 - **Supabase**: Connected and operational (ref: vhcgmdgmmvarkqjfcytj)
 - **Migrations run**: 001-schema.sql, 002-notes-table.sql, 003-history-table.sql
@@ -39,13 +39,17 @@ All 14/14 UAC checks passed — record types now fully DB-driven.
 - [x] Bucket 2: Search/filter, sort, pagination, toasts, skeletons
 - [x] Bucket 3: CSV export, bulk actions, record notes
 - [x] Dynamic Record Types: fully DB-driven, UI for CRUD on record types
-- [ ] Bucket 4: Future enhancements
+- [x] Bucket 4: Responsive sidebar, inline edit, record relationships, audit log
 
 ### UAC Results
 - Bucket 1: 6/6 passed
 - Bucket 2: 12/12 passed
 - Bucket 3: 7/7 passed
 - Dynamic Record Types: 14/14 passed
+- B4-1 Responsive Sidebar: 13/13 passed
+- B4-2 Inline Quick-Edit: 7/7 passed
+- B4-3 Record Relationships: 7/7 passed
+- B4-4 Record History/Audit Log: 6/6 passed
 
 ### Technical Notes
 - **Tailwind v4**: Uses `@import "tailwindcss"` + `@theme` block (NOT tailwind.config.ts)
