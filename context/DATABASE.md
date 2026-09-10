@@ -70,3 +70,12 @@ Each record's `data` column stores:
 - No schema migrations needed for adding fields (they go into the config JSON)
 - New fields are added by updating the `record-types.ts` config
 - SQL migration file: `docs/001-schema.sql`
+
+## Notes Table (requires separate migration)
+- **Migration**: `docs/002-notes-table.sql`
+- **Table**: `notes`
+- **Columns**: id (uuid PK), record_id (uuid FK → records), content (text), created_at (timestamptz)
+- **Index**: idx_notes_record_id on record_id
+- **Cascade**: notes deleted when record is deleted
+- **RLS**: Disabled (solo user)
+- **Status**: Must be run manually in Supabase SQL Editor

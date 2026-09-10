@@ -2,37 +2,24 @@
 
 ## Project: simple-orm
 
-### UAC Re-verification (2026-09-10)
-All 7 Bucket 1 UAC checks passed against production:
-- ✅ AC1: List Records — 13 deal cards rendered
-- ✅ AC2: Create Record — form fields correct (text, number, select, date), creates in Supabase
-- ✅ AC2b: Create → appears in list — created record shows on list page
-- ✅ AC3: Record Detail — displays title, value, Edit/Delete buttons
-- ✅ AC4: Edit Record — page renders, pre-fills existing data
-- ✅ AC5: Delete Record — removes from Supabase, gone from list
-- ✅ AC6: Record Type Selection — Deal/Task nav works, different fields per type
+### Bucket 3 UAC (2026-09-10)
+All 7 checks passed against production:
+- ✅ AC1: List Records — 10 cards (paginated)
+- ✅ B3-CSV: Export button visible and functional
+- ✅ B3-Bulk: Select all + checkbox selection + bulk delete + bulk status dropdown
+- ✅ B3-Notes: Notes section with textarea on detail page
+- ✅ B3-StatusChange: Status dropdown appears for bulk actions on tasks
+- ✅ Regression-Create: Create flow still works
+- ✅ Regression-CRUD: Full create+delete cycle works
 
-### Bucket 2 UAC (2026-09-10)
-All 12 checks passed against production:
-- ✅ AC1: List Records — 10 cards (paginated from 14 total)
-- ✅ B2-Search: search input visible, filters correctly (TEST → 9 results)
-- ✅ B2-Sort: sort dropdown visible with field options
-- ✅ B2-Filter: status/priority filter dropdowns present
-- ✅ B2-Pagination: 2 page buttons (14 records, 10 per page)
-- ✅ AC6: Record Type Selection — Deal/Task nav, different fields
-- ✅ AC2: Create — form works, toast "Record created successfully" appears
-- ✅ AC2b: Create → list refreshes, new record visible
-- ✅ AC3: Detail — shows all values, Edit/Delete buttons
-- ✅ AC4: Edit — pre-fills existing data
-- ✅ AC5: Delete — toast "Record deleted", gone from list
-- ✅ B2-Skeleton: skeleton loaders implemented in loading state
+**NOTE**: Notes feature requires running `docs/002-notes-table.sql` in Supabase SQL Editor to create the `notes` table.
 
 ### Status
 - **Initialized**: 2026-09-09
-- **Phase**: Bucket 2 Complete — search/sort/filter/pagination/toasts/skeletons live
+- **Phase**: Bucket 3 Complete — CSV export, bulk actions, record notes live
 - **Deployed**: https://simple-orm.vercel.app (master)
 - **Supabase**: Connected and operational (ref: vhcgmdgmmvarkqjfcytj)
-- **DNS**: Google DNS (8.8.8.8) on local machine for Supabase access
+- **Pending**: Run `docs/002-notes-table.sql` migration for notes feature
 
 ### Requirements Summary
 - Generic record-type CRUD app (Salesforce-lite)
@@ -46,16 +33,15 @@ All 12 checks passed against production:
 ### Buckets
 - [x] Bucket 1: Core CRUD engine (list, detail, create, edit pages)
 - [x] Bucket 2: Search/filter, sort, pagination, toasts, skeletons
-- [ ] Bucket 3: Future enhancements
+- [x] Bucket 3: CSV export, bulk actions, record notes
+- [ ] Bucket 4: Future enhancements
 
-### Bucket 2 Completion Details
-- Search: text input filters across all fields client-side
-- Sort: dropdown to sort by any field (A→Z, Z→A) or date
-- Filter: dropdown chips for select fields (status, priority)
-- Pagination: page controls with ellipsis (10 records per page)
-- Toast notifications: success/error feedback on create/update/delete
-- Skeleton loaders: card-based animated placeholders during loading
-- All client-side (no server roundtrips for filtering)
+### Bucket 3 Completion Details
+- **CSV Export**: download filtered records as CSV from toolbar
+- **Bulk Actions**: checkbox selection on each card, select all, bulk delete, bulk status change
+- **Record Notes**: add/view/delete timestamped notes on detail page (Ctrl+Enter to save)
+- **New server actions**: deleteRecords, updateRecordField, getNotes, createNote, deleteNote
+- **New migration**: docs/002-notes-table.sql (notes table with record_id FK)
 
 ### Technical Notes
 - **Tailwind v4**: Uses `@import "tailwindcss"` + `@theme` block (NOT tailwind.config.ts)
@@ -65,3 +51,4 @@ All 12 checks passed against production:
 - **record_types.id**: `text` type (not `uuid`) to match code's string IDs
 - **Pagination**: Client-side, 10 records per page, ellipsis for large sets
 - **Toast**: Simple context-based system, auto-dismiss after 4 seconds
+- **Notes**: Stored in separate `notes` table (requires migration), foreign key to records

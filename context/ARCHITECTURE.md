@@ -73,6 +73,25 @@ interface FieldDefinition {
 - Shows on create/update/delete success/error
 - Styled with green (success), red (error), neutral (info)
 
+### CSV Export
+- Export button in toolbar downloads filtered records as CSV
+- Uses browser Blob + download (no server needed)
+- Exports all filtered records (not just current page)
+
+### Bulk Actions
+- Checkbox on each record card for multi-select
+- Select all / deselect all toggle
+- Bulk delete: deletes all selected records
+- Bulk status change: updates status field on all selected (for record types with status field)
+- Visual feedback: selected cards highlighted with primary border
+
+### Record Notes
+- Separate `notes` table in Supabase (requires migration)
+- Each note has: id, record_id (FK), content, created_at
+- Add notes via textarea (Ctrl+Enter to save)
+- Notes displayed newest-first with timestamps
+- Delete notes on hover
+
 ## Deployment Flow
 1. Push to master on GitHub
 2. Vercel auto-deploys to production

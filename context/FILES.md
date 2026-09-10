@@ -7,11 +7,12 @@ simple-orm/
 ├── src/
 │   ├── components/     # Reusable UI components
 │   │   ├── Sidebar.tsx         # Sidebar navigation with icons
-│   │   ├── RecordList.tsx      # List view with search/sort/filter/pagination
-│   │   ├── RecordToolbar.tsx   # Search, sort, filter controls
+│   │   ├── RecordList.tsx      # List view with search/sort/filter/pagination/bulk
+│   │   ├── RecordToolbar.tsx   # Search, sort, filter, export, bulk action controls
 │   │   ├── Pagination.tsx      # Page controls
 │   │   ├── RecordForm.tsx      # Dynamic create/edit form
-│   │   ├── RecordDetail.tsx    # Detail view with actions
+│   │   ├── RecordDetail.tsx    # Detail view with actions + notes
+│   │   ├── RecordNotes.tsx     # Notes CRUD component
 │   │   ├── EmptyState.tsx      # Empty list state
 │   │   ├── ConfirmDialog.tsx   # Delete confirmation modal
 │   │   └── Toast.tsx           # Toast notification system
@@ -65,12 +66,15 @@ simple-orm/
 | `src/config/record-types.ts` | Record type and field definitions |
 | `src/types/index.ts` | Core TypeScript types (AppRecord, FieldDefinition, RecordType) |
 | `src/components/Sidebar.tsx` | Sidebar navigation with icons |
-| `src/components/RecordToolbar.tsx` | Search, sort, filter controls |
+| `src/components/RecordToolbar.tsx` | Search, sort, filter, export, bulk action controls |
 | `src/components/Pagination.tsx` | Page controls with ellipsis |
 | `src/components/Toast.tsx` | Toast notification system (context + UI) |
 | `src/components/RecordForm.tsx` | Dynamic form rendering based on field config |
-| `src/components/RecordList.tsx` | List view with search/sort/filter/pagination |
-| `src/components/RecordDetail.tsx` | Detail view with edit/delete actions |
+| `src/components/RecordList.tsx` | List view with search/sort/filter/pagination/bulk select |
+| `src/components/RecordDetail.tsx` | Detail view with edit/delete + notes section |
+| `src/components/RecordNotes.tsx` | Notes CRUD (add/view/delete) |
+| `docs/001-schema.sql` | Supabase database migration (record_types, records) |
+| `docs/002-notes-table.sql` | Notes table migration (requires manual run) |
 | `src/styles/globals.css` | Tailwind v4 theme tokens and base styles |
 | `postcss.config.mjs` | PostCSS with @tailwindcss/postcss plugin |
 | `docs/001-schema.sql` | Supabase database migration |

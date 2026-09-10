@@ -104,3 +104,20 @@
 - src/components/RecordList.tsx — Added search/sort/filter/pagination logic
 - src/hooks/useRecords.ts — Added toast callbacks to mutations
 - src/app/layout.tsx — Wrapped with ToastProvider
+
+## 2026-09-10 — Bucket 3: CSV Export, Bulk Actions, Record Notes
+- **CSV Export**: export button in toolbar downloads filtered records as CSV
+- **Bulk Actions**: checkbox on each card, select all, bulk delete, bulk status change
+- **Record Notes**: add/view/delete timestamped notes on detail page (Ctrl+Enter to save)
+- New server actions: deleteRecords, updateRecordField, getNotes, createNote, deleteNote
+- New migration: docs/002-notes-table.sql (notes table with record_id FK)
+- All 7 Bucket 3 UAC checks passed against production
+
+### Files Created/Modified (Bucket 3)
+- src/components/RecordNotes.tsx — Notes component with CRUD
+- src/components/RecordList.tsx — Added checkbox selection, bulk actions, CSV export
+- src/components/RecordToolbar.tsx — Added export button, select all, bulk action bar
+- src/components/RecordDetail.tsx — Added notes section
+- src/lib/actions.ts — Added deleteRecords, updateRecordField, getNotes, createNote, deleteNote
+- src/app/[slug]/page.tsx — Pass recordTypeId to RecordList
+- docs/002-notes-table.sql — Notes table migration
