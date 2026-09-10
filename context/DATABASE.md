@@ -1,6 +1,9 @@
 # Database Schema
 
 ## Provider: Supabase (PostgreSQL)
+- **Project ref**: `vhcgmdgmmvarkqjfcytj`
+- **URL**: `https://vhgcmdgmmvarkqjfcytj.supabase.co`
+- **RLS**: Disabled (solo user, no auth)
 
 ## Tables
 
@@ -9,7 +12,7 @@ Defines the available record types and their field configurations.
 
 | Column | Type | Description |
 |--------|------|-------------|
-| `id` | `uuid` | Primary key |
+| `id` | `text` | Primary key (e.g., 'deal', 'task') — NOT uuid |
 | `name` | `text` | Display name (e.g., "Deal", "Task") |
 | `slug` | `text` | URL-friendly identifier |
 | `fields` | `jsonb` | Array of field definitions |
@@ -22,13 +25,10 @@ The actual records. Each record belongs to a record type and stores its field da
 | Column | Type | Description |
 |--------|------|-------------|
 | `id` | `uuid` | Primary key |
-| `record_type_id` | `uuid` | Foreign key → record_types |
+| `record_type_id` | `text` | Foreign key → record_types.id |
 | `data` | `jsonb` | Field values for this record |
 | `created_at` | `timestamptz` | Auto timestamp |
 | `updated_at` | `timestamptz` | Auto timestamp |
-
-### `field_config` (optional, merged into record_types.fields)
-Currently stored inside `record_types.fields` as JSONB. If scaling needs it, this can be extracted to a separate table.
 
 ## JSONB Field Structure
 Each record's `data` column stores:
@@ -40,16 +40,33 @@ Each record's `data` column stores:
 }
 ```
 
+## Current Record Types
+
+### Deal
+| Field | Type | Required | Options |
+|-------|------|----------|---------|
+| title | text | yes | — |
+| value | number | no | — |
+| status | select | no | new, in_progress, won, lost |
+| close_date | date | no | — |
+
+### Task
+| Field | Type | Required | Options |
+|-------|------|----------|---------|
+| title | text | yes | — |
+| priority | select | no | low, medium, high |
+| done | boolean | no | — |
+
 ## Querying JSONB
 - PostgreSQL supports querying jsonb columns with `->>`, `->`, `@>`, etc.
 - Example: `SELECT * FROM records WHERE data @> '{"status": "active"}'`
 - Indexes can be added on jsonb paths for performance
 
+## Seed Data
+- Migration includes seed data for both Deal and Task record types
+- 13 deal records and 1 task record currently in production
+
 ## Migrations
 - No schema migrations needed for adding fields (they go into the config JSON)
-- Supabase handles schema changes for table structure
-- New fields are added by updating the `record_types.fields` config
-
-## RLS (Row Level Security)
-- Currently disabled (solo user, no auth)
-- Will be enabled when multi-user support is added
+- New fields are added by updating the `record-types.ts` config
+- SQL migration file: `docs/001-schema.sql`

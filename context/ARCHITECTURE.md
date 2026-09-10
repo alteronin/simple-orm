@@ -4,10 +4,11 @@
 Simple-ORM is a generic record-type CRUD application. Think of it as a minimal Salesforce-lite where users can define record types with arbitrary fields and perform full CRUD operations.
 
 ## Tech Stack
-- **Frontend**: Next.js (App Router) — React 14+, TypeScript
-- **Backend/DB**: Supabase (PostgreSQL) — provides auth, DB, real-time, storage
-- **Styling**: Custom CSS with dark mode support, minimal SaaS aesthetic
-- **Deploy**: GitHub → Vercel (automatic previews on PRs)
+- **Frontend**: Next.js 14 (App Router) — React 18, TypeScript
+- **Backend/DB**: Supabase (PostgreSQL) — provides DB, real-time
+- **Styling**: Tailwind CSS v4 with shadcn/ui-style design tokens
+- **Deploy**: GitHub → Vercel (automatic deploys on push to master)
+- **Testing**: Playwright for browser-based live testing
 
 ## Key Design Decisions
 
@@ -21,36 +22,52 @@ Simple-ORM is a generic record-type CRUD application. Think of it as a minimal S
 ```ts
 // Example structure
 interface RecordType {
-  name: string;
+  id: string;        // 'deal', 'task' (text, not uuid)
+  name: string;      // 'Deal', 'Task'
+  slug: string;      // URL-friendly identifier
   fields: FieldDefinition[];
 }
 
 interface FieldDefinition {
   name: string;
-  type: 'text' | 'number' | 'date' | 'select' | 'boolean';
+  type: 'text' | 'number' | 'date' | 'select' | 'boolean' | 'textarea';
   label: string;
   required?: boolean;
   options?: string[]; // for select type
+  default?: string | number | boolean;
 }
 ```
 
 ### No Auth
 - Solo user, no authentication layer
-- Supabase client connects directly (anons key for testing)
-- Security note: this is intentional for the solo/dev testing phase
+- Supabase client connects directly (anon key)
+- RLS disabled for solo testing (intentional)
 
-### Dark Mode
-- Minimal SaaS dark theme
-- CSS custom properties for tokens (colors, spacing, typography)
+### Tailwind v4 Theme System
+- Uses `@import "tailwindcss"` + `@theme` block in `globals.css`
+- Color tokens defined as CSS custom properties (shadcn/ui pattern)
+- Dark mode is default (applied via `className="dark"` on `<html>`)
+- Component utility classes: `btn-primary`, `btn-outline`, `btn-destructive`, `input`, `select`, `textarea`, `badge`, `card`
+
+### Layout
+- Sidebar navigation (256px, hidden on mobile)
+- Main content area with max-width container
+- Sidebar shows Dashboard link + Record type links with icons
+- Responsive: sidebar hidden below `md` breakpoint
+
+### Server/Client Split
+- **Server components**: List page, detail page (data fetching)
+- **Client components**: Form, detail (actions), sidebar (navigation)
+- **Server actions**: `src/lib/actions.ts` (mutations from client)
+- **Server reads**: `src/lib/record-operations.ts` (no 'use server' directive)
 
 ## Deployment Flow
-1. Push to GitHub feature branch
-2. Vercel auto-deploys preview
-3. Live test against Vercel instance
-4. Merge to main after verification
+1. Push to master on GitHub
+2. Vercel auto-deploys to production
+3. Live test against https://simple-orm.vercel.app
+4. Fix issues and push again
 
-## Future Considerations
-- Search/filter on list views
-- Pagination for large record sets
-- File attachments (Supabase Storage)
-- Multi-user support with Supabase Auth
+## Project References
+- **GitHub**: https://github.com/alteronin/simple-orm
+- **Vercel**: https://simple-orm.vercel.app
+- **Supabase**: https://vhgcmdgmmvarkqjfcytj.supabase.co

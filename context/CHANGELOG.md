@@ -16,13 +16,71 @@
 - Server components for list/detail pages
 - Empty states, loading states, error handling
 - Build passes locally and on Vercel
-- Deployed to Vercel preview: https://simple-ir6b0q0mh-alteronins-projects.vercel.app
 
-### Files Created
-- src/lib/actions.ts (server actions: create, update, delete)
-- src/lib/record-operations.ts (server functions: getRecordTypes, getRecordsByTypeId, getRecordById, getFieldConfig, getRecordTypeBySlug)
-- src/hooks/useRecords.ts (client hooks: useRecords, useRecord, useCreateRecord, useUpdateRecord, useDeleteRecord)
-- src/components/RecordTypeNav.tsx, RecordList.tsx, RecordForm.tsx, RecordDetail.tsx, EmptyState.tsx, ConfirmDialog.tsx
-- src/app/[slug]/page.tsx, [slug]/[id]/page.tsx, [slug]/new/page.tsx, [slug]/[id]/edit/page.tsx, not-found.tsx
-- src/app/layout.tsx (client component with RecordTypeNav)
-- docs/001-schema.sql (Supabase migration)
+## 2026-09-09 — Supabase Connection
+- Fixed SQL migration: `record_types.id` uses `text` (not `uuid`)
+- Fixed `record-operations.ts` to work with text IDs
+- Created Supabase project and ran migration
+- Pulled env vars from Vercel production
+- Added custom fetch wrapper in `src/lib/supabase.ts` to bypass Next.js data cache
+- Added `export const dynamic = 'force-dynamic'` to list page
+- All 6 Bucket 1 acceptance criteria verified via Playwright browser tests
+
+## 2026-09-09 — Deployment Fixes
+- Fixed Windows `[slug]` directory structure issue
+- Fixed hooks ordering (all hooks before early returns)
+- Fixed `usePathname()` null check in layout
+- DNS fix: Switched to Google DNS (8.8.8.8) for Supabase access
+- Re-authenticated Vercel CLI via `npx vercel login`
+- Production deployed via `npx vercel --prod --yes`
+
+## 2026-09-10 — shadcn/ui Theme Overhaul
+- Switched to shadcn/ui-style dark theme inspired by Studio Admin dashboard
+- **Tailwind v4 migration**:
+  - Installed `@tailwindcss/postcss` (required for Tailwind v4 PostCSS)
+  - Installed `autoprefixer`
+  - Rewrote `postcss.config.mjs` to use `@tailwindcss/postcss` plugin
+  - Rewrote `tailwind.config.ts` (minimal, v4-compatible)
+  - Rewrote `src/styles/globals.css` with `@import "tailwindcss"` + `@theme` block
+- **CSS variable-based color system**:
+  - Defined custom properties: background, foreground, card, primary, secondary, muted, accent, destructive, border, input, ring
+  - Dark theme as default (`rgb(9,9,11)` background)
+- **Sidebar navigation**:
+  - Created `src/components/Sidebar.tsx` with Dashboard + Records sections
+  - SVG icons with `shrink-0` to prevent size explosion
+  - Active state highlighting
+  - Hidden on mobile (`hidden md:flex`)
+  - Version footer
+- **Component updates** (all files):
+  - RecordList: card hover states, chevron reveal, badge-style field tags
+  - RecordForm: proper input/select/textarea styling, loading spinner
+  - RecordDetail: card layout, icon buttons for edit/delete
+  - EmptyState: icon in muted circle instead of emoji
+  - ConfirmDialog: backdrop overlay, card styling
+  - All pages: improved headers with subtitles and record counts
+  - All SVGs: added `shrink-0` class
+- **Layout**:
+  - Root layout imports `globals.css`
+  - Sidebar + main content flex layout
+  - Responsive (sidebar hidden on mobile)
+- Removed unused `src/components/RecordTypeNav.tsx`
+- Created `src/components/Sidebar.tsx`
+- All verified on production: https://simple-orm.vercel.app
+
+### Files Created/Modified (Theme)
+- src/styles/globals.css — Rewritten for Tailwind v4
+- tailwind.config.ts — Minimal v4 config
+- postcss.config.mjs — Updated to `@tailwindcss/postcss`
+- src/components/Sidebar.tsx — New sidebar nav
+- src/app/layout.tsx — CSS import + sidebar layout
+- src/components/RecordList.tsx — Updated styling
+- src/components/RecordForm.tsx — Updated styling
+- src/components/RecordDetail.tsx — Updated styling
+- src/components/EmptyState.tsx — Updated styling
+- src/components/ConfirmDialog.tsx — Updated styling
+- src/app/[slug]/page.tsx — Updated styling
+- src/app/[slug]/new/page.tsx — Updated styling
+- src/app/[slug]/[id]/page.tsx — No changes needed
+- src/app/[slug]/[id]/edit/page.tsx — Updated styling
+- src/app/page.tsx — Updated styling
+- src/components/RecordTypeNav.tsx — Deleted (replaced by Sidebar)
