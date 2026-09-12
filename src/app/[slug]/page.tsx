@@ -1,4 +1,4 @@
-import { getRecordsByTypeId, getRecordTypeBySlug } from '@/lib/record-operations'
+import { getRecordsByTypeId, getRecordTypeBySlug, getLinkedRecords, LinkedRecordInfo } from '@/lib/record-operations'
 import { RecordList } from '@/components/RecordList'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -7,13 +7,28 @@ export const dynamic = 'force-dynamic'
 
 interface PageProps {
   params: { slug: string }
+  searchParams: { page?: string }
 }
 
-export default async function RecordTypePage({ params }: PageProps) {
+export default async function RecordTypePage({ params, searchParams }: PageProps) {
   const rt = await getRecordTypeBySlug(params.slug)
   if (!rt) notFound()
 
-  const records = await getRecordsByTypeId(rt.id)
+  const page = Math.max(1, parseInt(searchParams.page || '1', 10))
+  const { records, total } = await getRecordsByTypeId(rt.id, page)
+  const totalPages = Math.ceil(total / 10)
+
+  const linkPairs: { recordId: string; targetType: string }[] = []
+  for (const record of records) {
+    for (const field of rt.fields) {
+      if (field.type === 'link' && record.data[field.name]) {
+        linkPairs.push({ recordId: String(record.data[field.name]), targetType: field.targetType || '' })
+      }
+    }
+  }
+  const linkedRecordsMap = await getLinkedRecords(linkPairs)
+  const linkedRecords: Record<string, LinkedRecordInfo> = {}
+  linkedRecordsMap.forEach((val, key) => { linkedRecords[key] = val })
 
   return (
     <div className="space-y-6">
@@ -21,7 +36,7 @@ export default async function RecordTypePage({ params }: PageProps) {
         <div>
           <h1 className="text-2xl font-bold tracking-tight">{rt.name}s</h1>
           <p className="text-sm text-muted-foreground mt-0.5">
-            {records.length} {records.length === 1 ? 'record' : 'records'}
+            {total} {total === 1 ? 'record' : 'records'}
           </p>
         </div>
         <Link
@@ -34,7 +49,7 @@ export default async function RecordTypePage({ params }: PageProps) {
           New {rt.name}
         </Link>
       </div>
-      <RecordList records={records} loading={false} fields={rt.fields} recordTypeName={rt.name} recordTypeId={rt.id} />
+      <RecordList records={records} loading={false} fields={rt.fields} recordTypeName={rt.name} recordTypeId={rt.id} totalRecords={total} totalPages={totalPages} currentPage={page} linkedRecords={linkedRecords} />
     </div>
   )
 }

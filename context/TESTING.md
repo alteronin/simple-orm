@@ -1,12 +1,12 @@
 # Testing & Metrics
 
 ## Current Bucket
-**Bucket 5: Performance & Data Efficiency** — IN PROGRESS
-- B5-1: Server-side pagination
-- B5-2: Eliminate N+1 link badge queries
-- B5-3: Push stack filters to DB level
-- B5-4: Batch stack card reorder updates
-- B5-5: Optimize StackBoard re-render
+**Bucket 5: Performance & Data Efficiency** — COMPLETE
+- B5-1: Server-side pagination ✅
+- B5-2: Eliminate N+1 link badge queries ✅
+- B5-3: Push stack filters to DB level ✅
+- B5-4: Batch stack card reorder updates ✅
+- B5-5: Optimize StackBoard re-render ✅
 
 ---
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import {
   DndContext,
   closestCenter,
@@ -34,9 +34,12 @@ interface StackBoardProps {
 export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, onCardClick }: StackBoardProps) {
   const [activeStackId, setActiveStackId] = useState<string | null>(null)
   const [localStacks, setLocalStacks] = useState(stacks)
+  const prevStackIdsRef = useRef<string>('')
 
-  // Sync local state when parent stacks change (after create/delete/populate)
-  if (JSON.stringify(stacks.map(s => s.id)) !== JSON.stringify(localStacks.map(s => s.id))) {
+  const stackIdsKey = useMemo(() => stacks.map(s => s.id).join(','), [stacks])
+
+  if (stackIdsKey !== prevStackIdsRef.current) {
+    prevStackIdsRef.current = stackIdsKey
     setLocalStacks(stacks)
   }
 

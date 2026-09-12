@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useCallback, useEffect } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { AppRecord, FieldDefinition } from '@/types'
 import { EmptyState } from './EmptyState'
@@ -9,9 +9,7 @@ import { Pagination } from './Pagination'
 import { InlineEditableField } from './InlineEditableField'
 import { useToast } from './Toast'
 import { deleteRecords, updateRecordField } from '@/lib/actions'
-import { supabase } from '@/lib/supabase'
-
-const PAGE_SIZE = 10
+import { LinkedRecordInfo } from '@/lib/record-operations'
 
 interface RecordListProps {
   records: AppRecord[]
@@ -19,16 +17,19 @@ interface RecordListProps {
   fields: FieldDefinition[]
   recordTypeName: string
   recordTypeId: string
+  totalRecords: number
+  totalPages: number
+  currentPage: number
+  linkedRecords?: Record<string, LinkedRecordInfo>
 }
 
-export function RecordList({ records, loading, fields, recordTypeName, recordTypeId }: RecordListProps) {
+export function RecordList({ records, loading, fields, recordTypeName, recordTypeId, totalRecords, totalPages, currentPage, linkedRecords = {} }: RecordListProps) {
   const router = useRouter()
   const { addToast } = useToast()
   const [search, setSearch] = useState('')
   const [sortBy, setSortBy] = useState('created_at')
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
   const [filters, setFilters] = useState<Record<string, string>>({})
-  const [page, setPage] = useState(1)
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [editingValues, setEditingValues] = useState<Record<string, Record<string, string | number | boolean | null>>>({})
 
@@ -42,7 +43,6 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
     setSortBy(state.sortBy)
     setSortDir(state.sortDir)
     setFilters(state.filters)
-    setPage(1)
   }
 
   const filtered = useMemo(() => {
@@ -73,9 +73,6 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
 
     return result
   }, [records, search, sortBy, sortDir, filters, fields])
-
-  const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
-  const paged = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const toggleSelect = useCallback((id: string) => {
     setSelected(prev => {
@@ -180,7 +177,7 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
         filterState={filterState}
         onFilterChange={handleFilterChange}
         recordCount={filtered.length}
-        totalCount={records.length}
+        totalCount={totalRecords}
         selectedCount={selected.size}
         onSelectAll={selectAll}
         onDeselectAll={deselectAll}
@@ -197,7 +194,7 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
         </div>
       ) : (
         <div className="space-y-2">
-          {paged.map((record) => (
+          {filtered.map((record) => (
             <div
               key={record.id}
               className={`group rounded-lg border bg-card p-4 cursor-pointer transition-colors ${
@@ -253,6 +250,7 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
                             recordId={String(val)}
                             targetType={field.targetType || ''}
                             label={field.label}
+                            linkedData={linkedRecords[String(val)]}
                           />
                         )
                       }
@@ -274,31 +272,21 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
         </div>
       )}
 
-      <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(p) => router.push(`/${recordTypeId}?page=${p}`)}
+      />
     </div>
   )
 }
 
-function LinkedRecordBadge({ recordId, targetType, label }: { recordId: string; targetType: string; label: string }) {
-  const [title, setTitle] = useState<string>(recordId.slice(0, 8))
-  const [recordType, setRecordType] = useState<any>(null)
-
-  useEffect(() => {
-    if (!targetType) return
-    supabase.from('record_types').select('*').eq('id', targetType).single()
-      .then(({ data }) => { if (data) setRecordType(data) })
-  }, [targetType])
-
-  useEffect(() => {
-    if (!recordId) return
-    supabase.from('records').select('*').eq('id', recordId).single()
-      .then(({ data }) => {
-        if (data) {
-          const titleField = recordType?.fields?.[0]?.name || 'title'
-          setTitle(String(data.data?.[titleField] || recordId.slice(0, 8)))
-        }
-      })
-  }, [recordId, recordType])
+function LinkedRecordBadge({ recordId, targetType, label, linkedData }: { recordId: string; targetType: string; label: string; linkedData?: LinkedRecordInfo }) {
+  let title = recordId.slice(0, 8)
+  if (linkedData) {
+    const titleField = linkedData.recordType.fields?.[0]?.name || 'title'
+    title = String(linkedData.record.data?.[titleField] || recordId.slice(0, 8))
+  }
 
   return (
     <a

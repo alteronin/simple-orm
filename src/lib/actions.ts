@@ -329,14 +329,13 @@ export async function removeCardFromStack(stackId: string, recordId: string): Pr
 }
 
 export async function reorderStackCards(stackId: string, cardIds: string[]): Promise<void> {
-  const updates = cardIds.map((cardId, index) =>
-    supabase
-      .from('stack_cards')
-      .update({ position: index })
-      .eq('id', cardId)
-      .eq('stack_id', stackId)
-  )
-  await Promise.all(updates)
+  const updates = cardIds.map((cardId, index) => ({
+    id: cardId,
+    stack_id: stackId,
+    position: index,
+  }))
+  const { error } = await supabase.from('stack_cards').upsert(updates, { onConflict: 'id' })
+  if (error) throw new Error(error.message)
 }
 
 export async function populateStackFromType(stackId: string): Promise<number> {
@@ -358,31 +357,23 @@ export async function populateStackFromType(stackId: string): Promise<number> {
     .select('id, data')
     .eq('record_type_id', stack.record_type_id)
 
+  const criteria: FilterCriterion[] = stack.filter_criteria || []
+  for (const c of criteria) {
+    const col = `data->>'${c.field}'`
+    switch (c.operator) {
+      case 'eq': query = query.eq(col, c.value); break
+      case 'neq': query = query.neq(col, c.value); break
+      case 'contains': query = query.ilike(col, `%${c.value}%`); break
+      case 'gt': query = query.gt(col, c.value); break
+      case 'lt': query = query.lt(col, c.value); break
+      case 'gte': query = query.gte(col, c.value); break
+      case 'lte': query = query.lte(col, c.value); break
+    }
+  }
+
   const { data: records } = await query
 
-  let filtered = (records || []).filter(r => !existingIds.has(r.id))
-
-  const criteria: FilterCriterion[] = stack.filter_criteria || []
-  if (criteria.length > 0) {
-    filtered = filtered.filter(record => {
-      return criteria.every(c => {
-        const val = record.data?.[c.field]
-        if (val === undefined || val === null) return false
-        const s = String(val).toLowerCase()
-        const target = c.value.toLowerCase()
-        switch (c.operator) {
-          case 'eq': return s === target
-          case 'neq': return s !== target
-          case 'contains': return s.includes(target)
-          case 'gt': return Number(val) > Number(c.value)
-          case 'lt': return Number(val) < Number(c.value)
-          case 'gte': return Number(val) >= Number(c.value)
-          case 'lte': return Number(val) <= Number(c.value)
-          default: return true
-        }
-      })
-    })
-  }
+  const filtered = (records || []).filter(r => !existingIds.has(r.id))
 
   const newCards = filtered.map((r, i) => ({
     stack_id: stackId,
