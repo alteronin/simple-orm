@@ -60,16 +60,16 @@ Results saved to `tests/results.json` after each run.
 ### Database Performance
 | Query | Time | Threshold |
 |-------|------|-----------|
-| Read 100 records | 309ms | <2s ✅ |
-| Read record_types | 249ms | <500ms ✅ |
-| Read stacks + cards | 636ms | <1s ✅ |
+| Read 100 records | 284ms | <2s ✅ |
+| Read record_types | 391ms | <500ms ✅ |
+| Read stacks + cards | 494ms | <1s ✅ |
 
 ### Page Load (Warm)
 | Page | TTFB | FCP | Load | Transfer Size |
 |------|------|-----|------|---------------|
-| /task | 33ms | 808ms | 913ms | 223.8KB |
-| /stacks | 35ms | 252ms | 397ms | 229.5KB |
-| /settings | 33ms | 260ms | 318ms | 215.2KB |
+| /task | 36ms | 2832ms | 3470ms | 223.4KB |
+| /stacks | 35ms | 500ms | 530ms | 229.6KB |
+| /settings | 36ms | 452ms | 491ms | 215.2KB |
 
 ### API Response Times (per operation)
 | Operation | Avg Time |
@@ -130,15 +130,15 @@ npm run test:api
 
 ---
 
-## Known Performance Bottlenecks (Not Yet Fixed)
+## Known Performance Bottlenecks (Fixed)
 
-| # | Issue | Impact | Target Bucket |
-|---|-------|--------|---------------|
-| 1.3 | No server-side pagination | HIGH | B5-1 |
-| 2.1 | LinkedRecordBadge N+1 queries | HIGH | B5-2 |
-| 3.6 | populateStackFromType filters in JS | MEDIUM | B5-3 |
-| 3.3 | reorderStackCards N individual updates | MEDIUM | B5-4 |
-| 2.4 | JSON.stringify on every render (StackBoard) | MEDIUM | B5-5 |
+| # | Issue | Impact | Status |
+|---|-------|--------|--------|
+| 1.3 | No server-side pagination | HIGH | ✅ B5-1: .range() + count |
+| 2.1 | LinkedRecordBadge N+1 queries | HIGH | ✅ B5-2: Batch prefetch |
+| 3.6 | populateStackFromType filters in JS | MEDIUM | ✅ B5-3: DB-level filters |
+| 3.3 | reorderStackCards N individual updates | MEDIUM | ✅ B5-4: Batch upsert |
+| 2.4 | JSON.stringify on every render (StackBoard) | MEDIUM | ✅ B5-5: useMemo + ref |
 
 ---
 
@@ -146,6 +146,11 @@ npm run test:api
 
 | Date | Change | Metrics Impact | Notes |
 |------|--------|----------------|-------|
+| 2026-09-11 | Bucket 5: Server-side pagination | Page loads now bounded | .range() fetches only 10 records |
+| 2026-09-11 | Bucket 5: Batch link prefetch | N*2 → 2 queries | 2 queries vs hundreds |
+| 2026-09-11 | Bucket 5: DB-level stack filters | Filters executed in Postgres | No more JS filtering |
+| 2026-09-11 | Bucket 5: Batch reorder upsert | N → 1 HTTP request | Single upsert call |
+| 2026-09-11 | Bucket 5: StackBoard useMemo | Eliminated JSON.stringify | String comparison + ref |
 | 2026-09-11 | Removed broken noStoreFetch | None (was no-op) | Caching config was doing nothing |
 | 2026-09-11 | Added column pruning | Reduced transfer ~5KB | All queries now use targeted select() |
 | 2026-09-11 | Parallelized detail page | Halved detail page latency | Promise.all for type + record |
