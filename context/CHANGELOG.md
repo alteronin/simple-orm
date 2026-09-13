@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-11 — Delete Fix + Test Coverage
+- Fixed deleteRecord: cleans up record_history + notes before deleting record
+- Fixes FK constraint blocking record deletion (no DB migration needed)
+- docs/006-fix-history-cascade.sql available for permanent ON DELETE CASCADE
+- New test file: tests/crud-lifecycle.spec.ts (23 tests)
+- Total test count: 64 (was 41)
+
 ## 2026-09-11 — Bucket 5: Performance & Data Efficiency (COMPLETE)
 - B5-1: Server-side pagination with `.range()` and count
 - B5-2: Batch prefetch linked records (2 queries vs N*2)

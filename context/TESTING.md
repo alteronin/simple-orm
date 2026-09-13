@@ -13,8 +13,9 @@
 ## How to Run
 
 ```bash
-npm test              # all 41 tests (API + E2E + Performance)
+npm test              # all 64 tests (API + CRUD + E2E + Performance)
 npm run test:api      # API tests only (20)
+npm run test:crud     # CRUD lifecycle tests (23)
 npm run test:e2e      # Browser E2E only (18)
 npm run test:perf     # Performance audits only (3)
 npm run test:report   # open HTML report
@@ -35,7 +36,18 @@ Results saved to `tests/results.json` after each run.
 | Reserved Slug Validation | 5 | blocks settings/stacks/api/new/edit |
 | Performance (DB) | 3 | 100 records <2s, record_types <500ms, stacks+cards <1s |
 
-### E2E Browser Tests (`tests/e2e.spec.ts`) — 18 tests
+### CRUD Lifecycle Tests (`tests/crud-lifecycle.spec.ts`) — 23 tests
+| Category | Tests | What it checks |
+|----------|-------|----------------|
+| Delete with History | 3 | create record, add history, delete history+record |
+| Delete with Notes | 2 | create record, delete (notes table may 404) |
+| Bulk Delete | 2 | create 3 records with history, bulk delete with cleanup |
+| Record Type Cascade | 2 | create type+records+stack+cards, cascade delete all |
+| Edge Cases | 5 | null values, empty strings, special chars, unicode, cleanup |
+| Stack Filters | 3 | create with filter, verify filter, cleanup |
+| Stack Card Reorder | 3 | create 3 cards, reorder, verify order, cleanup |
+
+### E2E Browser Tests (`tests/e2e.spec.ts`) — 21 tests
 | Category | Tests | What it checks |
 |----------|-------|----------------|
 | Page Loads | 7 | All pages load with correct h1 heading |
@@ -43,6 +55,10 @@ Results saved to `tests/results.json` after each run.
 | Record List | 2 | Records render, search filters |
 | Settings | 2 | Record types list, New Record Type form opens |
 | Stacks | 2 | Board renders, New Stack modal opens |
+| Responsive | 1 | Mobile viewport shows sidebar toggle |
+| Performance (pages) | 3 | Task <3s, Stacks <4s, Settings <3s |
+| Record CRUD via UI | 2 | Create record, navigate to detail page |
+| Settings CRUD | 1 | Create and delete a record type |
 | Responsive | 1 | Mobile viewport shows sidebar toggle |
 | Performance (pages) | 3 | Task <3s, Stacks <4s, Settings <3s |
 
