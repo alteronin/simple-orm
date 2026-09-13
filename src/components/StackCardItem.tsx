@@ -4,12 +4,15 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { StackCard, FieldDefinition, AppRecord } from '@/types'
 import { RecurringValue, isRecurringExpired, getRecurringDisplay } from '@/lib/recurring'
+import { updateRecordField } from '@/lib/actions'
 
 interface StackCardItemProps {
   card: StackCard & { record: AppRecord }
   displayFields: string[]
+  quickUpdateFields: string[]
   fields: FieldDefinition[]
   onClick: (recordId: string) => void
+  onFieldUpdate?: (recordId: string, fieldName: string, value: any) => void
 }
 
 function getFieldLabel(fields: FieldDefinition[], name: string): string {
@@ -25,7 +28,7 @@ function formatValue(value: any, type?: string): string {
   return String(value)
 }
 
-export function StackCardItem({ card, displayFields, fields, onClick }: StackCardItemProps) {
+export function StackCardItem({ card, displayFields, quickUpdateFields, fields, onClick, onFieldUpdate }: StackCardItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: card.id })
   const data = card.record?.data || {}
   const title = data.title || data.name || data.content || 'Untitled'
@@ -34,6 +37,24 @@ export function StackCardItem({ card, displayFields, fields, onClick }: StackCar
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
+  }
+
+  const quickFields = fields.filter(f => quickUpdateFields.includes(f.name) && (f.type === 'boolean' || (f.type === 'select' && f.options)))
+
+  const handleToggle = async (e: React.MouseEvent, fieldName: string, fieldType: string, options?: string[]) => {
+    e.stopPropagation()
+    const currentVal = data[fieldName]
+    let newVal: any
+    if (fieldType === 'boolean') {
+      newVal = !currentVal
+    } else if (fieldType === 'select' && options) {
+      const idx = options.indexOf(String(currentVal))
+      newVal = options[(idx + 1) % options.length]
+    } else return
+    try {
+      await updateRecordField(card.record.id, fieldName, newVal)
+      if (onFieldUpdate) onFieldUpdate(card.record.id, fieldName, newVal)
+    } catch {}
   }
 
   return (
@@ -90,6 +111,31 @@ export function StackCardItem({ card, displayFields, fields, onClick }: StackCar
                 <span className="text-muted-foreground">{getFieldLabel(fields, fieldName)}:</span>
                 <span className="font-medium">{formatValue(val, field?.type)}</span>
               </span>
+            )
+          })}
+        </div>
+      )}
+      {quickFields.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {quickFields.map(field => {
+            const val = data[field.name]
+            const isActive = field.type === 'boolean' ? !!val : val && val !== field.options?.[0]
+            return (
+              <button
+                key={field.name}
+                onClick={(e) => handleToggle(e, field.name, field.type, field.options)}
+                className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium transition-colors border ${
+                  isActive
+                    ? 'bg-green-500/10 text-green-600 border-green-500/30 hover:bg-green-500/20'
+                    : 'bg-secondary text-secondary-foreground border-transparent hover:bg-secondary/80'
+                }`}
+              >
+                <span className={`h-1.5 w-1.5 rounded-full ${isActive ? 'bg-green-500' : 'bg-muted-foreground/40'}`} />
+                {field.label || field.name}
+                {field.type === 'select' && field.options && (
+                  <span className="text-muted-foreground ml-0.5">→ {isActive ? val : field.options[0]}</span>
+                )}
+              </button>
             )
           })}
         </div>

@@ -12,15 +12,17 @@ interface StackColumnProps {
   onPopulate: () => void
   isDragging: boolean
   onCardClick: (recordId: string) => void
+  onFieldUpdate?: (recordId: string, fieldName: string, value: any) => void
 }
 
 const OP_LABELS: Record<string, string> = { eq: '=', neq: '≠', contains: '~', gt: '>', lt: '<', gte: '≥', lte: '≤' }
 
-export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging, onCardClick }: StackColumnProps) {
+export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging, onCardClick, onFieldUpdate }: StackColumnProps) {
   const { setNodeRef, isOver } = useDroppable({ id: `stack-${stack.id}` })
   const cardIds = stack.cards.map(c => c.id)
   const fields = stack.record_type?.fields || []
   const displayFields = stack.display_fields || []
+  const quickUpdateFields = stack.quick_update_fields || []
   const filters = stack.filter_criteria || []
 
   return (
@@ -92,8 +94,10 @@ export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging, o
                   key={card.id}
                   card={card}
                   displayFields={displayFields}
+                  quickUpdateFields={quickUpdateFields}
                   fields={fields}
                   onClick={onCardClick}
+                  onFieldUpdate={onFieldUpdate}
                 />
               ))}
             </div>

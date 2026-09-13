@@ -251,6 +251,7 @@ export async function getStacks(): Promise<StackWithCards[]> {
 
   return stacks.map(stack => ({
     ...stack,
+    quick_update_fields: (stack as any).quick_update_fields || [],
     cards: (cardsByStack.get(stack.id) || []) as any,
     record_type: rtMap.get(stack.record_type_id),
   }))
@@ -271,12 +272,13 @@ export async function getStack(id: string): Promise<StackWithCards | null> {
 
   return {
     ...stack,
+    quick_update_fields: (stack as any).quick_update_fields || [],
     cards: (cardsResult.data || []) as any,
     record_type: (rtResult.data as RecordType) || undefined,
   }
 }
 
-export async function createStack(data: { name: string; record_type_id: string; display_fields: string[]; filter_criteria?: FilterCriterion[] }): Promise<Stack> {
+export async function createStack(data: { name: string; record_type_id: string; display_fields: string[]; quick_update_fields?: string[]; filter_criteria?: FilterCriterion[] }): Promise<Stack> {
   const { data: maxPos } = await supabase
     .from('stacks')
     .select('position')
@@ -285,28 +287,52 @@ export async function createStack(data: { name: string; record_type_id: string; 
     .single()
   const nextPos = (maxPos?.position ?? -1) + 1
 
-  const { data: stack, error } = await supabase
+  let { data: stack, error } = await supabase
     .from('stacks')
     .insert({
       name: data.name,
       record_type_id: data.record_type_id,
       display_fields: data.display_fields,
+      quick_update_fields: data.quick_update_fields || [],
       filter_criteria: data.filter_criteria || [],
       position: nextPos,
     })
     .select()
     .single()
+  if (error && error.message.includes('quick_update_fields')) {
+    ({ data: stack, error } = await supabase
+      .from('stacks')
+      .insert({
+        name: data.name,
+        record_type_id: data.record_type_id,
+        display_fields: data.display_fields,
+        filter_criteria: data.filter_criteria || [],
+        position: nextPos,
+      })
+      .select()
+      .single())
+  }
   if (error) throw new Error(error.message)
   return stack as Stack
 }
 
-export async function updateStack(id: string, data: { name?: string; display_fields?: string[]; filter_criteria?: FilterCriterion[] }): Promise<Stack> {
-  const { data: stack, error } = await supabase
+export async function updateStack(id: string, data: { name?: string; display_fields?: string[]; quick_update_fields?: string[]; filter_criteria?: FilterCriterion[] }): Promise<Stack> {
+  const updateData: any = { ...data, updated_at: new Date().toISOString() }
+  let { data: stack, error } = await supabase
     .from('stacks')
-    .update({ ...data, updated_at: new Date().toISOString() })
+    .update(updateData)
     .eq('id', id)
     .select()
     .single()
+  if (error && error.message.includes('quick_update_fields')) {
+    delete updateData.quick_update_fields
+    ;({ data: stack, error } = await supabase
+      .from('stacks')
+      .update(updateData)
+      .eq('id', id)
+      .select()
+      .single())
+  }
   if (error) throw new Error(error.message)
   return stack as Stack
 }

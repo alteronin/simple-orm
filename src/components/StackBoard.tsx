@@ -29,9 +29,10 @@ interface StackBoardProps {
   onDelete: (id: string) => void
   onPopulate: (id: string) => void
   onCardClick: (recordId: string) => void
+  onFieldUpdate?: (recordId: string, fieldName: string, value: any) => void
 }
 
-export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, onCardClick }: StackBoardProps) {
+export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate }: StackBoardProps) {
   const [activeStackId, setActiveStackId] = useState<string | null>(null)
   const [localStacks, setLocalStacks] = useState(stacks)
   const prevStackIdsRef = useRef<string>('')
@@ -133,6 +134,7 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
             onDelete={() => onDelete(stack.id)}
             onPopulate={() => onPopulate(stack.id)}
             onCardClick={onCardClick}
+            onFieldUpdate={onFieldUpdate}
             isDragging={activeStackId === stack.id}
           />
         ))}

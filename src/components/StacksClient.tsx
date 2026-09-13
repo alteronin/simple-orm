@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { StackWithCards, RecordType } from '@/types'
 import { createStack, deleteStack, updateStack, populateStackFromType, getStacks } from '@/lib/actions'
 import { StackBoard } from '@/components/StackBoard'
@@ -20,15 +20,32 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
   const [modalRecordId, setModalRecordId] = useState<string | null>(null)
   const { addToast } = useToast()
 
+  useEffect(() => {
+    if (initialStacks.length === 0) return
+    let cancelled = false
+    const syncAll = async () => {
+      let changed = false
+      for (const stack of initialStacks) {
+        try {
+          const count = await populateStackFromType(stack.id)
+          if (count > 0) changed = true
+        } catch {}
+      }
+      if (changed && !cancelled) await loadData()
+    }
+    syncAll()
+    return () => { cancelled = true }
+  }, [])
+
   const loadData = async () => {
     const stacksData = await getStacks()
     setStacks(stacksData)
   }
 
-  const handleCreate = async (data: { name: string; record_type_id?: string; display_fields: string[]; filter_criteria?: any }) => {
+  const handleCreate = async (data: { name: string; record_type_id?: string; display_fields: string[]; quick_update_fields?: string[]; filter_criteria?: any }) => {
     if (!data.record_type_id) return
     try {
-      const stack = await createStack({ name: data.name, record_type_id: data.record_type_id, display_fields: data.display_fields, filter_criteria: data.filter_criteria })
+      const stack = await createStack({ name: data.name, record_type_id: data.record_type_id, display_fields: data.display_fields, quick_update_fields: data.quick_update_fields, filter_criteria: data.filter_criteria })
       const count = await populateStackFromType(stack.id)
       addToast(count > 0 ? `Stack created with ${count} card${count === 1 ? '' : 's'}` : 'Stack created (no matching records)', 'success')
       await loadData()
@@ -38,7 +55,7 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
     }
   }
 
-  const handleUpdate = async (data: { name: string; display_fields: string[]; filter_criteria?: any }) => {
+  const handleUpdate = async (data: { name: string; display_fields: string[]; quick_update_fields?: string[]; filter_criteria?: any }) => {
     if (!editingStack) return
     try {
       await updateStack(editingStack.id, data)
@@ -72,6 +89,17 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
     } catch (e: any) {
       addToast(e.message || 'Failed to sync records', 'error')
     }
+  }
+
+  const handleFieldUpdate = (recordId: string, fieldName: string, value: any) => {
+    setStacks(prev => prev.map(stack => ({
+      ...stack,
+      cards: stack.cards.map(card =>
+        card.record_id === recordId
+          ? { ...card, record: { ...card.record, data: { ...card.record.data, [fieldName]: value } } }
+          : card
+      )
+    })))
   }
 
   return (
@@ -116,6 +144,7 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
           onDelete={handleDelete}
           onPopulate={handlePopulate}
           onCardClick={setModalRecordId}
+          onFieldUpdate={handleFieldUpdate}
         />
       )}
 

@@ -7,6 +7,7 @@ export interface FieldDefinition {
   targetType?: string
   default?: string | number | boolean
   interval?: 'day' | 'week' | 'month' | number // for recurring type
+  quick_update?: boolean
 }
 
 export interface FilterCriterion {
@@ -39,6 +40,7 @@ export interface Stack {
   name: string
   record_type_id: string
   display_fields: string[]
+  quick_update_fields: string[]
   filter_criteria: FilterCriteria
   position: number
   created_at: string
