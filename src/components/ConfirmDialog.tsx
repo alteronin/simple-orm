@@ -1,17 +1,21 @@
 'use client'
 
+import { Spinner } from './Spinner'
+
 export function ConfirmDialog({
   isOpen,
   onConfirm,
   onCancel,
   title,
   message,
+  loading,
 }: {
   isOpen: boolean
   onConfirm: () => void
   onCancel: () => void
   title: string
   message: string
+  loading?: boolean
 }) {
   if (!isOpen) return null
 
@@ -25,15 +29,17 @@ export function ConfirmDialog({
         <div className="flex gap-3 justify-end">
           <button
             onClick={onCancel}
-            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3"
+            disabled={loading}
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3 disabled:opacity-50"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-destructive text-destructive-foreground hover:bg-destructive/90 h-9 px-3"
+            disabled={loading}
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-destructive text-destructive-foreground hover:bg-destructive/90 h-9 px-3 disabled:opacity-50"
           >
-            Delete
+            {loading ? <><Spinner className="h-4 w-4 mr-1.5" /> Deleting...</> : 'Delete'}
           </button>
         </div>
       </div>

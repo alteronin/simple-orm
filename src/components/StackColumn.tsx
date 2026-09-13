@@ -1,8 +1,9 @@
 'use client'
 
+import { useState, useMemo } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import { StackWithCards, FilterCriterion } from '@/types'
+import { StackWithCards, FilterCriterion, StackCard, AppRecord } from '@/types'
 import { StackCardItem } from './StackCardItem'
 
 interface StackColumnProps {
@@ -18,13 +19,44 @@ interface StackColumnProps {
 
 const OP_LABELS: Record<string, string> = { eq: '=', neq: '≠', contains: '~', gt: '>', lt: '<', gte: '≥', lte: '≤' }
 
+function getCardSortValue(card: StackCard & { record: AppRecord }, fieldName: string): string {
+  const val = card.record?.data?.[fieldName]
+  if (val === null || val === undefined || val === '') return '\uffff'
+  if (typeof val === 'boolean') return val ? '1' : '0'
+  if (typeof val === 'number') return String(val).padStart(10, '0')
+  return String(val).toLowerCase()
+}
+
 export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging, isSyncing, onCardClick, onFieldUpdate }: StackColumnProps) {
   const { setNodeRef, isOver } = useDroppable({ id: `stack-${stack.id}` })
-  const cardIds = stack.cards.map(c => c.id)
   const fields = stack.record_type?.fields || []
   const displayFields = stack.display_fields || []
   const quickUpdateFields = stack.quick_update_fields || []
   const filters = stack.filter_criteria || []
+
+  const [sortField, setSortField] = useState<string>('')
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc')
+
+  const sortedCards = useMemo(() => {
+    if (!sortField) return stack.cards
+    return [...stack.cards].sort((a, b) => {
+      const av = getCardSortValue(a, sortField)
+      const bv = getCardSortValue(b, sortField)
+      const cmp = av < bv ? -1 : av > bv ? 1 : 0
+      return sortDir === 'asc' ? cmp : -cmp
+    })
+  }, [stack.cards, sortField, sortDir])
+
+  const cardIds = sortedCards.map(c => c.id)
+
+  const toggleSort = (field: string) => {
+    if (sortField === field) {
+      setSortDir(prev => prev === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortField(field)
+      setSortDir('asc')
+    }
+  }
 
   return (
     <div
@@ -89,16 +121,42 @@ export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging, i
         </div>
       </div>
 
+      {stack.cards.length > 1 && fields.length > 0 && (
+        <div className="px-4 py-2 border-b border-border">
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Sort:</span>
+            <div className="flex flex-wrap gap-1">
+              {fields.filter(f => f.name !== 'content').slice(0, 5).map(f => (
+                <button
+                  key={f.name}
+                  onClick={() => toggleSort(f.name)}
+                  className={`inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-medium transition-colors ${
+                    sortField === f.name
+                      ? 'bg-primary/10 text-primary'
+                      : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                  }`}
+                >
+                  {f.label || f.name}
+                  {sortField === f.name && (
+                    <span>{sortDir === 'asc' ? '↑' : '↓'}</span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       <div ref={setNodeRef} className="p-3 min-h-[200px] max-h-[calc(100vh-12rem)] overflow-y-auto">
         <SortableContext items={cardIds} strategy={verticalListSortingStrategy}>
-          {stack.cards.length === 0 ? (
+          {sortedCards.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-8 text-muted-foreground text-center">
               <p className="text-sm">No cards yet</p>
               <p className="text-xs mt-1">Click sync to pull records</p>
             </div>
           ) : (
             <div className="space-y-2">
-              {stack.cards.map(card => (
+              {sortedCards.map(card => (
                 <StackCardItem
                   key={card.id}
                   card={card}

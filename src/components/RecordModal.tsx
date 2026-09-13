@@ -10,6 +10,7 @@ import { RecordNotes } from './RecordNotes'
 import { RecordHistory } from './RecordHistory'
 import { RecurringField } from './RecurringField'
 import { RecurringValue, checkAndResetRecurring } from '@/lib/recurring'
+import { Spinner } from './Spinner'
 
 interface RecordModalProps {
   recordId: string
@@ -25,6 +26,7 @@ export function RecordModal({ recordId, onClose, onSaved, onDeleted }: RecordMod
   const [editValues, setEditValues] = useState<Record<string, any>>({})
   const [showDelete, setShowDelete] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const { addToast } = useToast()
 
   useEffect(() => {
@@ -63,6 +65,7 @@ export function RecordModal({ recordId, onClose, onSaved, onDeleted }: RecordMod
   }
 
   const handleDelete = async () => {
+    setDeleting(true)
     try {
       await deleteRecordServer(record!.id)
       addToast('Record deleted', 'success')
@@ -70,6 +73,7 @@ export function RecordModal({ recordId, onClose, onSaved, onDeleted }: RecordMod
       onClose()
     } catch (e: any) {
       addToast(e.message || 'Failed to delete record', 'error')
+      setDeleting(false)
     }
   }
 
@@ -217,11 +221,12 @@ export function RecordModal({ recordId, onClose, onSaved, onDeleted }: RecordMod
                   disabled={saving}
                   className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 disabled:opacity-50"
                 >
-                  {saving ? 'Saving...' : 'Save Changes'}
+                  {saving ? <><Spinner className="h-4 w-4 mr-1.5" /> Saving...</> : 'Save Changes'}
                 </button>
                 <button
                   onClick={() => { setEditing(false); setEditValues(record.data) }}
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-border bg-background hover:bg-accent h-9 px-4"
+                  disabled={saving}
+                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-border bg-background hover:bg-accent h-9 px-4 disabled:opacity-50"
                 >
                   Cancel
                 </button>
@@ -244,9 +249,10 @@ export function RecordModal({ recordId, onClose, onSaved, onDeleted }: RecordMod
       <ConfirmDialog
         isOpen={showDelete}
         onConfirm={handleDelete}
-        onCancel={() => setShowDelete(false)}
+        onCancel={() => { setShowDelete(false); setDeleting(false) }}
         title="Delete Record"
         message={`Are you sure you want to delete this ${rt.name}? This action cannot be undone.`}
+        loading={deleting}
       />
     </>
   )

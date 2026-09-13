@@ -9,6 +9,7 @@ import { RecordNotes } from './RecordNotes'
 import { RecordHistory } from './RecordHistory'
 import { supabase } from '@/lib/supabase'
 import { useToast } from './Toast'
+import { Spinner } from './Spinner'
 
 interface RecordDetailProps {
   record: AppRecord
@@ -108,9 +109,10 @@ export function RecordDetail({ record, fields, recordTypeName }: RecordDetailPro
       <ConfirmDialog
         isOpen={showDelete}
         onConfirm={handleDelete}
-        onCancel={() => setShowDelete(false)}
+        onCancel={() => { setShowDelete(false); setDeleting(false) }}
         title="Delete Record"
         message={`Are you sure you want to delete this ${recordTypeName}? This action cannot be undone.`}
+        loading={deleting}
       />
     </div>
   )
