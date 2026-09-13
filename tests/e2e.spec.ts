@@ -171,3 +171,93 @@ test.describe('Performance', () => {
     expect(elapsed).toBeLessThan(3000)
   })
 })
+
+// ─── CRUD Through UI ────────────────────────────────────────────
+
+test.describe('Record CRUD via UI', () => {
+  test('create a record and verify it appears in list', async ({ page }) => {
+    await page.goto('/task/new')
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(2000)
+
+    // Fill in title
+    const titleInput = page.locator('input').first()
+    await titleInput.fill('E2E UI Test Record')
+
+    // Submit
+    const submitBtn = page.locator('button[type="submit"]')
+    await submitBtn.click()
+    await page.waitForTimeout(3000)
+
+    // Should redirect to detail page or list
+    const url = page.url()
+    expect(url).toContain('/task')
+  })
+
+  test('navigate to a record detail page via URL', async ({ page }) => {
+    // First get a valid record ID from the API
+    const res = await page.request.get(
+      'https://vhgcmdgmmvarkqjfcytj.supabase.co/rest/v1/records?record_type_id=eq.task&select=id&limit=1',
+      {
+        headers: {
+          apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZoZ2NtZGdtbXZhcmtxamZjeXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5ODE3MzcsImV4cCI6MjEwNDU1NzczN30.1S8WuGio75wlZb3BIPbiIMz2f--AZHR7de8_QmAMEwY',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZoZ2NtZGdtbXZhcmtxamZjeXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5ODE3MzcsImV4cCI6MjEwNDU1NzczN30.1S8WuGio75wlZb3BIPbiIMz2f--AZHR7de8_QmAMEwY',
+        },
+      }
+    )
+    const records = await res.json()
+    if (records.length === 0) return
+
+    await page.goto(`/task/${records[0].id}`)
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(2000)
+
+    // Should be on detail page
+    expect(page.url()).toContain(`/task/${records[0].id}`)
+
+    // Should have Edit and Delete buttons
+    const editBtn = page.locator('button', { hasText: 'Edit' })
+    const deleteBtn = page.locator('button', { hasText: 'Delete' })
+    expect(await editBtn.isVisible()).toBeTruthy()
+    expect(await deleteBtn.isVisible()).toBeTruthy()
+  })
+})
+
+// ─── Settings CRUD ──────────────────────────────────────────────
+
+test.describe('Settings CRUD', () => {
+  test('create and delete a record type', async ({ page }) => {
+    await page.goto('/settings')
+    await page.waitForTimeout(2000)
+
+    // Click New Record Type
+    await page.click('button:has-text("New Record Type")')
+    await page.waitForTimeout(1000)
+
+    // Fill in name
+    const nameInput = page.locator('input').first()
+    await nameInput.fill('E2E Test Type')
+
+    // Fill in slug
+    const slugInput = page.locator('input').nth(1)
+    await slugInput.fill(`e2e_test_${Date.now()}`)
+
+    // Add a field
+    const addFieldBtn = page.locator('button', { hasText: /add field/i })
+    if (await addFieldBtn.isVisible()) {
+      await addFieldBtn.click()
+      await page.waitForTimeout(500)
+    }
+
+    // Submit
+    const saveBtn = page.locator('button[type="submit"]')
+    if (await saveBtn.isVisible()) {
+      await saveBtn.click()
+      await page.waitForTimeout(3000)
+    }
+
+    // Verify the new type appears
+    const content = await page.content()
+    expect(content).toContain('E2E Test Type')
+  })
+})

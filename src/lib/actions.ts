@@ -78,11 +78,15 @@ export async function updateRecord(id: string, data: Record<string, string | num
 }
 
 export async function deleteRecord(id: string): Promise<void> {
+  await supabase.from('record_history').delete().eq('record_id', id)
+  await supabase.from('notes').delete().eq('record_id', id)
   const { error } = await supabase.from('records').delete().eq('id', id)
   if (error) throw new Error(error.message)
 }
 
 export async function deleteRecords(ids: string[]): Promise<void> {
+  await supabase.from('record_history').delete().in('record_id', ids)
+  await supabase.from('notes').delete().in('record_id', ids)
   const { error } = await supabase.from('records').delete().in('id', ids)
   if (error) throw new Error(error.message)
 }

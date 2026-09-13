@@ -17,7 +17,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 3
+      "actualWorkers": 4
     },
     "preserveOutput": "always",
     "projects": [
@@ -26,7 +26,7 @@
         "repeatEach": 1,
         "retries": 1,
         "metadata": {
-          "actualWorkers": 3
+          "actualWorkers": 4
         },
         "id": "api",
         "name": "api",
@@ -42,7 +42,23 @@
         "repeatEach": 1,
         "retries": 1,
         "metadata": {
-          "actualWorkers": 3
+          "actualWorkers": 4
+        },
+        "id": "crud",
+        "name": "crud",
+        "testDir": "D:/Onin/ocs/simple-orm/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "crud-lifecycle.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Onin/ocs/simple-orm/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 4
         },
         "id": "e2e",
         "name": "e2e",
@@ -58,7 +74,7 @@
         "repeatEach": 1,
         "retries": 1,
         "metadata": {
-          "actualWorkers": 3
+          "actualWorkers": 4
         },
         "id": "lighthouse",
         "name": "lighthouse",
@@ -132,12 +148,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1659,
+                      "duration": 987,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:10.049Z",
+                      "startTime": "2026-09-13T17:10:11.243Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -166,12 +182,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 285,
+                      "duration": 678,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:11.742Z",
+                      "startTime": "2026-09-13T17:10:12.272Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -200,12 +216,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 324,
+                      "duration": 244,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:12.041Z",
+                      "startTime": "2026-09-13T17:10:12.958Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -234,12 +250,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1070,
+                      "duration": 252,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:12.374Z",
+                      "startTime": "2026-09-13T17:10:13.210Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -276,12 +292,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 391,
+                      "duration": 238,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:13.453Z",
+                      "startTime": "2026-09-13T17:10:13.477Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -310,12 +326,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 275,
+                      "duration": 233,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:13.855Z",
+                      "startTime": "2026-09-13T17:10:13.721Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -344,12 +360,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 288,
+                      "duration": 253,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:14.144Z",
+                      "startTime": "2026-09-13T17:10:13.962Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -378,12 +394,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 719,
+                      "duration": 264,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:14.443Z",
+                      "startTime": "2026-09-13T17:10:14.222Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -420,12 +436,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 651,
+                      "duration": 945,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:15.172Z",
+                      "startTime": "2026-09-13T17:10:14.496Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -454,12 +470,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 329,
+                      "duration": 245,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:15.835Z",
+                      "startTime": "2026-09-13T17:10:15.450Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -488,12 +504,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 277,
+                      "duration": 298,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:16.181Z",
+                      "startTime": "2026-09-13T17:10:15.704Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -522,12 +538,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2026,
+                      "duration": 1152,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:16.469Z",
+                      "startTime": "2026-09-13T17:10:16.010Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -564,12 +580,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 501,
+                      "duration": 475,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:18.505Z",
+                      "startTime": "2026-09-13T17:10:17.171Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -598,12 +614,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 603,
+                      "duration": 493,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:19.017Z",
+                      "startTime": "2026-09-13T17:10:17.656Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -632,12 +648,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 606,
+                      "duration": 513,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:19.629Z",
+                      "startTime": "2026-09-13T17:10:18.157Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -666,12 +682,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 572,
+                      "duration": 452,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:20.258Z",
+                      "startTime": "2026-09-13T17:10:18.677Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -700,12 +716,12 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 553,
+                      "duration": 487,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:20.841Z",
+                      "startTime": "2026-09-13T17:10:19.139Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -742,16 +758,16 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 291,
+                      "duration": 242,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Read 100 records in 284ms\n"
+                          "text": "Read 100 records in 237ms\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:21.404Z",
+                      "startTime": "2026-09-13T17:10:19.633Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -780,16 +796,16 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 415,
+                      "duration": 240,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Read record_types in 391ms\n"
+                          "text": "Read record_types in 235ms\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:21.706Z",
+                      "startTime": "2026-09-13T17:10:19.883Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -818,16 +834,16 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 500,
+                      "duration": 479,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Read stacks with cards in 494ms\n"
+                          "text": "Read stacks with cards in 464ms\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:22.133Z",
+                      "startTime": "2026-09-13T17:10:20.130Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -838,6 +854,751 @@
               "id": "1ea1b1599cbc08f16936-2a9fc3024c50dc64dd02",
               "file": "api.spec.ts",
               "line": 253,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "crud-lifecycle.spec.ts",
+      "file": "crud-lifecycle.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Delete Record with History",
+          "file": "crud-lifecycle.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create record",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1723,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:11.233Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-4476fe619172de7cef35",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 18,
+              "column": 7
+            },
+            {
+              "title": "add history entry",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 256,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:12.992Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-e188f3ae489e1dacb695",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 28,
+              "column": 7
+            },
+            {
+              "title": "delete history then record (simulates app deleteRecord)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1100,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:13.256Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-b57fc328debd9ba1f743",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 36,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Delete Record (notes table unavailable)",
+          "file": "crud-lifecycle.spec.ts",
+          "line": 65,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create record",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 255,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:14.365Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-060a700cad8202d5885a",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 68,
+              "column": 7
+            },
+            {
+              "title": "delete record (notes delete may 404, but record still deletes)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 482,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:14.637Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-547400e98cb6725aad7a",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 78,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Bulk Delete with History",
+          "file": "crud-lifecycle.spec.ts",
+          "line": 95,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create 3 records with history",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1445,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:15.126Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-df06aa43c077caeb36af",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 98,
+              "column": 7
+            },
+            {
+              "title": "bulk delete with history cleanup",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1126,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:16.580Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-7e4b067d9fdc6f6bd4fb",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 115,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Record Type Cascade Delete",
+          "file": "crud-lifecycle.spec.ts",
+          "line": 132,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create record type with records and stack",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1149,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:17.719Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-0f5502f9c2f0315bee9e",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 137,
+              "column": 7
+            },
+            {
+              "title": "delete record type cascades to records, stacks, cards",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1034,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:18.879Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-9ed3d727057e24aca343",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 179,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Edge Cases",
+          "file": "crud-lifecycle.spec.ts",
+          "line": 211,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create record with null values",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 255,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:19.924Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-ced0af6b502d60088042",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 214,
+              "column": 7
+            },
+            {
+              "title": "update record with empty string",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 244,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:20.186Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-a4830c03094f654c6d81",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 226,
+              "column": 7
+            },
+            {
+              "title": "update record with special characters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 254,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:20.438Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-6ec3c2dd93be315bd830",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 236,
+              "column": 7
+            },
+            {
+              "title": "update record with unicode",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 315,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:20.701Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-d91e324374ae882d9eaa",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 247,
+              "column": 7
+            },
+            {
+              "title": "cleanup",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 473,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:21.025Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-ae84bccf8a310ee0d00d",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 257,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Populate Stack with Filters",
+          "file": "crud-lifecycle.spec.ts",
+          "line": 265,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create stack with priority=high filter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 255,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:21.506Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-71d19811678c9a738eff",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 268,
+              "column": 7
+            },
+            {
+              "title": "stack was created with correct filter",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 704,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:21.776Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-27d2a9237a4923a19fbc",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 284,
+              "column": 7
+            },
+            {
+              "title": "cleanup",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 489,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:22.489Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-f9aec6096d7c9e96f7c0",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 295,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Stack Card Reorder",
+          "file": "crud-lifecycle.spec.ts",
+          "line": 304,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create stack with 3 cards",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1689,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:22.987Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-76acb3fe03cafbe8a578",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 308,
+              "column": 7
+            },
+            {
+              "title": "reorder via individual updates (simulates app reorderStackCards)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 538,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:24.683Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-afabae9239767a57fea2",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 335,
+              "column": 7
+            },
+            {
+              "title": "cleanup",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "crud",
+                  "projectName": "crud",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 508,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:25.229Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f5a8afc0ec1c85aa2e-a8d5a77d62276b1dc27e",
+              "file": "crud-lifecycle.spec.ts",
+              "line": 358,
               "column": 7
             }
           ]
@@ -870,15 +1631,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 5429,
+                      "duration": 2265,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:10.046Z",
+                      "startTime": "2026-09-13T17:10:11.274Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -904,15 +1665,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 3325,
+                      "duration": 2090,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:15.807Z",
+                      "startTime": "2026-09-13T17:10:13.633Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -938,15 +1699,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 3528,
+                      "duration": 2024,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:19.150Z",
+                      "startTime": "2026-09-13T17:10:15.735Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -972,15 +1733,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 2943,
+                      "duration": 2059,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:22.699Z",
+                      "startTime": "2026-09-13T17:10:17.770Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1006,15 +1767,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 3084,
+                      "duration": 2012,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:25.663Z",
+                      "startTime": "2026-09-13T17:10:19.845Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1040,15 +1801,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 3218,
+                      "duration": 3291,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:28.761Z",
+                      "startTime": "2026-09-13T17:10:21.878Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1074,15 +1835,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 2084,
+                      "duration": 2010,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:31.995Z",
+                      "startTime": "2026-09-13T17:10:25.181Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1116,15 +1877,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 2040,
+                      "duration": 2131,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:34.093Z",
+                      "startTime": "2026-09-13T17:10:27.204Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1158,15 +1919,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 5363,
+                      "duration": 5057,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:36.145Z",
+                      "startTime": "2026-09-13T17:10:29.349Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1192,15 +1953,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 1616,
+                      "duration": 1222,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:41.526Z",
+                      "startTime": "2026-09-13T17:10:34.417Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1234,15 +1995,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 2481,
+                      "duration": 2366,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:43.163Z",
+                      "startTime": "2026-09-13T17:10:35.649Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1268,15 +2029,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 2505,
+                      "duration": 2725,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:45.656Z",
+                      "startTime": "2026-09-13T17:10:38.025Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1310,15 +2071,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 3413,
+                      "duration": 3376,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:48.173Z",
+                      "startTime": "2026-09-13T17:10:40.759Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1344,15 +2105,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 3558,
+                      "duration": 3490,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:51.595Z",
+                      "startTime": "2026-09-13T17:10:44.147Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1386,15 +2147,15 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 1717,
+                      "duration": 1911,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:55.165Z",
+                      "startTime": "2026-09-13T17:10:47.646Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1428,19 +2189,19 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 2140,
+                      "duration": 2242,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Task page loaded in 2040ms\n"
+                          "text": "Task page loaded in 2162ms\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:56.893Z",
+                      "startTime": "2026-09-13T17:10:49.565Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1466,19 +2227,19 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 2682,
+                      "duration": 3088,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Stacks page loaded in 2575ms\n"
+                          "text": "Stacks page loaded in 3005ms\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:59.042Z",
+                      "startTime": "2026-09-13T17:10:51.815Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1504,19 +2265,19 @@
                   "projectName": "e2e",
                   "results": [
                     {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
                       "status": "passed",
-                      "duration": 2326,
+                      "duration": 1818,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "Settings page loaded in 2222ms\n"
+                          "text": "Settings page loaded in 1732ms\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:47:01.736Z",
+                      "startTime": "2026-09-13T17:10:54.913Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1527,6 +2288,124 @@
               "id": "b1c7859d981cc20c96be-d634d5cfbce7bcd10395",
               "file": "e2e.spec.ts",
               "line": 165,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Record CRUD via UI",
+          "file": "e2e.spec.ts",
+          "line": 177,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create a record and verify it appears in list",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 7059,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:10:56.742Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-9574a234469e5d0d30c9",
+              "file": "e2e.spec.ts",
+              "line": 178,
+              "column": 7
+            },
+            {
+              "title": "navigate to a record detail page via URL",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 5884,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:11:03.811Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-aed40277d43d7138fbf0",
+              "file": "e2e.spec.ts",
+              "line": 197,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Settings CRUD",
+          "file": "e2e.spec.ts",
+          "line": 228,
+          "column": 6,
+          "specs": [
+            {
+              "title": "create and delete a record type",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 7070,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-13T17:11:09.708Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b1c7859d981cc20c96be-7a690fde3af0c5c8fa29",
+              "file": "e2e.spec.ts",
+              "line": 229,
               "column": 7
             }
           ]
@@ -1559,46 +2438,46 @@
                   "projectName": "lighthouse",
                   "results": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 5429,
+                      "duration": 2517,
                       "errors": [],
                       "stdout": [
                         {
                           "text": "\n=== /task Performance Metrics ===\n"
                         },
                         {
-                          "text": "DNS Lookup:     41ms\n"
+                          "text": "DNS Lookup:     4ms\n"
                         },
                         {
-                          "text": "TCP Connect:    80ms\n"
+                          "text": "TCP Connect:    82ms\n"
                         },
                         {
-                          "text": "TTFB:           36ms\n"
+                          "text": "TTFB:           38ms\n"
                         },
                         {
-                          "text": "First Paint:    2832ms\n"
+                          "text": "First Paint:    792ms\n"
                         },
                         {
-                          "text": "FCP:            2832ms\n"
+                          "text": "FCP:            792ms\n"
                         },
                         {
-                          "text": "DOM Ready:      2811ms\n"
+                          "text": "DOM Ready:      798ms\n"
                         },
                         {
-                          "text": "Load:           3470ms\n"
+                          "text": "Load:           798ms\n"
                         },
                         {
-                          "text": "Resources:      27\n"
+                          "text": "Resources:      28\n"
                         },
                         {
-                          "text": "Transfer Size:  223.4KB\n"
+                          "text": "Transfer Size:  223.8KB\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:10.038Z",
+                      "startTime": "2026-09-13T17:10:11.243Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1624,10 +2503,10 @@
                   "projectName": "lighthouse",
                   "results": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 4432,
+                      "duration": 3542,
                       "errors": [],
                       "stdout": [
                         {
@@ -1643,27 +2522,27 @@
                           "text": "TTFB:           35ms\n"
                         },
                         {
-                          "text": "First Paint:    500ms\n"
+                          "text": "First Paint:    212ms\n"
                         },
                         {
-                          "text": "FCP:            500ms\n"
+                          "text": "FCP:            212ms\n"
                         },
                         {
-                          "text": "DOM Ready:      484ms\n"
+                          "text": "DOM Ready:      201ms\n"
                         },
                         {
-                          "text": "Load:           530ms\n"
+                          "text": "Load:           251ms\n"
                         },
                         {
                           "text": "Resources:      27\n"
                         },
                         {
-                          "text": "Transfer Size:  229.6KB\n"
+                          "text": "Transfer Size:  228.4KB\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:15.809Z",
+                      "startTime": "2026-09-13T17:10:13.870Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1689,10 +2568,10 @@
                   "projectName": "lighthouse",
                   "results": [
                     {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
                       "status": "passed",
-                      "duration": 2387,
+                      "duration": 2291,
                       "errors": [],
                       "stdout": [
                         {
@@ -1702,33 +2581,33 @@
                           "text": "DNS Lookup:     1ms\n"
                         },
                         {
-                          "text": "TCP Connect:    78ms\n"
+                          "text": "TCP Connect:    83ms\n"
                         },
                         {
-                          "text": "TTFB:           36ms\n"
+                          "text": "TTFB:           37ms\n"
                         },
                         {
-                          "text": "First Paint:    452ms\n"
+                          "text": "First Paint:    260ms\n"
                         },
                         {
-                          "text": "FCP:            452ms\n"
+                          "text": "FCP:            260ms\n"
                         },
                         {
-                          "text": "DOM Ready:      440ms\n"
+                          "text": "DOM Ready:      256ms\n"
                         },
                         {
-                          "text": "Load:           491ms\n"
+                          "text": "Load:           271ms\n"
                         },
                         {
-                          "text": "Resources:      26\n"
+                          "text": "Resources:      27\n"
                         },
                         {
-                          "text": "Transfer Size:  215.2KB\n"
+                          "text": "Transfer Size:  215.6KB\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-12T09:46:20.257Z",
+                      "startTime": "2026-09-13T17:10:17.422Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -1748,9 +2627,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-09-12T09:46:09.448Z",
-    "duration": 54719.308,
-    "expected": 41,
+    "startTime": "2026-09-13T17:10:10.669Z",
+    "duration": 66196.967,
+    "expected": 64,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

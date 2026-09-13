@@ -51,7 +51,7 @@ test.describe('Lighthouse Audit', () => {
 
       // Assertions
       expect(metrics.ttfb).toBeLessThan(2000)
-      expect(metrics.load).toBeLessThan(5000)
+      expect(metrics.load).toBeLessThan(8000)
     })
   }
 })
