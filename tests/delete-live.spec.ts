@@ -20,7 +20,8 @@ test('FULL E2E: create task via UI → delete via UI → verify DB', async ({ pa
   // 2. Fill the title field
   const titleInput = page.locator('input').first();
   await expect(titleInput).toBeVisible({ timeout: 10000 });
-  await titleInput.fill('E2E Delete Test ' + Date.now());
+  const testTitle = 'E2E Delete Test ' + Date.now();
+  await titleInput.fill(testTitle);
 
   // 3. Submit form
   await page.locator('button[type="submit"]').click();
@@ -32,13 +33,14 @@ test('FULL E2E: create task via UI → delete via UI → verify DB', async ({ pa
 
   // 5. Find the record we just created via DB
   const listRes = await request.get(
-    `${SUPABASE_URL}/rest/v1/records?record_type_id=eq.task&select=id,data&order=created_at.desc&limit=1`,
+    `${SUPABASE_URL}/rest/v1/records?record_type_id=eq.task&select=id,data&order=created_at.desc&limit=5`,
     { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
   );
-  const latest = (await listRes.json())[0];
+  const allRecent = await listRes.json();
+  const latest = allRecent.find((r: any) => r.data.title === testTitle);
+  expect(latest).toBeTruthy();
   const recordId = latest.id;
   console.log('Created record:', recordId, 'title:', latest.data.title);
-  expect(latest.data.title).toContain('E2E Delete Test');
 
   // 6. Navigate to detail page
   await page.goto(`${PROD_URL}/task/${recordId}`);

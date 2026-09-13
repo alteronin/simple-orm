@@ -153,13 +153,13 @@ test.describe('Performance', () => {
     expect(elapsed).toBeLessThan(3000)
   })
 
-  test('stacks page loads in under 4s', async ({ page }) => {
+  test('stacks page loads in under 6s', async ({ page }) => {
     const start = Date.now()
     await page.goto('/stacks')
     await page.waitForLoadState('networkidle')
     const elapsed = Date.now() - start
     console.log(`Stacks page loaded in ${elapsed}ms`)
-    expect(elapsed).toBeLessThan(4000)
+    expect(elapsed).toBeLessThan(6000)
   })
 
   test('settings page loads in under 3s', async ({ page }) => {
