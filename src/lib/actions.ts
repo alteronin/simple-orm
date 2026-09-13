@@ -483,15 +483,15 @@ export async function resetAllRecurringTasks(): Promise<number> {
   const { data: types } = await supabase
     .from('record_types')
     .select('id, fields')
-    .contains('fields', [{ name: 'done', type: 'boolean' }])
 
   if (!types) return 0
 
   let total = 0
   for (const rt of types) {
     const fields = rt.fields as FieldDefinition[]
+    const hasDone = fields.some(f => f.name === 'done' && f.type === 'boolean')
     const hasRecurrence = fields.some(f => f.name === 'recurrence')
-    if (!hasRecurrence) continue
+    if (!hasDone || !hasRecurrence) continue
     try { total += await resetRecurringTasks(rt.id) } catch {}
   }
   return total
