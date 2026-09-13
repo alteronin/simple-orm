@@ -1,0 +1,279 @@
+[04:00:49] ============================================
+[04:00:49]   simple-orm Test Runner
+[04:00:49]   2026-09-14 04:00:49
+[04:00:49] ============================================
+[04:00:49] 
+[04:00:49] Building project...
+[04:01:36] Build successful
+[04:01:36] 
+[04:01:36] --------------------------------------------
+[04:01:36] Running: api tests
+[04:01:36] --------------------------------------------
+[04:01:46]   api : 20 passed, 0 failed, 0 flaky
+
+=== api tests ===
+
+Running 20 tests using 1 worker
+
+  ok  1 [api] GÇ¦ tests\api.spec.ts:18:7 GÇ¦ Record Type CRUD GÇ¦ create record type (978ms)
+  ok  2 [api] GÇ¦ tests\api.spec.ts:33:7 GÇ¦ Record Type CRUD GÇ¦ read record type (592ms)
+  ok  3 [api] GÇ¦ tests\api.spec.ts:44:7 GÇ¦ Record Type CRUD GÇ¦ update record type (271ms)
+  ok  4 [api] GÇ¦ tests\api.spec.ts:57:7 GÇ¦ Record Type CRUD GÇ¦ delete record type (269ms)
+  ok  5 [api] GÇ¦ tests\api.spec.ts:71:7 GÇ¦ Record CRUD GÇ¦ create record (258ms)
+  ok  6 [api] GÇ¦ tests\api.spec.ts:85:7 GÇ¦ Record CRUD GÇ¦ read record (255ms)
+  ok  7 [api] GÇ¦ tests\api.spec.ts:95:7 GÇ¦ Record CRUD GÇ¦ update record (624ms)
+  ok  8 [api] GÇ¦ tests\api.spec.ts:108:7 GÇ¦ Record CRUD GÇ¦ delete record (240ms)
+  ok  9 [api] GÇ¦ tests\api.spec.ts:122:7 GÇ¦ Stack CRUD + Filters GÇ¦ create stack with filter (264ms)
+  ok 10 [api] GÇ¦ tests\api.spec.ts:139:7 GÇ¦ Stack CRUD + Filters GÇ¦ read stack with filters (257ms)
+  ok 11 [api] GÇ¦ tests\api.spec.ts:149:7 GÇ¦ Stack CRUD + Filters GÇ¦ update stack filters (256ms)
+  ok 12 [api] GÇ¦ tests\api.spec.ts:166:7 GÇ¦ Stack CRUD + Filters GÇ¦ cascade delete stack + cards (1.1s)
+  ok 13 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "settings" (519ms)
+  ok 14 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "stacks" (471ms)
+  ok 15 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "api" (502ms)
+  ok 16 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "new" (472ms)
+  ok 17 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "edit" (453ms)
+Read 5 records in 237ms
+  ok 18 [api] GÇ¦ tests\api.spec.ts:228:7 GÇ¦ Performance GÇ¦ read 100 records < 2s (241ms)
+Read record_types in 261ms
+  ok 19 [api] GÇ¦ tests\api.spec.ts:241:7 GÇ¦ Performance GÇ¦ read record_types < 500ms (267ms)
+Read stacks with cards in 247ms
+  ok 20 [api] GÇ¦ tests\api.spec.ts:253:7 GÇ¦ Performance GÇ¦ read stacks with cards < 1s (251ms)
+
+  20 passed (9.2s)
+
+[04:01:46] 
+[04:01:46] --------------------------------------------
+[04:01:46] Running: crud tests
+[04:01:46] --------------------------------------------
+[04:01:59]   crud : 20 passed, 0 failed, 0 flaky
+
+=== crud tests ===
+
+Running 20 tests using 1 worker
+
+  ok  1 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:18:7 GÇ¦ Delete Record with History GÇ¦ create record (317ms)
+  ok  2 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:28:7 GÇ¦ Delete Record with History GÇ¦ add history entry (246ms)
+  ok  3 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:36:7 GÇ¦ Delete Record with History GÇ¦ delete history then record (simulates app deleteRecord) (711ms)
+  ok  4 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:68:7 GÇ¦ Delete Record (notes table unavailable) GÇ¦ create record (255ms)
+  ok  5 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:78:7 GÇ¦ Delete Record (notes table unavailable) GÇ¦ delete record (notes delete may 404, but record still deletes) (484ms)
+  ok  6 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:98:7 GÇ¦ Bulk Delete with History GÇ¦ create 3 records with history (1.4s)
+  ok  7 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:115:7 GÇ¦ Bulk Delete with History GÇ¦ bulk delete with history cleanup (959ms)
+  ok  8 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:137:7 GÇ¦ Record Type Cascade Delete GÇ¦ create record type with records and stack (975ms)
+  ok  9 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:179:7 GÇ¦ Record Type Cascade Delete GÇ¦ delete record type cascades to records, stacks, cards (950ms)
+  ok 10 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:214:7 GÇ¦ Edge Cases GÇ¦ create record with null values (249ms)
+  ok 11 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:226:7 GÇ¦ Edge Cases GÇ¦ update record with empty string (229ms)
+  ok 12 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:236:7 GÇ¦ Edge Cases GÇ¦ update record with special characters (264ms)
+  ok 13 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:247:7 GÇ¦ Edge Cases GÇ¦ update record with unicode (246ms)
+  ok 14 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:257:7 GÇ¦ Edge Cases GÇ¦ cleanup (475ms)
+  ok 15 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:268:7 GÇ¦ Populate Stack with Filters GÇ¦ create stack with priority=high filter (234ms)
+  ok 16 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:284:7 GÇ¦ Populate Stack with Filters GÇ¦ stack was created with correct filter (244ms)
+  ok 17 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:295:7 GÇ¦ Populate Stack with Filters GÇ¦ cleanup (470ms)
+  ok 18 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:308:7 GÇ¦ Stack Card Reorder GÇ¦ create stack with 3 cards (1.2s)
+  ok 19 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:335:7 GÇ¦ Stack Card Reorder GÇ¦ reorder via individual updates (simulates app reorderStackCards) (518ms)
+  ok 20 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:358:7 GÇ¦ Stack Card Reorder GÇ¦ cleanup (468ms)
+
+  20 passed (11.5s)
+
+[04:01:59] 
+[04:01:59] --------------------------------------------
+[04:01:59] Running: e2e tests
+[04:01:59] --------------------------------------------
+[04:04:15]   e2e : 20 passed, 1 failed, 1 flaky
+
+=== e2e tests ===
+
+Running 22 tests using 1 worker
+
+  x   1 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /task loads and shows heading (12.8s)
+  ok  2 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /task loads and shows heading (retry #1) (3.7s)
+  ok  3 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /goal loads and shows heading (4.0s)
+  ok  4 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /note loads and shows heading (4.0s)
+  ok  5 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /event loads and shows heading (3.6s)
+  ok  6 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /backlog loads and shows heading (4.0s)
+  ok  7 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /stacks loads and shows heading (6.0s)
+  ok  8 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /settings loads and shows heading (3.0s)
+  ok  9 [e2e] GÇ¦ tests\e2e.spec.ts:32:7 GÇ¦ Navigation GÇ¦ sidebar links work (4.0s)
+  ok 10 [e2e] GÇ¦ tests\e2e.spec.ts:49:7 GÇ¦ Record List GÇ¦ task list shows records (6.2s)
+  ok 11 [e2e] GÇ¦ tests\e2e.spec.ts:65:7 GÇ¦ Record List GÇ¦ search filters records (1.7s)
+  ok 12 [e2e] GÇ¦ tests\e2e.spec.ts:84:7 GÇ¦ Settings GÇ¦ settings page shows record types (2.4s)
+  ok 13 [e2e] GÇ¦ tests\e2e.spec.ts:92:7 GÇ¦ Settings GÇ¦ New Record Type button opens form (2.4s)
+  ok 14 [e2e] GÇ¦ tests\e2e.spec.ts:105:7 GÇ¦ Stacks GÇ¦ stacks page loads with board (4.6s)
+  ok 15 [e2e] GÇ¦ tests\e2e.spec.ts:116:7 GÇ¦ Stacks GÇ¦ New Stack button opens modal (4.5s)
+  ok 16 [e2e] GÇ¦ tests\e2e.spec.ts:131:7 GÇ¦ Responsive GÇ¦ mobile viewport shows sidebar toggle (2.2s)
+Task page loaded in 3040ms
+  x  17 [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s (3.2s)
+Task page loaded in 3041ms
+  x  18 [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s (retry #1) (3.2s)
+Stacks page loaded in 4674ms
+  ok 19 [e2e] GÇ¦ tests\e2e.spec.ts:156:7 GÇ¦ Performance GÇ¦ stacks page loads in under 6s (4.8s)
+Settings page loaded in 2353ms
+  ok 20 [e2e] GÇ¦ tests\e2e.spec.ts:165:7 GÇ¦ Performance GÇ¦ settings page loads in under 3s (2.4s)
+  ok 21 [e2e] GÇ¦ tests\e2e.spec.ts:187:7 GÇ¦ Full CRUD Lifecycle via UI GÇ¦ create via API GåÆ delete via UI GåÆ verify gone from DB (13.6s)
+  ok 22 [e2e] GÇ¦ tests\e2e.spec.ts:225:7 GÇ¦ Full CRUD Lifecycle via UI GÇ¦ create via UI GåÆ delete via detail page GåÆ verify gone (21.7s)
+  ok 23 [e2e] GÇ¦ tests\e2e.spec.ts:270:7 GÇ¦ Bulk Delete via UI GÇ¦ bulk delete records via API (simulates app logic) and verify (1.7s)
+  ok 24 [e2e] GÇ¦ tests\e2e.spec.ts:303:7 GÇ¦ Settings CRUD via UI GÇ¦ create record type GåÆ verify accessible GåÆ delete cleanup (12.1s)
+
+
+  1) [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 3000
+    Received:   3040
+
+      151 |     const elapsed = Date.now() - start
+      152 |     console.log(`Task page loaded in ${elapsed}ms`)
+    > 153 |     expect(elapsed).toBeLessThan(3000)
+          |                     ^
+      154 |   })
+      155 |
+      156 |   test('stacks page loads in under 6s', async ({ page }) => {
+        at D:\Onin\ocs\simple-orm\tests\e2e.spec.ts:153:21
+
+    attachment #1: screenshot (image/png) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\test-failed-1.png
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error Context: test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\error-context.md
+
+    attachment #3: trace (application/zip) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\trace.zip
+
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Retry #1 GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 3000
+    Received:   3041
+
+      151 |     const elapsed = Date.now() - start
+      152 |     console.log(`Task page loaded in ${elapsed}ms`)
+    > 153 |     expect(elapsed).toBeLessThan(3000)
+          |                     ^
+      154 |   })
+      155 |
+      156 |   test('stacks page loads in under 6s', async ({ page }) => {
+        at D:\Onin\ocs\simple-orm\tests\e2e.spec.ts:153:21
+
+    attachment #1: screenshot (image/png) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\test-failed-1.png
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error Context: test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\error-context.md
+
+    attachment #3: trace (application/zip) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\trace.zip
+
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+  2) [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /task loads and shows heading GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('h1').first()
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" locator('h1').first() with timeout 5000ms
+      - waiting for locator('h1').first()
+
+
+      21 |       await page.waitForLoadState('networkidle')
+      22 |       const h1 = page.locator('h1')
+    > 23 |       await expect(h1.first()).toBeVisible()
+         |                                ^
+      24 |       await expect(h1.first()).toHaveText(heading)
+      25 |     })
+      26 |   }
+        at D:\Onin\ocs\simple-orm\tests\e2e.spec.ts:23:32
+
+    attachment #1: screenshot (image/png) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Page-Loads-task-loads-and-shows-heading-e2e\test-failed-1.png
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error Context: test-results\e2e-Page-Loads-task-loads-and-shows-heading-e2e\error-context.md
+
+    attachment #3: trace (application/zip) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Page-Loads-task-loads-and-shows-heading-e2e\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\e2e-Page-Loads-task-loads-and-shows-heading-e2e\trace.zip
+
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+  1 failed
+    [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+  1 flaky
+    [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /task loads and shows heading GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+  20 passed (2.2m)
+
+[04:04:15] 
+[04:04:15] --------------------------------------------
+[04:04:15] Running: lighthouse tests
+[04:04:15] --------------------------------------------
+[04:04:29]   lighthouse : 3 passed, 0 failed, 0 flaky
+
+=== lighthouse tests ===
+
+Running 3 tests using 1 worker
+
+
+=== /task Performance Metrics ===
+DNS Lookup:     5ms
+TCP Connect:    75ms
+TTFB:           35ms
+First Paint:    992ms
+FCP:            992ms
+DOM Ready:      962ms
+Load:           1009ms
+Resources:      35
+Transfer Size:  198.4KB
+  ok 1 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /task - performance audit (3.2s)
+
+=== /stacks Performance Metrics ===
+DNS Lookup:     0ms
+TCP Connect:    72ms
+TTFB:           33ms
+First Paint:    2008ms
+FCP:            2008ms
+DOM Ready:      1995ms
+Load:           2043ms
+Resources:      39
+Transfer Size:  221.5KB
+  ok 2 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /stacks - performance audit (6.3s)
+
+=== /settings Performance Metrics ===
+DNS Lookup:     1ms
+TCP Connect:    72ms
+TTFB:           33ms
+First Paint:    252ms
+FCP:            252ms
+DOM Ready:      230ms
+Load:           257ms
+Resources:      34
+Transfer Size:  190.5KB
+  ok 3 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /settings - performance audit (2.4s)
+
+  3 passed (12.4s)
+
+[04:04:29] 
+[04:04:29] ============================================
+[04:04:29]   SUMMARY
+[04:04:29] ============================================
+[04:04:29]   Total passed:  63
+[04:04:29]   Total failed:  1
+[04:04:29]   Total flaky:   1
+[04:04:29] 
+[04:04:29] Results saved to: tests\results.json
+[04:04:29] HTML report: tests\report\index.html
+[04:04:29] Full log: tests\logs\test-run-2026-09-14_04-00-49.log

@@ -67,16 +67,16 @@ foreach ($proj in $projects) {
     Write-Log "Running: $proj tests" "Yellow"
     Write-Log "--------------------------------------------" "DarkGray"
 
-    $args = @("test", "--project=$proj", "--reporter=list", "--retries=1")
+    $testArgs = @("test", "--project=$proj", "--reporter=list", "--retries=1")
     if ($Filter) {
-        $args += "-g"
-        $args += $Filter
+        $testArgs += "-g"
+        $testArgs += $Filter
     }
 
-    $output = npx playwright test @args 2>&1 | Out-String
+    $output = npx playwright test @testArgs 2>&1 | Out-String
     $exitCode = $LASTEXITCODE
 
-    # Parse results
+    # Parse results from summary line (e.g. "20 passed (7.7s)" or "1 failed, 20 passed")
     $passed = 0
     $failed = 0
     $flaky = 0
@@ -97,13 +97,22 @@ foreach ($proj in $projects) {
     # Extract individual test results
     $lines = $output -split "`n"
     foreach ($line in $lines) {
-        if ($line -match '^\s*(ok|✗|✘)\s+\d+\s+\[.*?\]\s+›\s+(.+)') {
-            $testStatus = $Matches[1]
-            $testName = $Matches[2].Trim()
+        if ($line -match '^\s*ok\s+\d+') {
+            $name = [regex]::Replace($line, '^\s*ok\s+\d+\s+\[[^\]]+\]\s+.', '')
+            $name = [regex]::Replace($name, '\s*\([\d.]+s\)\s*$', '')
             $testResults += [PSCustomObject]@{
                 Project = $proj
-                Test    = $testName
-                Status  = if ($testStatus -eq "ok") { "PASS" } else { "FAIL" }
+                Test    = $name.Trim()
+                Status  = "PASS"
+            }
+        }
+        elseif ($line -match '^\s*x\s+\d+') {
+            $name = [regex]::Replace($line, '^\s*x\s+\d+\s+\[[^\]]+\]\s+.', '')
+            $name = [regex]::Replace($name, '\s*\([\d.]+s\)\s*$', '')
+            $testResults += [PSCustomObject]@{
+                Project = $proj
+                Test    = $name.Trim()
+                Status  = "FAIL"
             }
         }
     }

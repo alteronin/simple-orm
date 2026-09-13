@@ -1,0 +1,691 @@
+[03:48:54] ============================================
+[03:48:54]   simple-orm Test Runner
+[03:48:54]   2026-09-14 03:48:54
+[03:48:54] ============================================
+[03:48:54] 
+[03:48:54] Building project...
+[03:49:08] Build successful
+[03:49:08] 
+[03:49:08] --------------------------------------------
+[03:49:08] Running: api tests
+[03:49:08] --------------------------------------------
+[03:51:13]   api : 65 passed, 1 failed, 0 flaky
+
+=== api tests ===
+
+Running 66 tests using 5 workers
+
+  ok  1 [api] GÇ¦ tests\api.spec.ts:18:7 GÇ¦ Record Type CRUD GÇ¦ create record type (722ms)
+  ok  5 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:18:7 GÇ¦ Delete Record with History GÇ¦ create record (695ms)
+  ok  7 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:28:7 GÇ¦ Delete Record with History GÇ¦ add history entry (266ms)
+  ok  6 [api] GÇ¦ tests\api.spec.ts:33:7 GÇ¦ Record Type CRUD GÇ¦ read record type (638ms)
+  ok  9 [api] GÇ¦ tests\api.spec.ts:44:7 GÇ¦ Record Type CRUD GÇ¦ update record type (259ms)
+  ok  8 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:36:7 GÇ¦ Delete Record with History GÇ¦ delete history then record (simulates app deleteRecord) (801ms)
+  ok 10 [api] GÇ¦ tests\api.spec.ts:57:7 GÇ¦ Record Type CRUD GÇ¦ delete record type (235ms)
+  ok 11 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:68:7 GÇ¦ Delete Record (notes table unavailable) GÇ¦ create record (248ms)
+  ok 12 [api] GÇ¦ tests\api.spec.ts:71:7 GÇ¦ Record CRUD GÇ¦ create record (244ms)
+  ok 14 [api] GÇ¦ tests\api.spec.ts:85:7 GÇ¦ Record CRUD GÇ¦ read record (253ms)
+  ok 13 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:78:7 GÇ¦ Delete Record (notes table unavailable) GÇ¦ delete record (notes delete may 404, but record still deletes) (476ms)
+  ok 15 [api] GÇ¦ tests\api.spec.ts:95:7 GÇ¦ Record CRUD GÇ¦ update record (249ms)
+  ok 17 [api] GÇ¦ tests\api.spec.ts:108:7 GÇ¦ Record CRUD GÇ¦ delete record (242ms)
+  ok 18 [api] GÇ¦ tests\api.spec.ts:122:7 GÇ¦ Stack CRUD + Filters GÇ¦ create stack with filter (239ms)
+  ok 19 [api] GÇ¦ tests\api.spec.ts:139:7 GÇ¦ Stack CRUD + Filters GÇ¦ read stack with filters (246ms)
+  ok 20 [api] GÇ¦ tests\api.spec.ts:149:7 GÇ¦ Stack CRUD + Filters GÇ¦ update stack filters (233ms)
+
+=== /task Performance Metrics ===
+DNS Lookup:     3ms
+TCP Connect:    76ms
+TTFB:           35ms
+First Paint:    1408ms
+FCP:            1408ms
+DOM Ready:      1387ms
+Load:           1424ms
+Resources:      33
+Transfer Size:  197.6KB
+  ok  2 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /task - performance audit (3.6s)
+  ok 16 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:98:7 GÇ¦ Bulk Delete with History GÇ¦ create 3 records with history (1.4s)
+  ok  4 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /task loads and shows heading (4.2s)
+  ok 21 [api] GÇ¦ tests\api.spec.ts:166:7 GÇ¦ Stack CRUD + Filters GÇ¦ cascade delete stack + cards (1.1s)
+  ok 23 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:115:7 GÇ¦ Bulk Delete with History GÇ¦ bulk delete with history cleanup (941ms)
+  ok 25 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "settings" (453ms)
+  ok 27 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "stacks" (473ms)
+  ok 26 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:137:7 GÇ¦ Record Type Cascade Delete GÇ¦ create record type with records and stack (962ms)
+  ok 28 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "api" (484ms)
+  ok 30 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "new" (461ms)
+  ok 29 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:179:7 GÇ¦ Record Type Cascade Delete GÇ¦ delete record type cascades to records, stacks, cards (920ms)
+  ok 32 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:214:7 GÇ¦ Edge Cases GÇ¦ create record with null values (244ms)
+  ok 31 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "edit" (439ms)
+  ok 33 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:226:7 GÇ¦ Edge Cases GÇ¦ update record with empty string (233ms)
+Read 7 records in 248ms
+  ok 34 [api] GÇ¦ tests\api.spec.ts:228:7 GÇ¦ Performance GÇ¦ read 100 records < 2s (252ms)
+  ok 35 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:236:7 GÇ¦ Edge Cases GÇ¦ update record with special characters (259ms)
+Read record_types in 385ms
+  ok 36 [api] GÇ¦ tests\api.spec.ts:241:7 GÇ¦ Performance GÇ¦ read record_types < 500ms (388ms)
+  ok 37 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:247:7 GÇ¦ Edge Cases GÇ¦ update record with unicode (252ms)
+  ok 24 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /goal loads and shows heading (3.5s)
+Read stacks with cards in 247ms
+  ok 38 [api] GÇ¦ tests\api.spec.ts:253:7 GÇ¦ Performance GÇ¦ read stacks with cards < 1s (251ms)
+After create URL: https://simple-orm.vercel.app/task
+  ok 39 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:257:7 GÇ¦ Edge Cases GÇ¦ cleanup (449ms)
+Created record: 6db7b1ac-f04e-45ed-a62e-11d2c20173e5 title: E2E Delete Test 1789328955952
+  ok 41 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:268:7 GÇ¦ Populate Stack with Filters GÇ¦ create stack with priority=high filter (247ms)
+  ok 42 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:284:7 GÇ¦ Populate Stack with Filters GÇ¦ stack was created with correct filter (266ms)
+  ok 43 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:295:7 GÇ¦ Populate Stack with Filters GÇ¦ cleanup (457ms)
+  ok 44 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:308:7 GÇ¦ Stack Card Reorder GÇ¦ create stack with 3 cards (1.1s)
+  ok 40 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /note loads and shows heading (3.0s)
+  ok 45 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:335:7 GÇ¦ Stack Card Reorder GÇ¦ reorder via individual updates (simulates app reorderStackCards) (506ms)
+
+=== /stacks Performance Metrics ===
+DNS Lookup:     1ms
+TCP Connect:    73ms
+TTFB:           33ms
+First Paint:    1472ms
+FCP:            1472ms
+DOM Ready:      1597ms
+Load:           1597ms
+Resources:      39
+Transfer Size:  221.4KB
+  ok 22 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /stacks - performance audit (7.6s)
+  ok 47 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:358:7 GÇ¦ Stack Card Reorder GÇ¦ cleanup (469ms)
+
+=== /settings Performance Metrics ===
+DNS Lookup:     1ms
+TCP Connect:    80ms
+TTFB:           37ms
+First Paint:    232ms
+FCP:            232ms
+DOM Ready:      207ms
+Load:           261ms
+Resources:      32
+Transfer Size:  189.6KB
+  ok 48 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /settings - performance audit (2.6s)
+  ok 46 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /event loads and shows heading (3.2s)
+Detail page has title: true
+Clicking Delete...
+Confirm dialog appeared
+Clicking confirm Delete...
+  ok 49 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /backlog loads and shows heading (3.1s)
+Redirected to: https://simple-orm.vercel.app/task
+  ok 50 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /stacks loads and shows heading (4.9s)
+Records remaining in DB: 0
+DELETE VERIFIED SUCCESSFULLY
+  ok  3 [live] GÇ¦ tests\delete-live.spec.ts:14:5 GÇ¦ FULL E2E: create task via UI GåÆ delete via UI GåÆ verify DB (22.3s)
+  ok 51 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /settings loads and shows heading (2.6s)
+  ok 52 [e2e] GÇ¦ tests\e2e.spec.ts:32:7 GÇ¦ Navigation GÇ¦ sidebar links work (4.1s)
+  ok 53 [e2e] GÇ¦ tests\e2e.spec.ts:49:7 GÇ¦ Record List GÇ¦ task list shows records (6.2s)
+  ok 54 [e2e] GÇ¦ tests\e2e.spec.ts:65:7 GÇ¦ Record List GÇ¦ search filters records (1.6s)
+  ok 55 [e2e] GÇ¦ tests\e2e.spec.ts:84:7 GÇ¦ Settings GÇ¦ settings page shows record types (2.4s)
+  ok 56 [e2e] GÇ¦ tests\e2e.spec.ts:92:7 GÇ¦ Settings GÇ¦ New Record Type button opens form (2.5s)
+  ok 57 [e2e] GÇ¦ tests\e2e.spec.ts:105:7 GÇ¦ Stacks GÇ¦ stacks page loads with board (4.3s)
+  ok 58 [e2e] GÇ¦ tests\e2e.spec.ts:116:7 GÇ¦ Stacks GÇ¦ New Stack button opens modal (4.5s)
+  ok 59 [e2e] GÇ¦ tests\e2e.spec.ts:131:7 GÇ¦ Responsive GÇ¦ mobile viewport shows sidebar toggle (7.0s)
+Task page loaded in 3025ms
+  x  60 [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s (3.2s)
+Task page loaded in 3006ms
+  x  61 [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s (retry #1) (3.2s)
+Stacks page loaded in 5224ms
+  ok 62 [e2e] GÇ¦ tests\e2e.spec.ts:156:7 GÇ¦ Performance GÇ¦ stacks page loads in under 6s (5.3s)
+Settings page loaded in 2533ms
+  ok 63 [e2e] GÇ¦ tests\e2e.spec.ts:165:7 GÇ¦ Performance GÇ¦ settings page loads in under 3s (2.6s)
+  ok 64 [e2e] GÇ¦ tests\e2e.spec.ts:187:7 GÇ¦ Full CRUD Lifecycle via UI GÇ¦ create via API GåÆ delete via UI GåÆ verify gone from DB (14.1s)
+  ok 65 [e2e] GÇ¦ tests\e2e.spec.ts:225:7 GÇ¦ Full CRUD Lifecycle via UI GÇ¦ create via UI GåÆ delete via detail page GåÆ verify gone (21.4s)
+  ok 66 [e2e] GÇ¦ tests\e2e.spec.ts:270:7 GÇ¦ Bulk Delete via UI GÇ¦ bulk delete records via API (simulates app logic) and verify (1.7s)
+  ok 67 [e2e] GÇ¦ tests\e2e.spec.ts:303:7 GÇ¦ Settings CRUD via UI GÇ¦ create record type GåÆ verify accessible GåÆ delete cleanup (12.0s)
+
+
+  1) [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 3000
+    Received:   3025
+
+      151 |     const elapsed = Date.now() - start
+      152 |     console.log(`Task page loaded in ${elapsed}ms`)
+    > 153 |     expect(elapsed).toBeLessThan(3000)
+          |                     ^
+      154 |   })
+      155 |
+      156 |   test('stacks page loads in under 6s', async ({ page }) => {
+        at D:\Onin\ocs\simple-orm\tests\e2e.spec.ts:153:21
+
+    attachment #1: screenshot (image/png) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\test-failed-1.png
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error Context: test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\error-context.md
+
+    attachment #3: trace (application/zip) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\trace.zip
+
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Retry #1 GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 3000
+    Received:   3006
+
+      151 |     const elapsed = Date.now() - start
+      152 |     console.log(`Task page loaded in ${elapsed}ms`)
+    > 153 |     expect(elapsed).toBeLessThan(3000)
+          |                     ^
+      154 |   })
+      155 |
+      156 |   test('stacks page loads in under 6s', async ({ page }) => {
+        at D:\Onin\ocs\simple-orm\tests\e2e.spec.ts:153:21
+
+    attachment #1: screenshot (image/png) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\test-failed-1.png
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error Context: test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\error-context.md
+
+    attachment #3: trace (application/zip) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\trace.zip
+
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+  1 failed
+    [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+  65 passed (2.0m)
+
+[03:51:13] 
+[03:51:13] --------------------------------------------
+[03:51:13] Running: crud tests
+[03:51:13] --------------------------------------------
+[03:53:14]   crud : 65 passed, 0 failed, 1 flaky
+
+=== crud tests ===
+
+Running 66 tests using 5 workers
+
+  ok  3 [api] GÇ¦ tests\api.spec.ts:18:7 GÇ¦ Record Type CRUD GÇ¦ create record type (281ms)
+  ok  5 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:18:7 GÇ¦ Delete Record with History GÇ¦ create record (279ms)
+  ok  6 [api] GÇ¦ tests\api.spec.ts:33:7 GÇ¦ Record Type CRUD GÇ¦ read record type (252ms)
+  ok  7 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:28:7 GÇ¦ Delete Record with History GÇ¦ add history entry (249ms)
+  ok  8 [api] GÇ¦ tests\api.spec.ts:44:7 GÇ¦ Record Type CRUD GÇ¦ update record type (242ms)
+  ok 10 [api] GÇ¦ tests\api.spec.ts:57:7 GÇ¦ Record Type CRUD GÇ¦ delete record type (259ms)
+  ok  9 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:36:7 GÇ¦ Delete Record with History GÇ¦ delete history then record (simulates app deleteRecord) (690ms)
+  ok 11 [api] GÇ¦ tests\api.spec.ts:71:7 GÇ¦ Record CRUD GÇ¦ create record (245ms)
+  ok 12 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:68:7 GÇ¦ Delete Record (notes table unavailable) GÇ¦ create record (245ms)
+  ok 13 [api] GÇ¦ tests\api.spec.ts:85:7 GÇ¦ Record CRUD GÇ¦ read record (240ms)
+  ok 15 [api] GÇ¦ tests\api.spec.ts:95:7 GÇ¦ Record CRUD GÇ¦ update record (254ms)
+  ok 14 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:78:7 GÇ¦ Delete Record (notes table unavailable) GÇ¦ delete record (notes delete may 404, but record still deletes) (445ms)
+  ok 16 [api] GÇ¦ tests\api.spec.ts:108:7 GÇ¦ Record CRUD GÇ¦ delete record (248ms)
+  ok 18 [api] GÇ¦ tests\api.spec.ts:122:7 GÇ¦ Stack CRUD + Filters GÇ¦ create stack with filter (264ms)
+  ok 19 [api] GÇ¦ tests\api.spec.ts:139:7 GÇ¦ Stack CRUD + Filters GÇ¦ read stack with filters (243ms)
+  ok 20 [api] GÇ¦ tests\api.spec.ts:149:7 GÇ¦ Stack CRUD + Filters GÇ¦ update stack filters (272ms)
+  ok 17 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:98:7 GÇ¦ Bulk Delete with History GÇ¦ create 3 records with history (1.3s)
+  ok  1 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /task loads and shows heading (3.5s)
+
+=== /task Performance Metrics ===
+DNS Lookup:     3ms
+TCP Connect:    84ms
+TTFB:           34ms
+First Paint:    1472ms
+FCP:            1472ms
+DOM Ready:      1446ms
+Load:           1555ms
+Resources:      34
+Transfer Size:  198.0KB
+  ok  4 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /task - performance audit (3.8s)
+  ok 21 [api] GÇ¦ tests\api.spec.ts:166:7 GÇ¦ Stack CRUD + Filters GÇ¦ cascade delete stack + cards (1.1s)
+  ok 22 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:115:7 GÇ¦ Bulk Delete with History GÇ¦ bulk delete with history cleanup (902ms)
+  ok 25 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "settings" (453ms)
+  ok 27 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "stacks" (488ms)
+  ok 26 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:137:7 GÇ¦ Record Type Cascade Delete GÇ¦ create record type with records and stack (880ms)
+  ok 28 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "api" (485ms)
+  ok 30 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "new" (491ms)
+  ok 29 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:179:7 GÇ¦ Record Type Cascade Delete GÇ¦ delete record type cascades to records, stacks, cards (894ms)
+  ok 32 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:214:7 GÇ¦ Edge Cases GÇ¦ create record with null values (247ms)
+  ok 31 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "edit" (475ms)
+  ok 33 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:226:7 GÇ¦ Edge Cases GÇ¦ update record with empty string (257ms)
+Read 7 records in 237ms
+  ok 34 [api] GÇ¦ tests\api.spec.ts:228:7 GÇ¦ Performance GÇ¦ read 100 records < 2s (253ms)
+  ok 35 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:236:7 GÇ¦ Edge Cases GÇ¦ update record with special characters (247ms)
+Read record_types in 243ms
+  ok 36 [api] GÇ¦ tests\api.spec.ts:241:7 GÇ¦ Performance GÇ¦ read record_types < 500ms (246ms)
+  ok 37 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:247:7 GÇ¦ Edge Cases GÇ¦ update record with unicode (262ms)
+  ok 23 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /goal loads and shows heading (3.7s)
+Read stacks with cards in 241ms
+  ok 38 [api] GÇ¦ tests\api.spec.ts:253:7 GÇ¦ Performance GÇ¦ read stacks with cards < 1s (245ms)
+  ok 39 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:257:7 GÇ¦ Edge Cases GÇ¦ cleanup (451ms)
+  ok 41 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:268:7 GÇ¦ Populate Stack with Filters GÇ¦ create stack with priority=high filter (277ms)
+After create URL: https://simple-orm.vercel.app/task
+  ok 42 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:284:7 GÇ¦ Populate Stack with Filters GÇ¦ stack was created with correct filter (257ms)
+Created record: 37513e95-af6f-4e86-aa7b-adeec8a89f63 title: E2E Delete Test 1789329080060
+  ok 43 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:295:7 GÇ¦ Populate Stack with Filters GÇ¦ cleanup (457ms)
+
+=== /stacks Performance Metrics ===
+DNS Lookup:     1ms
+TCP Connect:    75ms
+TTFB:           35ms
+First Paint:    1448ms
+FCP:            1448ms
+DOM Ready:      1420ms
+Load:           1466ms
+Resources:      38
+Transfer Size:  221.1KB
+  ok 24 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /stacks - performance audit (5.6s)
+  ok 44 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:308:7 GÇ¦ Stack Card Reorder GÇ¦ create stack with 3 cards (1.1s)
+  ok 46 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:335:7 GÇ¦ Stack Card Reorder GÇ¦ reorder via individual updates (simulates app reorderStackCards) (470ms)
+  ok 47 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:358:7 GÇ¦ Stack Card Reorder GÇ¦ cleanup (466ms)
+  ok 40 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /note loads and shows heading (3.5s)
+
+=== /settings Performance Metrics ===
+DNS Lookup:     1ms
+TCP Connect:    75ms
+TTFB:           39ms
+First Paint:    232ms
+FCP:            232ms
+DOM Ready:      219ms
+Load:           262ms
+Resources:      33
+Transfer Size:  190.0KB
+  ok 45 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /settings - performance audit (2.4s)
+Detail page has title: true
+Clicking Delete...
+  ok 48 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /event loads and shows heading (3.2s)
+Confirm dialog appeared
+Clicking confirm Delete...
+  ok 49 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /backlog loads and shows heading (3.1s)
+Redirected to: https://simple-orm.vercel.app/task
+  ok 50 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /stacks loads and shows heading (5.0s)
+Records remaining in DB: 0
+DELETE VERIFIED SUCCESSFULLY
+  ok  2 [live] GÇ¦ tests\delete-live.spec.ts:14:5 GÇ¦ FULL E2E: create task via UI GåÆ delete via UI GåÆ verify DB (22.2s)
+  ok 51 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /settings loads and shows heading (2.5s)
+  ok 52 [e2e] GÇ¦ tests\e2e.spec.ts:32:7 GÇ¦ Navigation GÇ¦ sidebar links work (5.6s)
+  ok 53 [e2e] GÇ¦ tests\e2e.spec.ts:49:7 GÇ¦ Record List GÇ¦ task list shows records (6.1s)
+  ok 54 [e2e] GÇ¦ tests\e2e.spec.ts:65:7 GÇ¦ Record List GÇ¦ search filters records (1.7s)
+  ok 55 [e2e] GÇ¦ tests\e2e.spec.ts:84:7 GÇ¦ Settings GÇ¦ settings page shows record types (2.4s)
+  ok 56 [e2e] GÇ¦ tests\e2e.spec.ts:92:7 GÇ¦ Settings GÇ¦ New Record Type button opens form (2.4s)
+  ok 57 [e2e] GÇ¦ tests\e2e.spec.ts:105:7 GÇ¦ Stacks GÇ¦ stacks page loads with board (4.8s)
+  ok 58 [e2e] GÇ¦ tests\e2e.spec.ts:116:7 GÇ¦ Stacks GÇ¦ New Stack button opens modal (4.7s)
+  ok 59 [e2e] GÇ¦ tests\e2e.spec.ts:131:7 GÇ¦ Responsive GÇ¦ mobile viewport shows sidebar toggle (2.5s)
+Task page loaded in 3031ms
+  x  60 [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s (3.2s)
+Task page loaded in 2988ms
+  ok 61 [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s (retry #1) (3.1s)
+Stacks page loaded in 5032ms
+  ok 62 [e2e] GÇ¦ tests\e2e.spec.ts:156:7 GÇ¦ Performance GÇ¦ stacks page loads in under 6s (5.1s)
+Settings page loaded in 2479ms
+  ok 63 [e2e] GÇ¦ tests\e2e.spec.ts:165:7 GÇ¦ Performance GÇ¦ settings page loads in under 3s (2.6s)
+  ok 64 [e2e] GÇ¦ tests\e2e.spec.ts:187:7 GÇ¦ Full CRUD Lifecycle via UI GÇ¦ create via API GåÆ delete via UI GåÆ verify gone from DB (13.0s)
+  ok 65 [e2e] GÇ¦ tests\e2e.spec.ts:225:7 GÇ¦ Full CRUD Lifecycle via UI GÇ¦ create via UI GåÆ delete via detail page GåÆ verify gone (22.1s)
+  ok 66 [e2e] GÇ¦ tests\e2e.spec.ts:270:7 GÇ¦ Bulk Delete via UI GÇ¦ bulk delete records via API (simulates app logic) and verify (1.9s)
+  ok 67 [e2e] GÇ¦ tests\e2e.spec.ts:303:7 GÇ¦ Settings CRUD via UI GÇ¦ create record type GåÆ verify accessible GåÆ delete cleanup (12.0s)
+
+
+  1) [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 3000
+    Received:   3031
+
+      151 |     const elapsed = Date.now() - start
+      152 |     console.log(`Task page loaded in ${elapsed}ms`)
+    > 153 |     expect(elapsed).toBeLessThan(3000)
+          |                     ^
+      154 |   })
+      155 |
+      156 |   test('stacks page loads in under 6s', async ({ page }) => {
+        at D:\Onin\ocs\simple-orm\tests\e2e.spec.ts:153:21
+
+    attachment #1: screenshot (image/png) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\test-failed-1.png
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error Context: test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\error-context.md
+
+    attachment #3: trace (application/zip) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\trace.zip
+
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+  1 flaky
+    [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+  65 passed (2.0m)
+
+[03:53:14] 
+[03:53:14] --------------------------------------------
+[03:53:14] Running: e2e tests
+[03:53:14] --------------------------------------------
+[03:55:11]   e2e : 65 passed, 1 failed, 0 flaky
+
+=== e2e tests ===
+
+Running 66 tests using 5 workers
+
+  ok  2 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:18:7 GÇ¦ Delete Record with History GÇ¦ create record (327ms)
+  ok  5 [api] GÇ¦ tests\api.spec.ts:18:7 GÇ¦ Record Type CRUD GÇ¦ create record type (309ms)
+  ok  6 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:28:7 GÇ¦ Delete Record with History GÇ¦ add history entry (261ms)
+  ok  7 [api] GÇ¦ tests\api.spec.ts:33:7 GÇ¦ Record Type CRUD GÇ¦ read record type (265ms)
+  ok  9 [api] GÇ¦ tests\api.spec.ts:44:7 GÇ¦ Record Type CRUD GÇ¦ update record type (250ms)
+  ok 10 [api] GÇ¦ tests\api.spec.ts:57:7 GÇ¦ Record Type CRUD GÇ¦ delete record type (249ms)
+  ok  8 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:36:7 GÇ¦ Delete Record with History GÇ¦ delete history then record (simulates app deleteRecord) (692ms)
+  ok 11 [api] GÇ¦ tests\api.spec.ts:71:7 GÇ¦ Record CRUD GÇ¦ create record (257ms)
+  ok 12 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:68:7 GÇ¦ Delete Record (notes table unavailable) GÇ¦ create record (261ms)
+  ok 13 [api] GÇ¦ tests\api.spec.ts:85:7 GÇ¦ Record CRUD GÇ¦ read record (242ms)
+  ok 15 [api] GÇ¦ tests\api.spec.ts:95:7 GÇ¦ Record CRUD GÇ¦ update record (240ms)
+  ok 14 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:78:7 GÇ¦ Delete Record (notes table unavailable) GÇ¦ delete record (notes delete may 404, but record still deletes) (487ms)
+  ok 16 [api] GÇ¦ tests\api.spec.ts:108:7 GÇ¦ Record CRUD GÇ¦ delete record (266ms)
+  ok 18 [api] GÇ¦ tests\api.spec.ts:122:7 GÇ¦ Stack CRUD + Filters GÇ¦ create stack with filter (252ms)
+  ok 19 [api] GÇ¦ tests\api.spec.ts:139:7 GÇ¦ Stack CRUD + Filters GÇ¦ read stack with filters (236ms)
+  ok 20 [api] GÇ¦ tests\api.spec.ts:149:7 GÇ¦ Stack CRUD + Filters GÇ¦ update stack filters (239ms)
+  ok 17 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:98:7 GÇ¦ Bulk Delete with History GÇ¦ create 3 records with history (1.4s)
+  ok  3 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /task loads and shows heading (3.3s)
+
+=== /task Performance Metrics ===
+DNS Lookup:     6ms
+TCP Connect:    83ms
+TTFB:           35ms
+First Paint:    1376ms
+FCP:            1376ms
+DOM Ready:      1357ms
+Load:           1402ms
+Resources:      35
+Transfer Size:  198.4KB
+  ok  1 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /task - performance audit (3.7s)
+  ok 21 [api] GÇ¦ tests\api.spec.ts:166:7 GÇ¦ Stack CRUD + Filters GÇ¦ cascade delete stack + cards (1.2s)
+  ok 22 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:115:7 GÇ¦ Bulk Delete with History GÇ¦ bulk delete with history cleanup (921ms)
+  ok 25 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "settings" (480ms)
+  ok 27 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "stacks" (457ms)
+  ok 26 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:137:7 GÇ¦ Record Type Cascade Delete GÇ¦ create record type with records and stack (943ms)
+  ok 28 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "api" (492ms)
+  ok 30 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "new" (509ms)
+  ok 29 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:179:7 GÇ¦ Record Type Cascade Delete GÇ¦ delete record type cascades to records, stacks, cards (908ms)
+  ok 32 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:214:7 GÇ¦ Edge Cases GÇ¦ create record with null values (251ms)
+  ok 31 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "edit" (474ms)
+  ok 33 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:226:7 GÇ¦ Edge Cases GÇ¦ update record with empty string (235ms)
+Read 7 records in 230ms
+  ok 34 [api] GÇ¦ tests\api.spec.ts:228:7 GÇ¦ Performance GÇ¦ read 100 records < 2s (237ms)
+Read record_types in 239ms
+  ok 35 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:236:7 GÇ¦ Edge Cases GÇ¦ update record with special characters (285ms)
+  ok 36 [api] GÇ¦ tests\api.spec.ts:241:7 GÇ¦ Performance GÇ¦ read record_types < 500ms (245ms)
+  ok 23 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /goal loads and shows heading (3.6s)
+Read stacks with cards in 255ms
+  ok 38 [api] GÇ¦ tests\api.spec.ts:253:7 GÇ¦ Performance GÇ¦ read stacks with cards < 1s (260ms)
+  ok 37 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:247:7 GÇ¦ Edge Cases GÇ¦ update record with unicode (262ms)
+  ok 40 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:257:7 GÇ¦ Edge Cases GÇ¦ cleanup (469ms)
+After create URL: https://simple-orm.vercel.app/task
+  ok 41 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:268:7 GÇ¦ Populate Stack with Filters GÇ¦ create stack with priority=high filter (251ms)
+Created record: f57d04e0-f6fb-4376-8e07-78384a802792 title: E2E Delete Test 1789329200833
+  ok 42 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:284:7 GÇ¦ Populate Stack with Filters GÇ¦ stack was created with correct filter (243ms)
+  ok 43 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:295:7 GÇ¦ Populate Stack with Filters GÇ¦ cleanup (445ms)
+
+=== /stacks Performance Metrics ===
+DNS Lookup:     1ms
+TCP Connect:    71ms
+TTFB:           32ms
+First Paint:    1612ms
+FCP:            1612ms
+DOM Ready:      1590ms
+Load:           1660ms
+Resources:      39
+Transfer Size:  221.5KB
+  ok 24 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /stacks - performance audit (5.3s)
+  ok 44 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:308:7 GÇ¦ Stack Card Reorder GÇ¦ create stack with 3 cards (1.1s)
+  ok 46 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:335:7 GÇ¦ Stack Card Reorder GÇ¦ reorder via individual updates (simulates app reorderStackCards) (490ms)
+  ok 39 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /note loads and shows heading (3.5s)
+  ok 47 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:358:7 GÇ¦ Stack Card Reorder GÇ¦ cleanup (480ms)
+
+=== /settings Performance Metrics ===
+DNS Lookup:     1ms
+TCP Connect:    79ms
+TTFB:           32ms
+First Paint:    228ms
+FCP:            228ms
+DOM Ready:      208ms
+Load:           264ms
+Resources:      34
+Transfer Size:  190.5KB
+  ok 45 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /settings - performance audit (2.4s)
+  ok 48 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /event loads and shows heading (3.3s)
+Detail page has title: true
+Clicking Delete...
+Confirm dialog appeared
+Clicking confirm Delete...
+  ok 49 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /backlog loads and shows heading (3.2s)
+Redirected to: https://simple-orm.vercel.app/task
+  ok 50 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /stacks loads and shows heading (4.7s)
+Records remaining in DB: 0
+DELETE VERIFIED SUCCESSFULLY
+  ok  4 [live] GÇ¦ tests\delete-live.spec.ts:14:5 GÇ¦ FULL E2E: create task via UI GåÆ delete via UI GåÆ verify DB (22.7s)
+  ok 51 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /settings loads and shows heading (2.6s)
+  ok 52 [e2e] GÇ¦ tests\e2e.spec.ts:32:7 GÇ¦ Navigation GÇ¦ sidebar links work (3.5s)
+  ok 53 [e2e] GÇ¦ tests\e2e.spec.ts:49:7 GÇ¦ Record List GÇ¦ task list shows records (6.3s)
+  ok 54 [e2e] GÇ¦ tests\e2e.spec.ts:65:7 GÇ¦ Record List GÇ¦ search filters records (1.7s)
+  ok 55 [e2e] GÇ¦ tests\e2e.spec.ts:84:7 GÇ¦ Settings GÇ¦ settings page shows record types (2.4s)
+  ok 56 [e2e] GÇ¦ tests\e2e.spec.ts:92:7 GÇ¦ Settings GÇ¦ New Record Type button opens form (2.5s)
+  ok 57 [e2e] GÇ¦ tests\e2e.spec.ts:105:7 GÇ¦ Stacks GÇ¦ stacks page loads with board (4.4s)
+  ok 58 [e2e] GÇ¦ tests\e2e.spec.ts:116:7 GÇ¦ Stacks GÇ¦ New Stack button opens modal (4.7s)
+  ok 59 [e2e] GÇ¦ tests\e2e.spec.ts:131:7 GÇ¦ Responsive GÇ¦ mobile viewport shows sidebar toggle (2.1s)
+Task page loaded in 3043ms
+  x  60 [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s (3.2s)
+Task page loaded in 3018ms
+  x  61 [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s (retry #1) (3.2s)
+Stacks page loaded in 5007ms
+  ok 62 [e2e] GÇ¦ tests\e2e.spec.ts:156:7 GÇ¦ Performance GÇ¦ stacks page loads in under 6s (5.1s)
+Settings page loaded in 2283ms
+  ok 63 [e2e] GÇ¦ tests\e2e.spec.ts:165:7 GÇ¦ Performance GÇ¦ settings page loads in under 3s (2.4s)
+  ok 64 [e2e] GÇ¦ tests\e2e.spec.ts:187:7 GÇ¦ Full CRUD Lifecycle via UI GÇ¦ create via API GåÆ delete via UI GåÆ verify gone from DB (13.6s)
+  ok 65 [e2e] GÇ¦ tests\e2e.spec.ts:225:7 GÇ¦ Full CRUD Lifecycle via UI GÇ¦ create via UI GåÆ delete via detail page GåÆ verify gone (21.0s)
+  ok 66 [e2e] GÇ¦ tests\e2e.spec.ts:270:7 GÇ¦ Bulk Delete via UI GÇ¦ bulk delete records via API (simulates app logic) and verify (1.7s)
+  ok 67 [e2e] GÇ¦ tests\e2e.spec.ts:303:7 GÇ¦ Settings CRUD via UI GÇ¦ create record type GåÆ verify accessible GåÆ delete cleanup (12.1s)
+
+
+  1) [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 3000
+    Received:   3043
+
+      151 |     const elapsed = Date.now() - start
+      152 |     console.log(`Task page loaded in ${elapsed}ms`)
+    > 153 |     expect(elapsed).toBeLessThan(3000)
+          |                     ^
+      154 |   })
+      155 |
+      156 |   test('stacks page loads in under 6s', async ({ page }) => {
+        at D:\Onin\ocs\simple-orm\tests\e2e.spec.ts:153:21
+
+    attachment #1: screenshot (image/png) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\test-failed-1.png
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error Context: test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\error-context.md
+
+    attachment #3: trace (application/zip) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\e2e-Performance-task-page-loads-in-under-3s-e2e\trace.zip
+
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Retry #1 GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error: expect(received).toBeLessThan(expected)
+
+    Expected: < 3000
+    Received:   3018
+
+      151 |     const elapsed = Date.now() - start
+      152 |     console.log(`Task page loaded in ${elapsed}ms`)
+    > 153 |     expect(elapsed).toBeLessThan(3000)
+          |                     ^
+      154 |   })
+      155 |
+      156 |   test('stacks page loads in under 6s', async ({ page }) => {
+        at D:\Onin\ocs\simple-orm\tests\e2e.spec.ts:153:21
+
+    attachment #1: screenshot (image/png) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\test-failed-1.png
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+    Error Context: test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\error-context.md
+
+    attachment #3: trace (application/zip) GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+    test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\e2e-Performance-task-page-loads-in-under-3s-e2e-retry1\trace.zip
+
+    GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+
+  1 failed
+    [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s GöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇGöÇ
+  65 passed (1.9m)
+
+[03:55:11] 
+[03:55:11] --------------------------------------------
+[03:55:11] Running: lighthouse tests
+[03:55:11] --------------------------------------------
+[03:57:14]   lighthouse : 66 passed, 0 failed, 0 flaky
+
+=== lighthouse tests ===
+
+Running 66 tests using 5 workers
+
+  ok  1 [api] GÇ¦ tests\api.spec.ts:18:7 GÇ¦ Record Type CRUD GÇ¦ create record type (322ms)
+  ok  2 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:18:7 GÇ¦ Delete Record with History GÇ¦ create record (345ms)
+  ok  6 [api] GÇ¦ tests\api.spec.ts:33:7 GÇ¦ Record Type CRUD GÇ¦ read record type (267ms)
+  ok  7 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:28:7 GÇ¦ Delete Record with History GÇ¦ add history entry (271ms)
+  ok  8 [api] GÇ¦ tests\api.spec.ts:44:7 GÇ¦ Record Type CRUD GÇ¦ update record type (262ms)
+  ok 10 [api] GÇ¦ tests\api.spec.ts:57:7 GÇ¦ Record Type CRUD GÇ¦ delete record type (252ms)
+  ok  9 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:36:7 GÇ¦ Delete Record with History GÇ¦ delete history then record (simulates app deleteRecord) (712ms)
+  ok 11 [api] GÇ¦ tests\api.spec.ts:71:7 GÇ¦ Record CRUD GÇ¦ create record (262ms)
+  ok 12 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:68:7 GÇ¦ Delete Record (notes table unavailable) GÇ¦ create record (249ms)
+  ok 13 [api] GÇ¦ tests\api.spec.ts:85:7 GÇ¦ Record CRUD GÇ¦ read record (251ms)
+  ok 15 [api] GÇ¦ tests\api.spec.ts:95:7 GÇ¦ Record CRUD GÇ¦ update record (256ms)
+  ok 14 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:78:7 GÇ¦ Delete Record (notes table unavailable) GÇ¦ delete record (notes delete may 404, but record still deletes) (483ms)
+  ok 16 [api] GÇ¦ tests\api.spec.ts:108:7 GÇ¦ Record CRUD GÇ¦ delete record (251ms)
+  ok 18 [api] GÇ¦ tests\api.spec.ts:122:7 GÇ¦ Stack CRUD + Filters GÇ¦ create stack with filter (246ms)
+  ok 19 [api] GÇ¦ tests\api.spec.ts:139:7 GÇ¦ Stack CRUD + Filters GÇ¦ read stack with filters (266ms)
+  ok 20 [api] GÇ¦ tests\api.spec.ts:149:7 GÇ¦ Stack CRUD + Filters GÇ¦ update stack filters (267ms)
+  ok 17 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:98:7 GÇ¦ Bulk Delete with History GÇ¦ create 3 records with history (1.4s)
+
+=== /task Performance Metrics ===
+DNS Lookup:     4ms
+TCP Connect:    78ms
+TTFB:           35ms
+First Paint:    1468ms
+FCP:            1468ms
+DOM Ready:      1455ms
+Load:           1455ms
+Resources:      35
+Transfer Size:  198.4KB
+  ok  4 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /task - performance audit (3.8s)
+  ok  5 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /task loads and shows heading (3.8s)
+  ok 21 [api] GÇ¦ tests\api.spec.ts:166:7 GÇ¦ Stack CRUD + Filters GÇ¦ cascade delete stack + cards (1.1s)
+  ok 22 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:115:7 GÇ¦ Bulk Delete with History GÇ¦ bulk delete with history cleanup (931ms)
+  ok 25 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "settings" (483ms)
+  ok 27 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "stacks" (507ms)
+  ok 26 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:137:7 GÇ¦ Record Type Cascade Delete GÇ¦ create record type with records and stack (959ms)
+  ok 28 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "api" (481ms)
+  ok 30 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "new" (478ms)
+  ok 29 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:179:7 GÇ¦ Record Type Cascade Delete GÇ¦ delete record type cascades to records, stacks, cards (925ms)
+  ok 32 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:214:7 GÇ¦ Edge Cases GÇ¦ create record with null values (235ms)
+  ok 31 [api] GÇ¦ tests\api.spec.ts:208:9 GÇ¦ Reserved Slug Validation GÇ¦ block reserved slug "edit" (498ms)
+  ok 33 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:226:7 GÇ¦ Edge Cases GÇ¦ update record with empty string (249ms)
+Read 7 records in 255ms
+  ok 34 [api] GÇ¦ tests\api.spec.ts:228:7 GÇ¦ Performance GÇ¦ read 100 records < 2s (259ms)
+Read record_types in 237ms
+  ok 36 [api] GÇ¦ tests\api.spec.ts:241:7 GÇ¦ Performance GÇ¦ read record_types < 500ms (241ms)
+  ok 35 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:236:7 GÇ¦ Edge Cases GÇ¦ update record with special characters (273ms)
+  ok 24 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /goal loads and shows heading (3.3s)
+Read stacks with cards in 246ms
+  ok 37 [api] GÇ¦ tests\api.spec.ts:253:7 GÇ¦ Performance GÇ¦ read stacks with cards < 1s (251ms)
+  ok 38 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:247:7 GÇ¦ Edge Cases GÇ¦ update record with unicode (273ms)
+  ok 40 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:257:7 GÇ¦ Edge Cases GÇ¦ cleanup (486ms)
+After create URL: https://simple-orm.vercel.app/task
+  ok 41 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:268:7 GÇ¦ Populate Stack with Filters GÇ¦ create stack with priority=high filter (254ms)
+Created record: 085674e3-6251-4455-a6ac-d8aefa595d29 title: E2E Delete Test 1789329327099
+  ok 42 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:284:7 GÇ¦ Populate Stack with Filters GÇ¦ stack was created with correct filter (252ms)
+  ok 43 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:295:7 GÇ¦ Populate Stack with Filters GÇ¦ cleanup (481ms)
+
+=== /stacks Performance Metrics ===
+DNS Lookup:     1ms
+TCP Connect:    84ms
+TTFB:           41ms
+First Paint:    1608ms
+FCP:            1608ms
+DOM Ready:      1592ms
+Load:           1644ms
+Resources:      39
+Transfer Size:  221.5KB
+  ok 23 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /stacks - performance audit (5.8s)
+  ok 44 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:308:7 GÇ¦ Stack Card Reorder GÇ¦ create stack with 3 cards (1.1s)
+  ok 46 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:335:7 GÇ¦ Stack Card Reorder GÇ¦ reorder via individual updates (simulates app reorderStackCards) (525ms)
+  ok 39 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /note loads and shows heading (3.8s)
+  ok 47 [crud] GÇ¦ tests\crud-lifecycle.spec.ts:358:7 GÇ¦ Stack Card Reorder GÇ¦ cleanup (492ms)
+
+=== /settings Performance Metrics ===
+DNS Lookup:     1ms
+TCP Connect:    82ms
+TTFB:           38ms
+First Paint:    268ms
+FCP:            268ms
+DOM Ready:      250ms
+Load:           293ms
+Resources:      34
+Transfer Size:  190.5KB
+  ok 45 [lighthouse] GÇ¦ tests\lighthouse.spec.ts:9:9 GÇ¦ Lighthouse Audit GÇ¦ /settings - performance audit (2.6s)
+  ok 48 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /event loads and shows heading (3.2s)
+Detail page has title: true
+Clicking Delete...
+Confirm dialog appeared
+Clicking confirm Delete...
+Redirected to: https://simple-orm.vercel.app/task
+  ok 49 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /backlog loads and shows heading (3.2s)
+  ok 50 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /stacks loads and shows heading (5.0s)
+Records remaining in DB: 0
+DELETE VERIFIED SUCCESSFULLY
+  ok  3 [live] GÇ¦ tests\delete-live.spec.ts:14:5 GÇ¦ FULL E2E: create task via UI GåÆ delete via UI GåÆ verify DB (22.8s)
+  ok 51 [e2e] GÇ¦ tests\e2e.spec.ts:19:9 GÇ¦ Page Loads GÇ¦ /settings loads and shows heading (2.4s)
+  ok 52 [e2e] GÇ¦ tests\e2e.spec.ts:32:7 GÇ¦ Navigation GÇ¦ sidebar links work (3.5s)
+  ok 53 [e2e] GÇ¦ tests\e2e.spec.ts:49:7 GÇ¦ Record List GÇ¦ task list shows records (6.1s)
+  ok 54 [e2e] GÇ¦ tests\e2e.spec.ts:65:7 GÇ¦ Record List GÇ¦ search filters records (1.7s)
+  ok 55 [e2e] GÇ¦ tests\e2e.spec.ts:84:7 GÇ¦ Settings GÇ¦ settings page shows record types (2.4s)
+  ok 56 [e2e] GÇ¦ tests\e2e.spec.ts:92:7 GÇ¦ Settings GÇ¦ New Record Type button opens form (2.5s)
+  ok 57 [e2e] GÇ¦ tests\e2e.spec.ts:105:7 GÇ¦ Stacks GÇ¦ stacks page loads with board (4.4s)
+  ok 58 [e2e] GÇ¦ tests\e2e.spec.ts:116:7 GÇ¦ Stacks GÇ¦ New Stack button opens modal (4.5s)
+  ok 59 [e2e] GÇ¦ tests\e2e.spec.ts:131:7 GÇ¦ Responsive GÇ¦ mobile viewport shows sidebar toggle (2.1s)
+Task page loaded in 2949ms
+  ok 60 [e2e] GÇ¦ tests\e2e.spec.ts:147:7 GÇ¦ Performance GÇ¦ task page loads in under 3s (3.0s)
+Stacks page loaded in 4599ms
+  ok 61 [e2e] GÇ¦ tests\e2e.spec.ts:156:7 GÇ¦ Performance GÇ¦ stacks page loads in under 6s (4.7s)
+Settings page loaded in 2457ms
+  ok 62 [e2e] GÇ¦ tests\e2e.spec.ts:165:7 GÇ¦ Performance GÇ¦ settings page loads in under 3s (2.5s)
+  ok 63 [e2e] GÇ¦ tests\e2e.spec.ts:187:7 GÇ¦ Full CRUD Lifecycle via UI GÇ¦ create via API GåÆ delete via UI GåÆ verify gone from DB (14.2s)
+  ok 64 [e2e] GÇ¦ tests\e2e.spec.ts:225:7 GÇ¦ Full CRUD Lifecycle via UI GÇ¦ create via UI GåÆ delete via detail page GåÆ verify gone (20.8s)
+  ok 65 [e2e] GÇ¦ tests\e2e.spec.ts:270:7 GÇ¦ Bulk Delete via UI GÇ¦ bulk delete records via API (simulates app logic) and verify (2.1s)
+  ok 66 [e2e] GÇ¦ tests\e2e.spec.ts:303:7 GÇ¦ Settings CRUD via UI GÇ¦ create record type GåÆ verify accessible GåÆ delete cleanup (12.1s)
+
+  66 passed (1.9m)
+
+[03:57:14] 
+[03:57:14] ============================================
+[03:57:14]   SUMMARY
+[03:57:14] ============================================
+[03:57:14]   Total passed:  261
+[03:57:14]   Total failed:  2
+[03:57:14]   Total flaky:   1
+[03:57:14] 
+[03:57:14] Results saved to: tests\results.json
+[03:57:14] HTML report: tests\report\index.html
+[03:57:14] Full log: tests\logs\test-run-2026-09-14_03-48-54.log
