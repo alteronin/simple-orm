@@ -415,12 +415,20 @@ export async function populateStackFromType(stackId: string): Promise<number> {
 
   const { data: records } = await query
 
+  const matchingIds = new Set((records || []).map(r => r.id))
+  const existingIds = new Set((existingCards || []).map(c => c.record_id))
+
+  const toRemove = (existingCards || []).filter(c => !matchingIds.has(c.record_id))
+  if (toRemove.length > 0) {
+    await supabase.from('stack_cards').delete().in('id', toRemove.map(c => c.id))
+  }
+
   const filtered = (records || []).filter(r => !existingIds.has(r.id))
 
   const newCards = filtered.map((r, i) => ({
     stack_id: stackId,
     record_id: r.id,
-    position: (existingCards?.length || 0) + i,
+    position: Math.max(0, (existingCards?.length || 0) - toRemove.length) + i,
   }))
 
   if (newCards.length > 0) {
