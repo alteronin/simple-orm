@@ -78,15 +78,27 @@ export async function updateRecord(id: string, data: Record<string, string | num
 }
 
 export async function deleteRecord(id: string): Promise<void> {
-  await supabase.from('record_history').delete().eq('record_id', id)
-  await supabase.from('notes').delete().eq('record_id', id)
+  const h = await supabase.from('record_history').delete().eq('record_id', id)
+  if (h.error && !h.error.message.includes('does not exist') && !h.error.message.includes('schema cache')) {
+    throw new Error(h.error.message)
+  }
+  const n = await supabase.from('notes').delete().eq('record_id', id)
+  if (n.error && !n.error.message.includes('does not exist') && !n.error.message.includes('schema cache')) {
+    throw new Error(n.error.message)
+  }
   const { error } = await supabase.from('records').delete().eq('id', id)
   if (error) throw new Error(error.message)
 }
 
 export async function deleteRecords(ids: string[]): Promise<void> {
-  await supabase.from('record_history').delete().in('record_id', ids)
-  await supabase.from('notes').delete().in('record_id', ids)
+  const h = await supabase.from('record_history').delete().in('record_id', ids)
+  if (h.error && !h.error.message.includes('does not exist') && !h.error.message.includes('schema cache')) {
+    throw new Error(h.error.message)
+  }
+  const n = await supabase.from('notes').delete().in('record_id', ids)
+  if (n.error && !n.error.message.includes('does not exist') && !n.error.message.includes('schema cache')) {
+    throw new Error(n.error.message)
+  }
   const { error } = await supabase.from('records').delete().in('id', ids)
   if (error) throw new Error(error.message)
 }
