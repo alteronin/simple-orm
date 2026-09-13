@@ -1,345 +1,142 @@
 {
-    "summary":  {
-                    "flaky":  1,
-                    "failed":  1,
-                    "passed":  63
-                },
-    "timestamp":  "2026-09-14T04:04:29.0393188+08:00",
-    "tests":  [
-                  {
-                      "Project":  "api",
-                      "Test":  "ok  1 [api] GǦ tests\\api.spec.ts:18:7 GǦ Record Type CRUD GǦ create record type (978ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok  2 [api] GǦ tests\\api.spec.ts:33:7 GǦ Record Type CRUD GǦ read record type (592ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok  3 [api] GǦ tests\\api.spec.ts:44:7 GǦ Record Type CRUD GǦ update record type (271ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok  4 [api] GǦ tests\\api.spec.ts:57:7 GǦ Record Type CRUD GǦ delete record type (269ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok  5 [api] GǦ tests\\api.spec.ts:71:7 GǦ Record CRUD GǦ create record (258ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok  6 [api] GǦ tests\\api.spec.ts:85:7 GǦ Record CRUD GǦ read record (255ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok  7 [api] GǦ tests\\api.spec.ts:95:7 GǦ Record CRUD GǦ update record (624ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok  8 [api] GǦ tests\\api.spec.ts:108:7 GǦ Record CRUD GǦ delete record (240ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok  9 [api] GǦ tests\\api.spec.ts:122:7 GǦ Stack CRUD + Filters GǦ create stack with filter (264ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok 10 [api] GǦ tests\\api.spec.ts:139:7 GǦ Stack CRUD + Filters GǦ read stack with filters (257ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok 11 [api] GǦ tests\\api.spec.ts:149:7 GǦ Stack CRUD + Filters GǦ update stack filters (256ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok 12 [api] GǦ tests\\api.spec.ts:166:7 GǦ Stack CRUD + Filters GǦ cascade delete stack + cards (1.1s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok 13 [api] GǦ tests\\api.spec.ts:208:9 GǦ Reserved Slug Validation GǦ block reserved slug \"settings\" (519ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok 14 [api] GǦ tests\\api.spec.ts:208:9 GǦ Reserved Slug Validation GǦ block reserved slug \"stacks\" (471ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok 15 [api] GǦ tests\\api.spec.ts:208:9 GǦ Reserved Slug Validation GǦ block reserved slug \"api\" (502ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok 16 [api] GǦ tests\\api.spec.ts:208:9 GǦ Reserved Slug Validation GǦ block reserved slug \"new\" (472ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok 17 [api] GǦ tests\\api.spec.ts:208:9 GǦ Reserved Slug Validation GǦ block reserved slug \"edit\" (453ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok 18 [api] GǦ tests\\api.spec.ts:228:7 GǦ Performance GǦ read 100 records \u003c 2s (241ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok 19 [api] GǦ tests\\api.spec.ts:241:7 GǦ Performance GǦ read record_types \u003c 500ms (267ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "api",
-                      "Test":  "ok 20 [api] GǦ tests\\api.spec.ts:253:7 GǦ Performance GǦ read stacks with cards \u003c 1s (251ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok  1 [crud] GǦ tests\\crud-lifecycle.spec.ts:18:7 GǦ Delete Record with History GǦ create record (317ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok  2 [crud] GǦ tests\\crud-lifecycle.spec.ts:28:7 GǦ Delete Record with History GǦ add history entry (246ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok  3 [crud] GǦ tests\\crud-lifecycle.spec.ts:36:7 GǦ Delete Record with History GǦ delete history then record (simulates app deleteRecord) (711ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok  4 [crud] GǦ tests\\crud-lifecycle.spec.ts:68:7 GǦ Delete Record (notes table unavailable) GǦ create record (255ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok  5 [crud] GǦ tests\\crud-lifecycle.spec.ts:78:7 GǦ Delete Record (notes table unavailable) GǦ delete record (notes delete may 404, but record still deletes) (484ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok  6 [crud] GǦ tests\\crud-lifecycle.spec.ts:98:7 GǦ Bulk Delete with History GǦ create 3 records with history (1.4s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok  7 [crud] GǦ tests\\crud-lifecycle.spec.ts:115:7 GǦ Bulk Delete with History GǦ bulk delete with history cleanup (959ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok  8 [crud] GǦ tests\\crud-lifecycle.spec.ts:137:7 GǦ Record Type Cascade Delete GǦ create record type with records and stack (975ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok  9 [crud] GǦ tests\\crud-lifecycle.spec.ts:179:7 GǦ Record Type Cascade Delete GǦ delete record type cascades to records, stacks, cards (950ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok 10 [crud] GǦ tests\\crud-lifecycle.spec.ts:214:7 GǦ Edge Cases GǦ create record with null values (249ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok 11 [crud] GǦ tests\\crud-lifecycle.spec.ts:226:7 GǦ Edge Cases GǦ update record with empty string (229ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok 12 [crud] GǦ tests\\crud-lifecycle.spec.ts:236:7 GǦ Edge Cases GǦ update record with special characters (264ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok 13 [crud] GǦ tests\\crud-lifecycle.spec.ts:247:7 GǦ Edge Cases GǦ update record with unicode (246ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok 14 [crud] GǦ tests\\crud-lifecycle.spec.ts:257:7 GǦ Edge Cases GǦ cleanup (475ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok 15 [crud] GǦ tests\\crud-lifecycle.spec.ts:268:7 GǦ Populate Stack with Filters GǦ create stack with priority=high filter (234ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok 16 [crud] GǦ tests\\crud-lifecycle.spec.ts:284:7 GǦ Populate Stack with Filters GǦ stack was created with correct filter (244ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok 17 [crud] GǦ tests\\crud-lifecycle.spec.ts:295:7 GǦ Populate Stack with Filters GǦ cleanup (470ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok 18 [crud] GǦ tests\\crud-lifecycle.spec.ts:308:7 GǦ Stack Card Reorder GǦ create stack with 3 cards (1.2s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok 19 [crud] GǦ tests\\crud-lifecycle.spec.ts:335:7 GǦ Stack Card Reorder GǦ reorder via individual updates (simulates app reorderStackCards) (518ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "crud",
-                      "Test":  "ok 20 [crud] GǦ tests\\crud-lifecycle.spec.ts:358:7 GǦ Stack Card Reorder GǦ cleanup (468ms)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "x   1 [e2e] GǦ tests\\e2e.spec.ts:19:9 GǦ Page Loads GǦ /task loads and shows heading (12.8s)",
-                      "Status":  "FAIL"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok  2 [e2e] GǦ tests\\e2e.spec.ts:19:9 GǦ Page Loads GǦ /task loads and shows heading (retry #1) (3.7s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok  3 [e2e] GǦ tests\\e2e.spec.ts:19:9 GǦ Page Loads GǦ /goal loads and shows heading (4.0s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok  4 [e2e] GǦ tests\\e2e.spec.ts:19:9 GǦ Page Loads GǦ /note loads and shows heading (4.0s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok  5 [e2e] GǦ tests\\e2e.spec.ts:19:9 GǦ Page Loads GǦ /event loads and shows heading (3.6s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok  6 [e2e] GǦ tests\\e2e.spec.ts:19:9 GǦ Page Loads GǦ /backlog loads and shows heading (4.0s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok  7 [e2e] GǦ tests\\e2e.spec.ts:19:9 GǦ Page Loads GǦ /stacks loads and shows heading (6.0s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok  8 [e2e] GǦ tests\\e2e.spec.ts:19:9 GǦ Page Loads GǦ /settings loads and shows heading (3.0s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok  9 [e2e] GǦ tests\\e2e.spec.ts:32:7 GǦ Navigation GǦ sidebar links work (4.0s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 10 [e2e] GǦ tests\\e2e.spec.ts:49:7 GǦ Record List GǦ task list shows records (6.2s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 11 [e2e] GǦ tests\\e2e.spec.ts:65:7 GǦ Record List GǦ search filters records (1.7s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 12 [e2e] GǦ tests\\e2e.spec.ts:84:7 GǦ Settings GǦ settings page shows record types (2.4s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 13 [e2e] GǦ tests\\e2e.spec.ts:92:7 GǦ Settings GǦ New Record Type button opens form (2.4s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 14 [e2e] GǦ tests\\e2e.spec.ts:105:7 GǦ Stacks GǦ stacks page loads with board (4.6s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 15 [e2e] GǦ tests\\e2e.spec.ts:116:7 GǦ Stacks GǦ New Stack button opens modal (4.5s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 16 [e2e] GǦ tests\\e2e.spec.ts:131:7 GǦ Responsive GǦ mobile viewport shows sidebar toggle (2.2s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "x  17 [e2e] GǦ tests\\e2e.spec.ts:147:7 GǦ Performance GǦ task page loads in under 3s (3.2s)",
-                      "Status":  "FAIL"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "x  18 [e2e] GǦ tests\\e2e.spec.ts:147:7 GǦ Performance GǦ task page loads in under 3s (retry #1) (3.2s)",
-                      "Status":  "FAIL"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 19 [e2e] GǦ tests\\e2e.spec.ts:156:7 GǦ Performance GǦ stacks page loads in under 6s (4.8s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 20 [e2e] GǦ tests\\e2e.spec.ts:165:7 GǦ Performance GǦ settings page loads in under 3s (2.4s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 21 [e2e] GǦ tests\\e2e.spec.ts:187:7 GǦ Full CRUD Lifecycle via UI GǦ create via API G�� delete via UI G�� verify gone from DB (13.6s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 22 [e2e] GǦ tests\\e2e.spec.ts:225:7 GǦ Full CRUD Lifecycle via UI GǦ create via UI G�� delete via detail page G�� verify gone (21.7s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 23 [e2e] GǦ tests\\e2e.spec.ts:270:7 GǦ Bulk Delete via UI GǦ bulk delete records via API (simulates app logic) and verify (1.7s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "e2e",
-                      "Test":  "ok 24 [e2e] GǦ tests\\e2e.spec.ts:303:7 GǦ Settings CRUD via UI GǦ create record type G�� verify accessible G�� delete cleanup (12.1s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "lighthouse",
-                      "Test":  "ok 1 [lighthouse] GǦ tests\\lighthouse.spec.ts:9:9 GǦ Lighthouse Audit GǦ /task - performance audit (3.2s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "lighthouse",
-                      "Test":  "ok 2 [lighthouse] GǦ tests\\lighthouse.spec.ts:9:9 GǦ Lighthouse Audit GǦ /stacks - performance audit (6.3s)",
-                      "Status":  "PASS"
-                  },
-                  {
-                      "Project":  "lighthouse",
-                      "Test":  "ok 3 [lighthouse] GǦ tests\\lighthouse.spec.ts:9:9 GǦ Lighthouse Audit GǦ /settings - performance audit (2.4s)",
-                      "Status":  "PASS"
-                  }
-              ]
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\Onin\\ocs\\simple-orm\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config=playwright.config.ts",
+      "tests/quick-toggle.spec.ts"
+    ],
+    "configFile": "D:\\Onin\\ocs\\simple-orm\\playwright.config.ts",
+    "rootDir": "D:/Onin/ocs/simple-orm/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Onin/ocs/simple-orm/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "api",
+        "name": "api",
+        "testDir": "D:/Onin/ocs/simple-orm/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "api.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Onin/ocs/simple-orm/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "crud",
+        "name": "crud",
+        "testDir": "D:/Onin/ocs/simple-orm/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "crud-lifecycle.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Onin/ocs/simple-orm/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "e2e",
+        "name": "e2e",
+        "testDir": "D:/Onin/ocs/simple-orm/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "e2e.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Onin/ocs/simple-orm/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "lighthouse",
+        "name": "lighthouse",
+        "testDir": "D:/Onin/ocs/simple-orm/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "lighthouse.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Onin/ocs/simple-orm/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "live",
+        "name": "live",
+        "testDir": "D:/Onin/ocs/simple-orm/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "delete-live.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "tests/results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "tests/report",
+          "open": "never"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 6,
+    "webServer": null
+  },
+  "suites": [],
+  "errors": [
+    {
+      "message": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments.",
+      "stack": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments."
+    }
+  ],
+  "stats": {
+    "startTime": "2026-09-13T21:30:47.844Z",
+    "duration": 13.814999999999998,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
 }
