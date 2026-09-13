@@ -11,41 +11,76 @@ const apiHeaders = {
 
 const PROD_URL = 'https://simple-orm.vercel.app';
 
-test('LIVE: delete record on production via real user clicks', async ({ page, request }) => {
-  // 1. Create record via API
-  const createRes = await request.post(`${SUPABASE_URL}/rest/v1/records`, {
-    headers: apiHeaders,
-    data: { record_type_id: 'task', data: { title: 'LIVE DELETE TEST' } },
-  });
-  const recordId = (await createRes.json())[0].id;
-  console.log('Created record:', recordId);
-
-  // 2. Navigate to production detail page
-  await page.goto(`${PROD_URL}/task/${recordId}`);
+test('FULL E2E: create task via UI → delete via UI → verify DB', async ({ page, request }) => {
+  // 1. Go to task/new
+  await page.goto(`${PROD_URL}/task/new`);
   await page.waitForLoadState('networkidle');
+  await page.waitForTimeout(2000);
+
+  // 2. Fill the title field
+  const titleInput = page.locator('input').first();
+  await expect(titleInput).toBeVisible({ timeout: 10000 });
+  await titleInput.fill('E2E Delete Test ' + Date.now());
+
+  // 3. Submit form
+  await page.locator('button[type="submit"]').click();
   await page.waitForTimeout(3000);
 
-  const content = await page.content();
-  console.log('Page loaded, has title:', content.includes('LIVE DELETE TEST'));
-  console.log('URL:', page.url());
+  // 4. Verify we navigated somewhere on /task
+  console.log('After create URL:', page.url());
+  expect(page.url()).toContain('/task');
 
-  // 3. Click the Delete button on the detail page
-  const deleteBtn = page.locator('div.space-y-6 button:has-text("Delete")');
-  console.log('Delete button visible:', await deleteBtn.isVisible());
+  // 5. Find the record we just created via DB
+  const listRes = await request.get(
+    `${SUPABASE_URL}/rest/v1/records?record_type_id=eq.task&select=id,data&order=created_at.desc&limit=1`,
+    { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+  );
+  const latest = (await listRes.json())[0];
+  const recordId = latest.id;
+  console.log('Created record:', recordId, 'title:', latest.data.title);
+  expect(latest.data.title).toContain('E2E Delete Test');
 
+  // 6. Navigate to detail page
+  await page.goto(`${PROD_URL}/task/${recordId}`);
+  await page.waitForLoadState('networkidle');
+  await page.waitForTimeout(2000);
+
+  // 7. Verify detail page loaded with the title
+  const pageContent = await page.textContent('body');
+  console.log('Detail page has title:', pageContent?.includes(latest.data.title));
+  expect(pageContent).toContain(latest.data.title);
+
+  // 8. Click Delete button
+  const deleteBtn = page.locator('button:has-text("Delete")');
+  await expect(deleteBtn).toBeVisible({ timeout: 5000 });
+  console.log('Clicking Delete...');
   await deleteBtn.click();
   await page.waitForTimeout(1000);
 
-  // 4. Confirm dialog
-  const dialogVisible = await page.locator('.fixed.inset-0.z-50').isVisible();
-  console.log('Confirm dialog visible:', dialogVisible);
+  // 9. Confirm dialog should appear
+  const confirmDialog = page.locator('.fixed.inset-0.z-50');
+  await expect(confirmDialog).toBeVisible({ timeout: 5000 });
+  console.log('Confirm dialog appeared');
 
-  await page.locator('.fixed.inset-0.z-50 .bg-destructive').click();
-  await page.waitForTimeout(5000);
+  // 10. Click the confirm (destructive) button inside the dialog
+  const confirmBtn = confirmDialog.locator('button:has-text("Delete")');
+  await expect(confirmBtn).toBeVisible();
+  console.log('Clicking confirm Delete...');
+  await confirmBtn.click();
 
-  console.log('After delete URL:', page.url());
+  // 11. Wait for redirect to task list
+  await page.waitForURL('**/task', { timeout: 10000 });
+  console.log('Redirected to:', page.url());
+  expect(page.url()).not.toContain(recordId);
 
-  // 5. Verify from DB
+  // 12. Reload and verify record is gone from the page
+  await page.reload();
+  await page.waitForLoadState('networkidle');
+  await page.waitForTimeout(2000);
+  const bodyAfter = await page.textContent('body');
+  expect(bodyAfter).not.toContain(latest.data.title);
+
+  // 13. Verify record is deleted from DB
   const dbCheck = await request.get(
     `${SUPABASE_URL}/rest/v1/records?id=eq.${recordId}&select=id`,
     { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
@@ -53,4 +88,6 @@ test('LIVE: delete record on production via real user clicks', async ({ page, re
   const remaining = (await dbCheck.json()).length;
   console.log('Records remaining in DB:', remaining);
   expect(remaining).toBe(0);
+
+  console.log('DELETE VERIFIED SUCCESSFULLY');
 });

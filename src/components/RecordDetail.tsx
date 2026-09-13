@@ -27,7 +27,7 @@ export function RecordDetail({ record, fields, recordTypeName }: RecordDetailPro
     try {
       await deleteRecordServer(record.id)
       addToast('Record deleted', 'success')
-      router.push(`/${record.record_type_id}`)
+      window.location.href = `/${record.record_type_id}`
     } catch (e: any) {
       addToast(e.message || 'Failed to delete record', 'error')
       setDeleting(false)
