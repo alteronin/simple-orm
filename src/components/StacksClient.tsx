@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { StackWithCards, RecordType } from '@/types'
 import { createStack, deleteStack, updateStack, populateStackFromType, getStacks } from '@/lib/actions'
 import { StackBoard } from '@/components/StackBoard'
@@ -18,29 +18,35 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
   const [showCreate, setShowCreate] = useState(false)
   const [editingStack, setEditingStack] = useState<StackWithCards | null>(null)
   const [modalRecordId, setModalRecordId] = useState<string | null>(null)
+  const [syncingStackId, setSyncingStackId] = useState<string | null>(null)
+  const [isInitialSync, setIsInitialSync] = useState(true)
   const { addToast } = useToast()
 
+  const loadData = useCallback(async () => {
+    const stacksData = await getStacks()
+    setStacks(stacksData)
+  }, [])
+
   useEffect(() => {
-    if (initialStacks.length === 0) return
+    if (initialStacks.length === 0) { setIsInitialSync(false); return }
     let cancelled = false
     const syncAll = async () => {
       let changed = false
       for (const stack of initialStacks) {
+        if (cancelled) return
         try {
           const count = await populateStackFromType(stack.id)
           if (count > 0) changed = true
         } catch {}
       }
-      if (changed && !cancelled) await loadData()
+      if (!cancelled) {
+        if (changed) await loadData()
+        setIsInitialSync(false)
+      }
     }
     syncAll()
     return () => { cancelled = true }
   }, [])
-
-  const loadData = async () => {
-    const stacksData = await getStacks()
-    setStacks(stacksData)
-  }
 
   const handleCreate = async (data: { name: string; record_type_id?: string; display_fields: string[]; quick_update_fields?: string[]; filter_criteria?: any }) => {
     if (!data.record_type_id) return
@@ -59,8 +65,9 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
     if (!editingStack) return
     try {
       await updateStack(editingStack.id, data)
-      addToast('Stack updated', 'success')
+      const count = await populateStackFromType(editingStack.id)
       await loadData()
+      addToast(count > 0 ? `Stack updated — synced ${count} record${count === 1 ? '' : 's'}` : 'Stack updated', 'success')
       setEditingStack(null)
     } catch (e: any) {
       addToast(e.message || 'Failed to update stack', 'error')
@@ -82,12 +89,15 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
   }
 
   const handlePopulate = async (stackId: string) => {
+    setSyncingStackId(stackId)
     try {
       const count = await populateStackFromType(stackId)
-      addToast(count > 0 ? `Added ${count} card${count === 1 ? '' : 's'}` : 'No new records to add', 'success')
       await loadData()
+      addToast(count > 0 ? `Synced ${count} new card${count === 1 ? '' : 's'}` : 'All cards up to date', 'success')
     } catch (e: any) {
       addToast(e.message || 'Failed to sync records', 'error')
+    } finally {
+      setSyncingStackId(null)
     }
   }
 
@@ -122,7 +132,17 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
         </button>
       </div>
 
-      {stacks.length === 0 ? (
+      {isInitialSync && (
+        <div className="flex items-center gap-2 text-sm text-muted-foreground bg-secondary/50 rounded-lg px-4 py-2.5">
+          <svg className="shrink-0 h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+          Syncing stacks...
+        </div>
+      )}
+
+      {stacks.length === 0 && !isInitialSync ? (
         <div className="flex flex-col items-center justify-center py-16 text-muted-foreground border border-dashed border-border rounded-lg">
           <svg className="shrink-0 h-12 w-12 mb-4 opacity-50" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
@@ -145,6 +165,7 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
           onPopulate={handlePopulate}
           onCardClick={setModalRecordId}
           onFieldUpdate={handleFieldUpdate}
+          syncingStackId={syncingStackId}
         />
       )}
 
@@ -169,7 +190,7 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
         <RecordModal
           recordId={modalRecordId}
           onClose={() => setModalRecordId(null)}
-          onSaved={() => {}}
+          onSaved={loadData}
           onDeleted={loadData}
         />
       )}

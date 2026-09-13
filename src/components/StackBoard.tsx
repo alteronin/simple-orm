@@ -30,19 +30,11 @@ interface StackBoardProps {
   onPopulate: (id: string) => void
   onCardClick: (recordId: string) => void
   onFieldUpdate?: (recordId: string, fieldName: string, value: any) => void
+  syncingStackId?: string | null
 }
 
-export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate }: StackBoardProps) {
+export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate, syncingStackId }: StackBoardProps) {
   const [activeStackId, setActiveStackId] = useState<string | null>(null)
-  const [localStacks, setLocalStacks] = useState(stacks)
-  const prevStackIdsRef = useRef<string>('')
-
-  const stackIdsKey = useMemo(() => stacks.map(s => s.id).join(','), [stacks])
-
-  if (stackIdsKey !== prevStackIdsRef.current) {
-    prevStackIdsRef.current = stackIdsKey
-    setLocalStacks(stacks)
-  }
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -51,7 +43,7 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
-    const stack = localStacks.find(s => s.cards.some(c => c.id === active.id))
+    const stack = stacks.find(s => s.cards.some(c => c.id === active.id))
     if (stack) setActiveStackId(stack.id)
   }
 
@@ -59,21 +51,10 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
     const { active, over } = event
     if (!over) return
 
-    const activeStack = localStacks.find(s => s.cards.some(c => c.id === active.id))
-    const overStack = localStacks.find(s => s.cards.some(c => c.id === over.id))
+    const activeStack = stacks.find(s => s.cards.some(c => c.id === active.id))
+    const overStack = stacks.find(s => s.cards.some(c => c.id === over.id))
 
     if (!activeStack || !overStack || activeStack.id === overStack.id) return
-
-    setLocalStacks(prev => {
-      const newStacks = prev.map(s => ({ ...s, cards: [...s.cards] }))
-      const fromStack = newStacks.find(s => s.id === activeStack.id)!
-      const toStack = newStacks.find(s => s.id === overStack.id)!
-      const activeIdx = fromStack.cards.findIndex(c => c.id === active.id)
-      const overIdx = toStack.cards.findIndex(c => c.id === over.id)
-      const [moved] = fromStack.cards.splice(activeIdx, 1)
-      toStack.cards.splice(overIdx >= 0 ? overIdx : toStack.cards.length, 0, moved)
-      return newStacks
-    })
   }
 
   const handleDragEnd = async (event: DragEndEvent) => {
@@ -82,8 +63,8 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
 
     if (!over) return
 
-    const activeStack = localStacks.find(s => s.cards.some(c => c.id === active.id))
-    const overStack = localStacks.find(s => s.cards.some(c => c.id === over.id))
+    const activeStack = stacks.find(s => s.cards.some(c => c.id === active.id))
+    const overStack = stacks.find(s => s.cards.some(c => c.id === over.id))
 
     if (!activeStack || !overStack) return
 
@@ -92,27 +73,15 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
       const newIdx = activeStack.cards.findIndex(c => c.id === over.id)
       if (oldIdx !== newIdx) {
         const newCards = arrayMove(activeStack.cards, oldIdx, newIdx)
-        setLocalStacks(prev =>
-          prev.map(s => s.id === activeStack.id ? { ...s, cards: newCards } : s)
-        )
         await reorderStackCards(activeStack.id, newCards.map(c => c.id))
       }
     } else {
       const overIdx = overStack.cards.findIndex(c => c.id === over.id)
       const movedCard = activeStack.cards.find(c => c.id === active.id)
       if (movedCard) {
-        const newFromCards = activeStack.cards.filter(c => c.id !== active.id)
         const newOverCards = [...overStack.cards]
         newOverCards.splice(overIdx >= 0 ? overIdx : newOverCards.length, 0, movedCard)
-        setLocalStacks(prev =>
-          prev.map(s => {
-            if (s.id === activeStack.id) return { ...s, cards: newFromCards }
-            if (s.id === overStack.id) return { ...s, cards: newOverCards }
-            return s
-          })
-        )
         await reorderStackCards(overStack.id, newOverCards.map(c => c.id))
-        await reorderStackCards(activeStack.id, newFromCards.map(c => c.id))
       }
     }
   }
@@ -126,7 +95,7 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
       onDragEnd={handleDragEnd}
     >
       <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(25%,1fr))]">
-        {localStacks.map(stack => (
+        {stacks.map(stack => (
           <StackColumn
             key={stack.id}
             stack={stack}
@@ -136,6 +105,7 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
             onCardClick={onCardClick}
             onFieldUpdate={onFieldUpdate}
             isDragging={activeStackId === stack.id}
+            isSyncing={syncingStackId === stack.id}
           />
         ))}
       </div>
