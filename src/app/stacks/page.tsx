@@ -61,11 +61,13 @@ export default function StacksPage() {
   const handleDelete = async (id: string) => {
     const stack = stacks.find(s => s.id === id)
     if (!confirm(`Delete "${stack?.name || 'this stack'}"? This will remove all cards but keep the records.`)) return
+    const prev = stacks
+    setStacks(s => s.filter(st => st.id !== id))
     try {
       await deleteStack(id)
       addToast('Stack deleted', 'success')
-      await loadData()
     } catch (e: any) {
+      setStacks(prev)
       addToast(e.message || 'Failed to delete stack', 'error')
     }
   }
