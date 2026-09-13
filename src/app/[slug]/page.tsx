@@ -1,4 +1,5 @@
 import { getRecordsByTypeId, getRecordTypeBySlug, getLinkedRecords, LinkedRecordInfo } from '@/lib/record-operations'
+import { resetAllRecurringTasks } from '@/lib/actions'
 import { RecordList } from '@/components/RecordList'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -14,6 +15,8 @@ interface PageProps {
 export default async function RecordTypePage({ params, searchParams }: PageProps) {
   const rt = await getRecordTypeBySlug(params.slug)
   if (!rt) notFound()
+
+  try { await resetAllRecurringTasks() } catch {}
 
   const page = Math.max(1, parseInt(searchParams.page || '1', 10))
   const { records, total } = await getRecordsByTypeId(rt.id, page)

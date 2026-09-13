@@ -52,3 +52,44 @@ export function checkAndResetRecurring(
   }
   return changed ? updated : data
 }
+
+function isPeriodStart(date: Date, recurrence: string): boolean {
+  const now = new Date()
+  const dateDay = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+  const nowDay = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+
+  if (recurrence === 'daily') {
+    return dateDay < nowDay
+  }
+  if (recurrence === 'weekly') {
+    const dayOfWeek = now.getUTCDay() || 7
+    const startOfWeekDay = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - dayOfWeek + 1)
+    return dateDay < startOfWeekDay
+  }
+  if (recurrence === 'monthly') {
+    return date.getUTCMonth() !== now.getUTCMonth() || date.getUTCFullYear() !== now.getUTCFullYear()
+  }
+  if (recurrence === 'yearly') {
+    return date.getUTCFullYear() !== now.getUTCFullYear()
+  }
+  return true
+}
+
+export function shouldResetDone(
+  data: Record<string, any>,
+): boolean {
+  if (!data.done) return false
+  const recurrence = data.recurrence
+  if (!recurrence || recurrence === 'none') return false
+  const doneAt = data.done_at
+  if (!doneAt) return false
+  const completedDate = new Date(doneAt)
+  return isPeriodStart(completedDate, recurrence)
+}
+
+export function checkAndResetTaskRecurrence(
+  data: Record<string, any>,
+): Record<string, any> {
+  if (!shouldResetDone(data)) return data
+  return { ...data, done: false, done_at: null }
+}

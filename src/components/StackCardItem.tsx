@@ -53,7 +53,16 @@ export function StackCardItem({ card, displayFields, quickUpdateFields, fields, 
     } else return
     try {
       await updateRecordField(card.record.id, fieldName, newVal)
-      if (onFieldUpdate) onFieldUpdate(card.record.id, fieldName, newVal)
+      if (fieldName === 'done') {
+        const doneAtVal = newVal ? new Date().toISOString() : null
+        await updateRecordField(card.record.id, 'done_at', doneAtVal)
+        if (onFieldUpdate) {
+          onFieldUpdate(card.record.id, fieldName, newVal)
+          onFieldUpdate(card.record.id, 'done_at', doneAtVal)
+        }
+      } else {
+        if (onFieldUpdate) onFieldUpdate(card.record.id, fieldName, newVal)
+      }
     } catch {}
   }
 

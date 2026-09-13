@@ -451,3 +451,48 @@ export async function populateStackFromType(stackId: string): Promise<number> {
   }
   return newCards.length
 }
+
+export async function resetRecurringTasks(recordTypeId: string): Promise<number> {
+  const { data: records, error } = await supabase
+    .from('records')
+    .select('id, data, updated_at')
+    .eq('record_type_id', recordTypeId)
+    .eq('data->>done', 'true')
+    .not('data->>recurrence', 'is', null)
+    .neq('data->>recurrence', 'none')
+
+  if (error || !records || records.length === 0) return 0
+
+  const { shouldResetDone } = await import('./recurring')
+  const toReset = records.filter(r => shouldResetDone(r.data))
+
+  if (toReset.length === 0) return 0
+
+  const updates = toReset.map(r => ({
+    id: r.id,
+    data: { ...r.data, done: false, done_at: null },
+  }))
+
+  const { error: updateError } = await supabase.from('records').upsert(updates, { onConflict: 'id' })
+  if (updateError) throw new Error(updateError.message)
+
+  return toReset.length
+}
+
+export async function resetAllRecurringTasks(): Promise<number> {
+  const { data: types } = await supabase
+    .from('record_types')
+    .select('id, fields')
+    .contains('fields', [{ name: 'done', type: 'boolean' }])
+
+  if (!types) return 0
+
+  let total = 0
+  for (const rt of types) {
+    const fields = rt.fields as FieldDefinition[]
+    const hasRecurrence = fields.some(f => f.name === 'recurrence')
+    if (!hasRecurrence) continue
+    try { total += await resetRecurringTasks(rt.id) } catch {}
+  }
+  return total
+}

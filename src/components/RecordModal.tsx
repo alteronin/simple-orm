@@ -52,8 +52,14 @@ export function RecordModal({ recordId, onClose, onSaved, onDeleted }: RecordMod
   const handleSave = async () => {
     setSaving(true)
     try {
-      await updateRecord(record!.id, editValues)
-      setRecord({ ...record!, data: editValues })
+      const saveData = { ...editValues }
+      if (saveData.done === true && !saveData.done_at) {
+        saveData.done_at = new Date().toISOString()
+      } else if (saveData.done === false) {
+        saveData.done_at = null
+      }
+      await updateRecord(record!.id, saveData)
+      setRecord({ ...record!, data: saveData })
       setEditing(false)
       addToast('Record updated', 'success')
       onSaved()
