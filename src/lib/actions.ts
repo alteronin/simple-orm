@@ -375,7 +375,7 @@ export async function populateStackFromType(stackId: string): Promise<number> {
 
   const criteria: FilterCriterion[] = stack.filter_criteria || []
   for (const c of criteria) {
-    const col = `data->>'${c.field}'`
+    const col = `data->>${c.field}`
     switch (c.operator) {
       case 'eq': query = query.eq(col, c.value); break
       case 'neq': query = query.neq(col, c.value); break
