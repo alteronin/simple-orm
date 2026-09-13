@@ -390,7 +390,7 @@ export async function populateStackFromType(stackId: string): Promise<number> {
 
   const { data: existingCards } = await supabase
     .from('stack_cards')
-    .select('record_id')
+    .select('id, record_id')
     .eq('stack_id', stackId)
   const existingIds = new Set((existingCards || []).map(c => c.record_id))
 
@@ -416,7 +416,6 @@ export async function populateStackFromType(stackId: string): Promise<number> {
   const { data: records } = await query
 
   const matchingIds = new Set((records || []).map(r => r.id))
-  const existingIds = new Set((existingCards || []).map(c => c.record_id))
 
   const toRemove = (existingCards || []).filter(c => !matchingIds.has(c.record_id))
   if (toRemove.length > 0) {
