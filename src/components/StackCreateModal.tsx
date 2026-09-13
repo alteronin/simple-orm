@@ -195,17 +195,20 @@ export function StackCreateModal({ recordTypes, stack, onSubmit, onClose }: Stac
                     >
                       {field.label || field.name}
                     </button>
-                    {displayFields.includes(field.name) && (field.type === 'boolean' || (field.type === 'select' && field.options)) && (
+                    {(field.type === 'boolean' || (field.type === 'select' && field.options)) && (
                       <button
                         type="button"
                         onClick={() => {
+                          if (!displayFields.includes(field.name)) {
+                            setDisplayFields(prev => [...prev, field.name])
+                          }
                           setQuickUpdateFields(prev =>
                             prev.includes(field.name)
                               ? prev.filter(f => f !== field.name)
                               : [...prev, field.name]
                           )
                         }}
-                        title={`Toggle quick-update (makes field toggleable on cards)`}
+                        title={`Quick Toggle — adds a one-click toggle button on cards for this field`}
                         className={`inline-flex items-center justify-center rounded-full h-6 w-6 text-xs font-medium transition-colors border ${
                           quickUpdateFields.includes(field.name)
                             ? 'bg-green-500/10 text-green-600 border-green-500/30'
@@ -218,6 +221,9 @@ export function StackCreateModal({ recordTypes, stack, onSubmit, onClose }: Stac
                   </div>
                 ))}
               </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                <span className="text-green-600">⚡</span> = Quick Toggle — adds a one-click button on cards to cycle through values (for boolean/select fields)
+              </p>
             </div>
           )}
 

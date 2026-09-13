@@ -223,12 +223,19 @@ export async function deleteRecordType(id: string): Promise<void> {
 import { Stack, StackCard, StackWithCards, FilterCriterion } from '@/types'
 
 export async function getStacks(): Promise<StackWithCards[]> {
-  const { data: stacks, error: stacksError } = await supabase
-    .from('stacks')
-    .select('id, name, record_type_id, display_fields, filter_criteria, position, created_at, updated_at')
-    .order('position', { ascending: true })
+  const selectCols = 'id, name, record_type_id, display_fields, filter_criteria, position, created_at, updated_at'
+  const fullSelect = `${selectCols}, quick_update_fields`
+
+  // Try with quick_update_fields; fall back without if column doesn't exist
+  let result: any = await supabase.from('stacks').select(fullSelect).order('position', { ascending: true })
+  if (result.error?.message?.includes('quick_update_fields')) {
+    result = await supabase.from('stacks').select(selectCols).order('position', { ascending: true })
+  }
+  const { data: rawStacks, error: stacksError } = result
   if (stacksError) throw new Error(stacksError.message)
-  if (!stacks || stacks.length === 0) return []
+  const stacks = (rawStacks || []) as any[]
+
+  if (stacks.length === 0) return []
 
   const stackIds = stacks.map(s => s.id)
   const rtIds = [...new Set(stacks.map(s => s.record_type_id))]
@@ -258,12 +265,20 @@ export async function getStacks(): Promise<StackWithCards[]> {
 }
 
 export async function getStack(id: string): Promise<StackWithCards | null> {
-  const { data: stack, error } = await supabase
+  let result: any = await supabase
     .from('stacks')
-    .select('id, name, record_type_id, display_fields, filter_criteria, position, created_at, updated_at')
+    .select('id, name, record_type_id, display_fields, filter_criteria, position, created_at, updated_at, quick_update_fields')
     .eq('id', id)
     .single()
-  if (error) return null
+  if (result.error?.message?.includes('quick_update_fields')) {
+    result = await supabase
+      .from('stacks')
+      .select('id, name, record_type_id, display_fields, filter_criteria, position, created_at, updated_at')
+      .eq('id', id)
+      .single()
+  }
+  const stack = result.data
+  if (!stack) return null
 
   const [cardsResult, rtResult] = await Promise.all([
     supabase.from('stack_cards').select('id, stack_id, record_id, position, record:records(id, record_type_id, data, created_at, updated_at)').eq('stack_id', id).order('position', { ascending: true }),
