@@ -124,7 +124,7 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="grid gap-4 grid-cols-4">
+      <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(25%,1fr))]">
         {localStacks.map(stack => (
           <StackColumn
             key={stack.id}
