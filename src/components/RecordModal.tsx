@@ -5,7 +5,6 @@ import { AppRecord, FieldDefinition, RecordType } from '@/types'
 import { supabase } from '@/lib/supabase'
 import { updateRecord, deleteRecord as deleteRecordServer } from '@/lib/actions'
 import { useToast } from './Toast'
-import { useDeleteRecord } from '@/hooks/useRecords'
 import { ConfirmDialog } from './ConfirmDialog'
 import { RecordNotes } from './RecordNotes'
 import { RecordHistory } from './RecordHistory'
@@ -27,7 +26,6 @@ export function RecordModal({ recordId, onClose, onSaved, onDeleted }: RecordMod
   const [showDelete, setShowDelete] = useState(false)
   const [saving, setSaving] = useState(false)
   const { addToast } = useToast()
-  const { mutate: deleteRecord } = useDeleteRecord()
 
   useEffect(() => {
     const load = async () => {
@@ -64,11 +62,15 @@ export function RecordModal({ recordId, onClose, onSaved, onDeleted }: RecordMod
     }
   }
 
-  const handleDelete = () => {
-    deleteRecord(record!.id)
-    addToast('Record deleted', 'success')
-    onDeleted()
-    onClose()
+  const handleDelete = async () => {
+    try {
+      await deleteRecordServer(record!.id)
+      addToast('Record deleted', 'success')
+      onDeleted()
+      onClose()
+    } catch (e: any) {
+      addToast(e.message || 'Failed to delete record', 'error')
+    }
   }
 
   if (!record || !rt) {

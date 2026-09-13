@@ -174,90 +174,169 @@ test.describe('Performance', () => {
 
 // ─── CRUD Through UI ────────────────────────────────────────────
 
-test.describe('Record CRUD via UI', () => {
-  test('create a record and verify it appears in list', async ({ page }) => {
+const SUPABASE_URL = 'https://vhgcmdgmmvarkqjfcytj.supabase.co'
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZoZ2NtZGdtbXZhcmtxamZjeXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5ODE3MzcsImV4cCI6MjEwNDU1NzczN30.1S8WuGio75wlZb3BIPbiIMz2f--AZHR7de8_QmAMEwY'
+const apiHeaders = {
+  apikey: SUPABASE_KEY,
+  Authorization: `Bearer ${SUPABASE_KEY}`,
+  'Content-Type': 'application/json',
+  Prefer: 'return=representation',
+}
+
+test.describe('Full CRUD Lifecycle via UI', () => {
+  test('create via API → delete via UI → verify gone from DB', async ({ page, request }) => {
+    // 1. Create a record via API
+    const createRes = await request.post(`${SUPABASE_URL}/rest/v1/records`, {
+      headers: apiHeaders,
+      data: { record_type_id: 'task', data: { title: 'UI Lifecycle Test' } },
+    })
+    const recordId = (await createRes.json())[0].id
+
+    // 2. Navigate to detail page
+    await page.goto(`/task/${recordId}`)
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(2000)
+
+    // Verify content loaded
+    const detailContent = await page.content()
+    expect(detailContent).toContain('UI Lifecycle Test')
+    await expect(page.locator('button', { hasText: 'Edit' })).toBeVisible()
+    await expect(page.locator('button', { hasText: 'Delete' })).toBeVisible()
+
+    // 3. Delete via UI
+    await page.locator('div.space-y-6 button:has-text("Delete")').click()
+    await page.waitForSelector('.fixed.inset-0.z-50', { timeout: 5000 })
+    await page.locator('.fixed.inset-0.z-50 .bg-destructive').click()
+
+    // 4. Wait for redirect to task list
+    await page.waitForURL('**/task', { timeout: 10000 })
+    await page.reload()
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(2000)
+
+    // 5. Verify actually deleted from DB
+    const dbCheck = await request.get(
+      `${SUPABASE_URL}/rest/v1/records?id=eq.${recordId}&select=id`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    )
+    expect((await dbCheck.json()).length).toBe(0)
+  })
+
+  test('create via UI → delete via detail page → verify gone', async ({ page, request }) => {
+    // 1. Create via the form
     await page.goto('/task/new')
     await page.waitForLoadState('networkidle')
     await page.waitForTimeout(2000)
 
-    // Fill in title
-    const titleInput = page.locator('input').first()
-    await titleInput.fill('E2E UI Test Record')
-
-    // Submit
-    const submitBtn = page.locator('button[type="submit"]')
-    await submitBtn.click()
+    await page.locator('input').first().fill('UI Created Task')
+    await page.locator('button[type="submit"]').click()
     await page.waitForTimeout(3000)
 
-    // Should redirect to detail page or list
-    const url = page.url()
-    expect(url).toContain('/task')
-  })
-
-  test('navigate to a record detail page via URL', async ({ page }) => {
-    // First get a valid record ID from the API
-    const res = await page.request.get(
-      'https://vhgcmdgmmvarkqjfcytj.supabase.co/rest/v1/records?record_type_id=eq.task&select=id&limit=1',
-      {
-        headers: {
-          apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZoZ2NtZGdtbXZhcmtxamZjeXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5ODE3MzcsImV4cCI6MjEwNDU1NzczN30.1S8WuGio75wlZb3BIPbiIMz2f--AZHR7de8_QmAMEwY',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZoZ2NtZGdtbXZhcmtxamZjeXRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5ODE3MzcsImV4cCI6MjEwNDU1NzczN30.1S8WuGio75wlZb3BIPbiIMz2f--AZHR7de8_QmAMEwY',
-        },
-      }
+    // Form redirects to /task — get the record ID from DB
+    expect(page.url()).toContain('/task')
+    const listRes = await request.get(
+      `${SUPABASE_URL}/rest/v1/records?record_type_id=eq.task&select=id,data&order=created_at.desc&limit=1`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
     )
-    const records = await res.json()
-    if (records.length === 0) return
+    const latestRecord = (await listRes.json())[0]
+    expect(latestRecord.data.title).toBe('UI Created Task')
+    const recordId = latestRecord.id
 
-    await page.goto(`/task/${records[0].id}`)
+    // 2. Navigate to detail and delete
+    await page.goto(`/task/${recordId}`)
     await page.waitForLoadState('networkidle')
     await page.waitForTimeout(2000)
 
-    // Should be on detail page
-    expect(page.url()).toContain(`/task/${records[0].id}`)
+    await page.locator('div.space-y-6 button:has-text("Delete")').click()
+    await page.waitForSelector('.fixed.inset-0.z-50', { timeout: 5000 })
+    await page.locator('.fixed.inset-0.z-50 .bg-destructive').click()
 
-    // Should have Edit and Delete buttons
-    const editBtn = page.locator('button', { hasText: 'Edit' })
-    const deleteBtn = page.locator('button', { hasText: 'Delete' })
-    expect(await editBtn.isVisible()).toBeTruthy()
-    expect(await deleteBtn.isVisible()).toBeTruthy()
+    // 3. Wait for redirect, reload, verify gone
+    await page.waitForURL('**/task', { timeout: 10000 })
+    await page.reload()
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(2000)
+
+    // 4. Verify deleted from DB
+    const dbCheck = await request.get(
+      `${SUPABASE_URL}/rest/v1/records?id=eq.${recordId}&select=id`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    )
+    expect((await dbCheck.json()).length).toBe(0)
+  })
+})
+
+test.describe('Bulk Delete via UI', () => {
+  test('bulk delete records via API (simulates app logic) and verify', async ({ request }) => {
+    const recordIds: string[] = []
+
+    // Create 3 records
+    for (let i = 0; i < 3; i++) {
+      const res = await request.post(`${SUPABASE_URL}/rest/v1/records`, {
+        headers: apiHeaders,
+        data: { record_type_id: 'task', data: { title: `Bulk Delete ${i}` } },
+      })
+      recordIds.push((await res.json())[0].id)
+    }
+
+    // Simulate the app's deleteRecords: clean history, notes, then delete
+    await request.delete(`${SUPABASE_URL}/rest/v1/record_history?record_id=in.(${recordIds.join(',')})`, { headers: apiHeaders })
+    await request.delete(`${SUPABASE_URL}/rest/v1/notes?record_id=in.(${recordIds.join(',')})`, { headers: apiHeaders })
+    const delRes = await request.delete(
+      `${SUPABASE_URL}/rest/v1/records?id=in.(${recordIds.join(',')})`,
+      { headers: apiHeaders }
+    )
+    expect(delRes.ok()).toBeTruthy()
+
+    // Verify deleted
+    const dbCheck = await request.get(
+      `${SUPABASE_URL}/rest/v1/records?id=in.(${recordIds.join(',')})&select=id`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    )
+    expect((await dbCheck.json()).length).toBe(0)
   })
 })
 
 // ─── Settings CRUD ──────────────────────────────────────────────
 
-test.describe('Settings CRUD', () => {
-  test('create and delete a record type', async ({ page }) => {
+test.describe('Settings CRUD via UI', () => {
+  test('create record type → verify accessible → delete cleanup', async ({ page, request }) => {
+    const testSlug = `e2e_${Date.now()}`
+
+    // Create via settings form
     await page.goto('/settings')
     await page.waitForTimeout(2000)
-
-    // Click New Record Type
     await page.click('button:has-text("New Record Type")')
     await page.waitForTimeout(1000)
 
-    // Fill in name
-    const nameInput = page.locator('input').first()
-    await nameInput.fill('E2E Test Type')
+    await page.locator('input').first().fill('E2E Settings Type')
+    await page.locator('input').nth(1).fill(testSlug)
 
-    // Fill in slug
-    const slugInput = page.locator('input').nth(1)
-    await slugInput.fill(`e2e_test_${Date.now()}`)
-
-    // Add a field
     const addFieldBtn = page.locator('button', { hasText: /add field/i })
     if (await addFieldBtn.isVisible()) {
       await addFieldBtn.click()
       await page.waitForTimeout(500)
     }
 
-    // Submit
     const saveBtn = page.locator('button[type="submit"]')
     if (await saveBtn.isVisible()) {
       await saveBtn.click()
       await page.waitForTimeout(3000)
     }
 
-    // Verify the new type appears
     const content = await page.content()
-    expect(content).toContain('E2E Test Type')
+    expect(content).toContain('E2E Settings Type')
+
+    // Verify accessible
+    await page.goto(`/${testSlug}`)
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(2000)
+    await expect(page.locator('h1').first()).toBeVisible()
+
+    // Cleanup
+    await request.delete(
+      `${SUPABASE_URL}/rest/v1/record_types?id=eq.${testSlug}`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    )
   })
 })

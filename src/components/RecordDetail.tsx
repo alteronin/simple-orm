@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { AppRecord, FieldDefinition } from '@/types'
 import { ConfirmDialog } from './ConfirmDialog'
-import { useDeleteRecord } from '@/hooks/useRecords'
+import { deleteRecord as deleteRecordServer } from '@/lib/actions'
 import { RecordNotes } from './RecordNotes'
 import { RecordHistory } from './RecordHistory'
 import { supabase } from '@/lib/supabase'
+import { useToast } from './Toast'
 
 interface RecordDetailProps {
   record: AppRecord
@@ -17,12 +18,20 @@ interface RecordDetailProps {
 
 export function RecordDetail({ record, fields, recordTypeName }: RecordDetailProps) {
   const router = useRouter()
+  const { addToast } = useToast()
   const [showDelete, setShowDelete] = useState(false)
-  const { mutate: deleteRecord } = useDeleteRecord()
+  const [deleting, setDeleting] = useState(false)
 
-  const handleDelete = () => {
-    deleteRecord(record.id)
-    router.push(`/${record.record_type_id}`)
+  const handleDelete = async () => {
+    setDeleting(true)
+    try {
+      await deleteRecordServer(record.id)
+      addToast('Record deleted', 'success')
+      router.push(`/${record.record_type_id}`)
+    } catch (e: any) {
+      addToast(e.message || 'Failed to delete record', 'error')
+      setDeleting(false)
+    }
   }
 
   return (
