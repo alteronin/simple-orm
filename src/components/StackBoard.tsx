@@ -31,6 +31,7 @@ interface StackBoardProps {
   onFieldUpdate?: (recordId: string, fieldName: string, value: any) => void
   onReorder: (stacks: StackWithCards[]) => void
   syncingStackId?: string | null
+  onSortedCardsChange?: (stackId: string, sortedIds: string[]) => void
 }
 
 function findStack(stacks: StackWithCards[], id: string | number) {
@@ -50,8 +51,9 @@ function findStackByDroppableId(stacks: StackWithCards[], overId: string | numbe
   return undefined
 }
 
-export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate, onReorder, syncingStackId }: StackBoardProps) {
+export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate, onReorder, syncingStackId, onSortedCardsChange }: StackBoardProps) {
   const [activeCardId, setActiveCardId] = useState<string | null>(null)
+  const [sortedCardsMap, setSortedCardsMap] = useState<Record<string, string[]>>({})
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -60,6 +62,11 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
 
   const handleDragStart = (event: DragStartEvent) => {
     setActiveCardId(String(event.active.id))
+  }
+
+  const handleSortedCardsChange = (stackId: string, sortedIds: string[]) => {
+    setSortedCardsMap(prev => ({ ...prev, [stackId]: sortedIds }))
+    if (onSortedCardsChange) onSortedCardsChange(stackId, sortedIds)
   }
 
   const handleDragOver = (event: DragOverEvent) => {
@@ -112,11 +119,17 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
     if (!activeStack || !overStack) return
 
     if (activeStack.id === overStack.id) {
-      const oldIdx = activeStack.cards.findIndex(c => c.id === active.id)
-      const newIdx = activeStack.cards.findIndex(c => c.id === over.id)
+      // Same stack reorder - use sorted order if available
+      const sortedIds = sortedCardsMap[activeStack.id]
+      const cardsToUse = sortedIds
+        ? sortedIds.map(id => activeStack.cards.find(c => c.id === id)).filter(Boolean) as typeof activeStack.cards
+        : activeStack.cards
+
+      const oldIdx = cardsToUse.findIndex(c => c.id === active.id)
+      const newIdx = cardsToUse.findIndex(c => c.id === over.id)
       if (oldIdx === -1 || newIdx === -1 || oldIdx === newIdx) return
 
-      const newCards = arrayMove(activeStack.cards, oldIdx, newIdx)
+      const newCards = arrayMove(cardsToUse, oldIdx, newIdx)
       const newStacks = stacks.map(s => s.id === activeStack.id ? { ...s, cards: newCards } : s)
       onReorder(newStacks)
       await reorderStackCards(activeStack.id, newCards.map(c => c.id))
@@ -124,8 +137,14 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
       const movedCard = activeStack.cards.find(c => c.id === active.id)
       if (!movedCard) return
 
-      const overIdx = overStack.cards.findIndex(c => c.id === over.id)
-      const newOverCards = [...overStack.cards]
+      // Use sorted order for destination stack if available
+      const overSortedIds = sortedCardsMap[overStack.id]
+      const overCardsToUse = overSortedIds
+        ? overSortedIds.map(id => overStack.cards.find(c => c.id === id)).filter(Boolean) as typeof overStack.cards
+        : overStack.cards
+
+      const overIdx = overCardsToUse.findIndex(c => c.id === over.id)
+      const newOverCards = [...overCardsToUse]
       if (overIdx >= 0) {
         newOverCards.splice(overIdx, 0, movedCard)
       } else {
@@ -169,6 +188,7 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
             onPopulate={() => onPopulate(stack.id)}
             onCardClick={onCardClick}
             onFieldUpdate={onFieldUpdate}
+            onSortedCardsChange={(ids) => handleSortedCardsChange(stack.id, ids)}
           />
         ))}
       </div>

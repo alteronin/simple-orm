@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { StackWithCards, StackCard, AppRecord } from '@/types'
@@ -15,6 +15,7 @@ interface StackColumnProps {
   onPopulate: () => void
   onCardClick: (recordId: string) => void
   onFieldUpdate?: (recordId: string, fieldName: string, value: any) => void
+  onSortedCardsChange?: (sortedIds: string[]) => void
 }
 
 const OP_LABELS: Record<string, string> = { eq: '=', neq: '≠', contains: '~', gt: '>', lt: '<', gte: '≥', lte: '≤' }
@@ -27,7 +28,7 @@ function getCardSortValue(card: StackCard & { record: AppRecord }, fieldName: st
   return String(val).toLowerCase()
 }
 
-export function StackColumn({ stack, isDragging, isSyncing, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate }: StackColumnProps) {
+export function StackColumn({ stack, isDragging, isSyncing, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate, onSortedCardsChange }: StackColumnProps) {
   const { setNodeRef, isOver } = useDroppable({ id: `stack-${stack.id}` })
   const fields = stack.record_type?.fields || []
   const displayFields = stack.display_fields || []
@@ -48,6 +49,10 @@ export function StackColumn({ stack, isDragging, isSyncing, onEdit, onDelete, on
   }, [stack.cards, sortField, sortDir])
 
   const cardIds = sortedCards.map(c => c.id)
+
+  useEffect(() => {
+    if (onSortedCardsChange) onSortedCardsChange(cardIds)
+  }, [cardIds, onSortedCardsChange])
 
   const toggleSort = (field: string) => {
     if (sortField === field) {
