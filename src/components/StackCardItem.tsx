@@ -4,7 +4,7 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { StackCard, FieldDefinition, AppRecord } from '@/types'
 import { RecurringValue, isRecurringExpired, getRecurringDisplay } from '@/lib/recurring'
-import { updateRecordField } from '@/lib/actions'
+import { updateRecordField, updateRecord } from '@/lib/actions'
 
 interface StackCardItemProps {
   card: StackCard & { record: AppRecord }
@@ -52,15 +52,15 @@ export function StackCardItem({ card, displayFields, quickUpdateFields, fields, 
       newVal = options[(idx + 1) % options.length]
     } else return
     try {
-      await updateRecordField(card.record.id, fieldName, newVal)
       if (fieldName === 'done') {
         const doneAtVal = newVal ? new Date().toISOString() : null
-        await updateRecordField(card.record.id, 'done_at', doneAtVal)
+        await updateRecord(card.record.id, { done: newVal, done_at: doneAtVal })
         if (onFieldUpdate) {
           onFieldUpdate(card.record.id, fieldName, newVal)
           onFieldUpdate(card.record.id, 'done_at', doneAtVal)
         }
       } else {
+        await updateRecordField(card.record.id, fieldName, newVal)
         if (onFieldUpdate) onFieldUpdate(card.record.id, fieldName, newVal)
       }
     } catch {}
