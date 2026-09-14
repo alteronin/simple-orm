@@ -38,13 +38,21 @@ export async function getFieldConfig(recordTypeId: string): Promise<FieldDefinit
   return rt?.fields || []
 }
 
-export async function getRecordsByTypeId(recordTypeId: string, page = 1, limit = 10): Promise<{ records: AppRecord[], total: number }> {
+export async function getRecordsByTypeId(
+  recordTypeId: string,
+  page = 1,
+  limit = 10,
+  sortBy = 'created_at',
+  sortDir: 'asc' | 'desc' = 'desc'
+): Promise<{ records: AppRecord[], total: number }> {
   const offset = (page - 1) * limit
+  const isSystemField = sortBy === 'created_at' || sortBy === 'updated_at'
+  const orderCol = isSystemField ? sortBy : `data->>${sortBy}`
   const { data, error, count } = await supabase
     .from('records')
     .select(REC_COLS, { count: 'exact' })
     .eq('record_type_id', recordTypeId)
-    .order('created_at', { ascending: false })
+    .order(orderCol, { ascending: sortDir === 'asc', nullsFirst: false })
     .range(offset, offset + limit - 1)
   if (error) throw new Error(error.message)
   return { records: (data || []) as AppRecord[], total: count || 0 }

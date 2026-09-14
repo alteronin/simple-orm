@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { StackWithCards, FilterCriterion, StackCard, AppRecord } from '@/types'
@@ -8,6 +8,9 @@ import { StackCardItem } from './StackCardItem'
 
 interface StackColumnProps {
   stack: StackWithCards
+  sortField: string
+  sortDir: 'asc' | 'desc'
+  onSortChange: (field: string, dir: 'asc' | 'desc') => void
   onEdit: () => void
   onDelete: () => void
   onPopulate: () => void
@@ -27,15 +30,12 @@ function getCardSortValue(card: StackCard & { record: AppRecord }, fieldName: st
   return String(val).toLowerCase()
 }
 
-export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging, isSyncing, onCardClick, onFieldUpdate }: StackColumnProps) {
+export function StackColumn({ stack, sortField, sortDir, onSortChange, onEdit, onDelete, onPopulate, isDragging, isSyncing, onCardClick, onFieldUpdate }: StackColumnProps) {
   const { setNodeRef, isOver } = useDroppable({ id: `stack-${stack.id}` })
   const fields = stack.record_type?.fields || []
   const displayFields = stack.display_fields || []
   const quickUpdateFields = stack.quick_update_fields || []
   const filters = stack.filter_criteria || []
-
-  const [sortField, setSortField] = useState<string>('')
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc')
 
   const sortedCards = useMemo(() => {
     if (!sortField) return stack.cards
@@ -51,10 +51,9 @@ export function StackColumn({ stack, onEdit, onDelete, onPopulate, isDragging, i
 
   const toggleSort = (field: string) => {
     if (sortField === field) {
-      setSortDir(prev => prev === 'asc' ? 'desc' : 'asc')
+      onSortChange(field, sortDir === 'asc' ? 'desc' : 'asc')
     } else {
-      setSortField(field)
-      setSortDir('asc')
+      onSortChange(field, 'asc')
     }
   }
 

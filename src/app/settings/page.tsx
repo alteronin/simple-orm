@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase'
 import { createRecordType, updateRecordType, deleteRecordType } from '@/lib/actions'
 import { RecordType, FieldDefinition } from '@/types'
 import { useToast } from '@/components/Toast'
+import { logError } from '@/lib/logger'
 
 const FIELD_TYPES = ['text', 'number', 'select', 'boolean', 'date', 'link', 'recurring']
 const RESERVED_SLUGS = ['settings', 'stacks', 'api', 'new', 'edit']
@@ -67,6 +68,7 @@ export default function SettingsPage() {
               fetchTypes()
               router.refresh()
             } catch (e: any) {
+              logError(e, { component: 'SettingsPage', action: 'saveRecordType' })
               addToast(e.message || 'Failed to save', 'error')
             }
           }}
@@ -114,6 +116,7 @@ export default function SettingsPage() {
                         fetchTypes()
                         router.refresh()
                       } catch (e: any) {
+                        logError(e, { component: 'SettingsPage', action: 'deleteRecordType' })
                         addToast(e.message || 'Failed to delete', 'error')
                       }
                     }}

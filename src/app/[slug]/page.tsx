@@ -9,7 +9,7 @@ export const revalidate = 0
 
 interface PageProps {
   params: { slug: string }
-  searchParams: { page?: string }
+  searchParams: { page?: string; sort?: string; dir?: string }
 }
 
 export default async function RecordTypePage({ params, searchParams }: PageProps) {
@@ -19,7 +19,9 @@ export default async function RecordTypePage({ params, searchParams }: PageProps
   try { await resetAllRecurringTasks() } catch {}
 
   const page = Math.max(1, parseInt(searchParams.page || '1', 10))
-  const { records, total } = await getRecordsByTypeId(rt.id, page)
+  const sortBy = searchParams.sort || 'created_at'
+  const sortDir = (searchParams.dir === 'asc' ? 'asc' : 'desc') as 'asc' | 'desc'
+  const { records, total } = await getRecordsByTypeId(rt.id, page, 10, sortBy, sortDir)
   const totalPages = Math.ceil(total / 10)
 
   const linkPairs: { recordId: string; targetType: string }[] = []
@@ -53,7 +55,7 @@ export default async function RecordTypePage({ params, searchParams }: PageProps
           New {rt.name}
         </Link>
       </div>
-      <RecordList records={records} loading={false} fields={rt.fields} recordTypeName={rt.name} recordTypeId={rt.id} totalRecords={total} totalPages={totalPages} currentPage={page} linkedRecords={linkedRecords} />
+      <RecordList records={records} loading={false} fields={rt.fields} recordTypeName={rt.name} recordTypeId={rt.id} totalRecords={total} totalPages={totalPages} currentPage={page} currentSortBy={sortBy} currentSortDir={sortDir} linkedRecords={linkedRecords} />
     </div>
   )
 }

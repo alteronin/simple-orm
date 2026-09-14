@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { FieldDefinition } from '@/types'
 import { updateRecordField } from '@/lib/actions'
 import { useToast } from './Toast'
+import { logError } from '@/lib/logger'
 
 interface InlineEditableFieldProps {
   recordId: string
@@ -56,6 +57,7 @@ export function InlineEditableField({ recordId, field, value, onSaved }: InlineE
       onSaved(newValue)
       setEditing(false)
     } catch (e: any) {
+      logError(e, { component: 'InlineEditableField', action: `updateField:${field.name}` })
       addToast(e.message || 'Failed to update', 'error')
     } finally {
       setSaving(false)

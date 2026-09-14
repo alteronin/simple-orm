@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Note, getNotes, createNote, deleteNote } from '@/lib/actions'
 import { useToast } from './Toast'
+import { logError } from '@/lib/logger'
 
 export function RecordNotes({ recordId }: { recordId: string }) {
   const [notes, setNotes] = useState<Note[]>([])
@@ -16,6 +17,7 @@ export function RecordNotes({ recordId }: { recordId: string }) {
       const data = await getNotes(recordId)
       setNotes(data)
     } catch (e: any) {
+      logError(e, { component: 'RecordNotes', action: 'loadNotes' })
       addToast('Failed to load notes', 'error')
     } finally {
       setLoading(false)
@@ -33,6 +35,7 @@ export function RecordNotes({ recordId }: { recordId: string }) {
       setContent('')
       addToast('Note added', 'success')
     } catch (e: any) {
+      logError(e, { component: 'RecordNotes', action: 'addNote' })
       addToast(e.message || 'Failed to add note', 'error')
     } finally {
       setSubmitting(false)
@@ -45,6 +48,7 @@ export function RecordNotes({ recordId }: { recordId: string }) {
       setNotes(prev => prev.filter(n => n.id !== id))
       addToast('Note deleted', 'success')
     } catch (e: any) {
+      logError(e, { component: 'RecordNotes', action: 'deleteNote' })
       addToast(e.message || 'Failed to delete note', 'error')
     }
   }

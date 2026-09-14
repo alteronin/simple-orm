@@ -7,6 +7,7 @@ import { StackBoard } from '@/components/StackBoard'
 import { StackCreateModal } from '@/components/StackCreateModal'
 import { RecordModal } from '@/components/RecordModal'
 import { useToast } from '@/components/Toast'
+import { logError } from '@/lib/logger'
 
 interface StacksClientProps {
   stacks: StackWithCards[]
@@ -57,6 +58,7 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
       await loadData()
       setShowCreate(false)
     } catch (e: any) {
+      logError(e, { component: 'StacksClient', action: 'createStack' })
       addToast(e.message || 'Failed to create stack', 'error')
     }
   }
@@ -70,6 +72,7 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
       addToast(count > 0 ? `Stack updated — synced ${count} record${count === 1 ? '' : 's'}` : 'Stack updated', 'success')
       setEditingStack(null)
     } catch (e: any) {
+      logError(e, { component: 'StacksClient', action: 'updateStack' })
       addToast(e.message || 'Failed to update stack', 'error')
     }
   }
@@ -83,6 +86,7 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
       await deleteStack(id)
       addToast('Stack deleted', 'success')
     } catch (e: any) {
+      logError(e, { component: 'StacksClient', action: 'deleteStack' })
       setStacks(prev)
       addToast(e.message || 'Failed to delete stack', 'error')
     }
@@ -95,6 +99,7 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
       await loadData()
       addToast(count > 0 ? `Synced ${count} new card${count === 1 ? '' : 's'}` : 'All cards up to date', 'success')
     } catch (e: any) {
+      logError(e, { component: 'StacksClient', action: 'populateStack' })
       addToast(e.message || 'Failed to sync records', 'error')
     } finally {
       setSyncingStackId(null)

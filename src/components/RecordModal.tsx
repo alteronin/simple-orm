@@ -8,6 +8,7 @@ import { useToast } from './Toast'
 import { ConfirmDialog } from './ConfirmDialog'
 import { RecordNotes } from './RecordNotes'
 import { RecordHistory } from './RecordHistory'
+import { logError } from '@/lib/logger'
 import { RecurringField } from './RecurringField'
 import { RecurringValue, checkAndResetRecurring } from '@/lib/recurring'
 import { Spinner } from './Spinner'
@@ -64,6 +65,7 @@ export function RecordModal({ recordId, onClose, onSaved, onDeleted }: RecordMod
       addToast('Record updated', 'success')
       onSaved()
     } catch (e: any) {
+      logError(e, { component: 'RecordModal', action: 'updateRecord' })
       addToast(e.message || 'Failed to update', 'error')
     } finally {
       setSaving(false)
@@ -78,6 +80,7 @@ export function RecordModal({ recordId, onClose, onSaved, onDeleted }: RecordMod
       onDeleted()
       onClose()
     } catch (e: any) {
+      logError(e, { component: 'RecordModal', action: 'deleteRecord' })
       addToast(e.message || 'Failed to delete record', 'error')
       setDeleting(false)
     }

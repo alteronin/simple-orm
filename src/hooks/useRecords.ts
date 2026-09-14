@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase'
 import { AppRecord } from '@/types'
 import { createRecord as createRecordServer, updateRecord as updateRecordServer, deleteRecord as deleteRecordServer } from '@/lib/actions'
 import { useToast } from '@/components/Toast'
+import { logError } from '@/lib/logger'
 
 export function useRecords(recordTypeId: string) {
   const [records, setRecords] = useState<AppRecord[]>([])
@@ -73,6 +74,7 @@ export function useCreateRecord() {
         router.push(`/${recordTypeId}`)
       } catch (e: any) {
         setError(e.message)
+        logError(e, { component: 'useRecords', action: 'createRecord' })
         addToast(e.message || 'Failed to create record', 'error')
       }
     })
@@ -96,6 +98,7 @@ export function useUpdateRecord() {
         router.refresh()
       } catch (e: any) {
         setError(e.message)
+        logError(e, { component: 'useRecords', action: 'updateRecord' })
         addToast(e.message || 'Failed to update record', 'error')
       }
     })
@@ -119,6 +122,7 @@ export function useDeleteRecord() {
         router.refresh()
       } catch (e: any) {
         setError(e.message)
+        logError(e, { component: 'useRecords', action: 'deleteRecord' })
         addToast(e.message || 'Failed to delete record', 'error')
       }
     })

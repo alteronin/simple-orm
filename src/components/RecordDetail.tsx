@@ -10,6 +10,7 @@ import { RecordHistory } from './RecordHistory'
 import { supabase } from '@/lib/supabase'
 import { useToast } from './Toast'
 import { Spinner } from './Spinner'
+import { logError } from '@/lib/logger'
 
 interface RecordDetailProps {
   record: AppRecord
@@ -30,6 +31,7 @@ export function RecordDetail({ record, fields, recordTypeName }: RecordDetailPro
       addToast('Record deleted', 'success')
       window.location.href = `/${record.record_type_id}`
     } catch (e: any) {
+      logError(e, { component: 'RecordDetail', action: 'deleteRecord' })
       addToast(e.message || 'Failed to delete record', 'error')
       setDeleting(false)
     }

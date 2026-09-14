@@ -9,6 +9,7 @@ import { Pagination } from './Pagination'
 import { InlineEditableField } from './InlineEditableField'
 import { useToast } from './Toast'
 import { deleteRecords, updateRecordField } from '@/lib/actions'
+import { logError } from '@/lib/logger'
 import { LinkedRecordInfo } from '@/lib/record-operations'
 
 interface RecordListProps {
@@ -20,15 +21,15 @@ interface RecordListProps {
   totalRecords: number
   totalPages: number
   currentPage: number
+  currentSortBy?: string
+  currentSortDir?: 'asc' | 'desc'
   linkedRecords?: Record<string, LinkedRecordInfo>
 }
 
-export function RecordList({ records, loading, fields, recordTypeName, recordTypeId, totalRecords, totalPages, currentPage, linkedRecords = {} }: RecordListProps) {
+export function RecordList({ records, loading, fields, recordTypeName, recordTypeId, totalRecords, totalPages, currentPage, currentSortBy = 'created_at', currentSortDir = 'desc', linkedRecords = {} }: RecordListProps) {
   const router = useRouter()
   const { addToast } = useToast()
   const [search, setSearch] = useState('')
-  const [sortBy, setSortBy] = useState('created_at')
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
   const [filters, setFilters] = useState<Record<string, string>>({})
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [editingValues, setEditingValues] = useState<Record<string, Record<string, string | number | boolean | null>>>({})
@@ -36,13 +37,14 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
   const statusField = fields.find(f => f.name === 'status')
   const statusOptions = statusField?.options
 
-  const filterState = useMemo(() => ({ search, sortBy, sortDir, filters }), [search, sortBy, sortDir, filters])
+  const filterState = useMemo(() => ({ search, sortBy: currentSortBy, sortDir: currentSortDir, filters }), [search, currentSortBy, currentSortDir, filters])
 
   const handleFilterChange = (state: typeof filterState) => {
     setSearch(state.search)
-    setSortBy(state.sortBy)
-    setSortDir(state.sortDir)
     setFilters(state.filters)
+    if (state.sortBy !== currentSortBy || state.sortDir !== currentSortDir) {
+      router.push(`/${recordTypeId}?page=1&sort=${state.sortBy}&dir=${state.sortDir}`)
+    }
   }
 
   const filtered = useMemo(() => {
@@ -65,14 +67,14 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
     })
 
     result.sort((a, b) => {
-      const aVal = a.data[sortBy] ?? a[sortBy as keyof AppRecord] ?? ''
-      const bVal = b.data[sortBy] ?? b[sortBy as keyof AppRecord] ?? ''
+      const aVal = a.data[currentSortBy] ?? a[currentSortBy as keyof AppRecord] ?? ''
+      const bVal = b.data[currentSortBy] ?? b[currentSortBy as keyof AppRecord] ?? ''
       const cmp = String(aVal).localeCompare(String(bVal), undefined, { numeric: true })
-      return sortDir === 'asc' ? cmp : -cmp
+      return currentSortDir === 'asc' ? cmp : -cmp
     })
 
     return result
-  }, [records, search, sortBy, sortDir, filters, fields])
+  }, [records, search, currentSortBy, currentSortDir, filters, fields])
 
   const toggleSelect = useCallback((id: string) => {
     setSelected(prev => {
@@ -100,6 +102,7 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
       addToast(`${ids.length} record(s) deleted`, 'success')
       router.refresh()
     } catch (e: any) {
+      logError(e, { component: 'RecordList', action: 'bulkDelete' })
       addToast(e.message || 'Failed to delete records', 'error')
     }
   }, [selected, addToast, router])
@@ -113,6 +116,7 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
       addToast(`${ids.length} record(s) updated to "${status}"`, 'success')
       router.refresh()
     } catch (e: any) {
+      logError(e, { component: 'RecordList', action: 'bulkStatusUpdate' })
       addToast(e.message || 'Failed to update records', 'error')
     }
   }, [selected, addToast, router])
@@ -275,7 +279,7 @@ export function RecordList({ records, loading, fields, recordTypeName, recordTyp
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={(p) => router.push(`/${recordTypeId}?page=${p}`)}
+        onPageChange={(p) => router.push(`/${recordTypeId}?page=${p}&sort=${currentSortBy}&dir=${currentSortDir}`)}
       />
     </div>
   )
