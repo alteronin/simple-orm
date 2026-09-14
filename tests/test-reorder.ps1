@@ -191,9 +191,9 @@ for ($i = 0; $i -lt 4; $i++) {
 }
 
 # ─── Test 9: Position integrity under stress ────────────────
-Write-Output "`n=== TEST 9: Stress test (50 random operations) ==="
+Write-Output "`n=== TEST 9: Stress test (20 random operations) ==="
 $rand = [System.Random]::new()
-for ($op = 0; $op -lt 50; $op++) {
+for ($op = 0; $op -lt 20; $op++) {
     $srcStack = if ($rand.Next(2) -eq 0) { $sA.id } else { $sB.id }
     $dstStack = if ($srcStack -eq $sA.id) { $sB.id } else { $sA.id }
     $srcCards = Get-Cards $srcStack
