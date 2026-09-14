@@ -11,15 +11,14 @@ import {
   DragEndEvent,
   DragOverEvent,
   DragStartEvent,
-  DragOverlay,
 } from '@dnd-kit/core'
 import {
   arrayMove,
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable'
-import { StackWithCards, RecordType, AppRecord, StackCard } from '@/types'
+import { StackWithCards, RecordType } from '@/types'
 import { StackColumn } from './StackColumn'
-import { reorderStackCards, removeCardFromStack } from '@/lib/actions'
+import { reorderStackCards } from '@/lib/actions'
 
 interface StackBoardProps {
   stacks: StackWithCards[]
@@ -31,7 +30,6 @@ interface StackBoardProps {
   onFieldUpdate?: (recordId: string, fieldName: string, value: any) => void
   onReorder: (stacks: StackWithCards[]) => void
   syncingStackId?: string | null
-  onSortedCardsChange?: (stackId: string, sortedIds: string[]) => void
 }
 
 function findStack(stacks: StackWithCards[], id: string | number) {
@@ -51,9 +49,10 @@ function findStackByDroppableId(stacks: StackWithCards[], overId: string | numbe
   return undefined
 }
 
-export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate, onReorder, syncingStackId, onSortedCardsChange }: StackBoardProps) {
+export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate, onReorder, syncingStackId }: StackBoardProps) {
   const [activeCardId, setActiveCardId] = useState<string | null>(null)
   const [sortedCardsMap, setSortedCardsMap] = useState<Record<string, string[]>>({})
+  const [reorderVersions, setReorderVersions] = useState<Record<string, number>>({})
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -66,7 +65,10 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
 
   const handleSortedCardsChange = (stackId: string, sortedIds: string[]) => {
     setSortedCardsMap(prev => ({ ...prev, [stackId]: sortedIds }))
-    if (onSortedCardsChange) onSortedCardsChange(stackId, sortedIds)
+  }
+
+  const bumpReorderVersion = (stackId: string) => {
+    setReorderVersions(prev => ({ ...prev, [stackId]: (prev[stackId] || 0) + 1 }))
   }
 
   const handleDragOver = (event: DragOverEvent) => {
@@ -119,7 +121,6 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
     if (!activeStack || !overStack) return
 
     if (activeStack.id === overStack.id) {
-      // Same stack reorder - use sorted order if available
       const sortedIds = sortedCardsMap[activeStack.id]
       const cardsToUse = sortedIds
         ? sortedIds.map(id => activeStack.cards.find(c => c.id === id)).filter(Boolean) as typeof activeStack.cards
@@ -133,11 +134,11 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
       const newStacks = stacks.map(s => s.id === activeStack.id ? { ...s, cards: newCards } : s)
       onReorder(newStacks)
       await reorderStackCards(activeStack.id, newCards.map(c => c.id))
+      bumpReorderVersion(activeStack.id)
     } else {
       const movedCard = activeStack.cards.find(c => c.id === active.id)
       if (!movedCard) return
 
-      // Use sorted order for destination stack if available
       const overSortedIds = sortedCardsMap[overStack.id]
       const overCardsToUse = overSortedIds
         ? overSortedIds.map(id => overStack.cards.find(c => c.id === id)).filter(Boolean) as typeof overStack.cards
@@ -165,6 +166,8 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
         reorderStackCards(activeStack.id, newStacks.find(s => s.id === activeStack.id)!.cards.map(c => c.id)),
         reorderStackCards(overStack.id, newOverCards.map(c => c.id)),
       ])
+      bumpReorderVersion(activeStack.id)
+      bumpReorderVersion(overStack.id)
     }
   }
 
@@ -189,6 +192,7 @@ export function StackBoard({ stacks, recordTypes, onEdit, onDelete, onPopulate, 
             onCardClick={onCardClick}
             onFieldUpdate={onFieldUpdate}
             onSortedCardsChange={(ids) => handleSortedCardsChange(stack.id, ids)}
+            reorderVersion={reorderVersions[stack.id] || 0}
           />
         ))}
       </div>

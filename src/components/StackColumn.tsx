@@ -16,6 +16,7 @@ interface StackColumnProps {
   onCardClick: (recordId: string) => void
   onFieldUpdate?: (recordId: string, fieldName: string, value: any) => void
   onSortedCardsChange?: (sortedIds: string[]) => void
+  reorderVersion?: number
 }
 
 const OP_LABELS: Record<string, string> = { eq: '=', neq: '≠', contains: '~', gt: '>', lt: '<', gte: '≥', lte: '≤' }
@@ -28,7 +29,7 @@ function getCardSortValue(card: StackCard & { record: AppRecord }, fieldName: st
   return String(val).toLowerCase()
 }
 
-export function StackColumn({ stack, isDragging, isSyncing, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate, onSortedCardsChange }: StackColumnProps) {
+export function StackColumn({ stack, isDragging, isSyncing, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate, onSortedCardsChange, reorderVersion }: StackColumnProps) {
   const { setNodeRef, isOver } = useDroppable({ id: `stack-${stack.id}` })
   const fields = stack.record_type?.fields || []
   const displayFields = stack.display_fields || []
@@ -53,6 +54,14 @@ export function StackColumn({ stack, isDragging, isSyncing, onEdit, onDelete, on
   useEffect(() => {
     if (onSortedCardsChange) onSortedCardsChange(cardIds)
   }, [cardIds, onSortedCardsChange])
+
+  // Clear sort when a reorder happens so the new DB order is preserved
+  useEffect(() => {
+    if (reorderVersion && reorderVersion > 0) {
+      setSortField('')
+      setSortDir('asc')
+    }
+  }, [reorderVersion])
 
   const toggleSort = (field: string) => {
     if (sortField === field) {
