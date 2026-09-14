@@ -15,6 +15,7 @@ const OPERATORS = [
   { value: 'eq', label: 'equals' },
   { value: 'neq', label: 'not equals' },
   { value: 'contains', label: 'contains' },
+  { value: 'empty', label: 'is empty' },
   { value: 'gt', label: 'greater than' },
   { value: 'lt', label: 'less than' },
   { value: 'gte', label: '≥' },
@@ -130,7 +131,7 @@ export function StackCreateModal({ recordTypes, stack, onSubmit, onClose }: Stac
     e.preventDefault()
     if (!name.trim()) return
     if (!isEditing && !recordTypeId) return
-    const validFilters = filterCriteria.filter(f => f.field && f.value)
+    const validFilters = filterCriteria.filter(f => f.field && (f.operator === 'empty' || f.value))
     onSubmit({
       name: name.trim(),
       record_type_id: recordTypeId,
@@ -259,33 +260,39 @@ export function StackCreateModal({ recordTypes, stack, onSubmit, onClose }: Stac
                           <option key={op.value} value={op.value}>{op.label}</option>
                         ))}
                       </select>
-                      <div className="flex-1 relative">
-                        <input
-                          type="text"
-                          value={filter.value}
-                          onChange={e => handleFilterValueChange(i, e.target.value)}
-                          onFocus={() => handleFilterValueFocus(i)}
-                          onBlur={() => setTimeout(() => setShowSuggestions(null), 200)}
-                          onKeyDown={e => handleFilterValueKeyDown(e, i)}
-                          placeholder="value"
-                          className="w-full rounded-md border border-border bg-background px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                        />
-                        {showSuggestions === i && suggestions.length > 0 && (
-                          <div className="absolute z-10 top-full left-0 right-0 mt-1 bg-popover border border-border rounded-md shadow-lg max-h-40 overflow-y-auto">
-                            {suggestions.map((s, si) => (
-                              <button
-                                key={s}
-                                ref={el => { suggestionRefs.current[si] = el }}
-                                type="button"
-                                onMouseDown={() => handleSuggestionClick(i, s)}
-                                className={`w-full text-left px-3 py-1.5 text-sm hover:bg-accent ${si === activeSuggestionIdx ? 'bg-accent' : ''}`}
-                              >
-                                {s}
-                              </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
+                      {filter.operator !== 'empty' ? (
+                        <div className="flex-1 relative">
+                          <input
+                            type="text"
+                            value={filter.value}
+                            onChange={e => handleFilterValueChange(i, e.target.value)}
+                            onFocus={() => handleFilterValueFocus(i)}
+                            onBlur={() => setTimeout(() => setShowSuggestions(null), 200)}
+                            onKeyDown={e => handleFilterValueKeyDown(e, i)}
+                            placeholder="value"
+                            className="w-full rounded-md border border-border bg-background px-2.5 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                          />
+                          {showSuggestions === i && suggestions.length > 0 && (
+                            <div className="absolute z-10 top-full left-0 right-0 mt-1 bg-popover border border-border rounded-md shadow-lg max-h-40 overflow-y-auto">
+                              {suggestions.map((s, si) => (
+                                <button
+                                  key={s}
+                                  ref={el => { suggestionRefs.current[si] = el }}
+                                  type="button"
+                                  onMouseDown={() => handleSuggestionClick(i, s)}
+                                  className={`w-full text-left px-3 py-1.5 text-sm hover:bg-accent ${si === activeSuggestionIdx ? 'bg-accent' : ''}`}
+                                >
+                                  {s}
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="flex-1 rounded-md border border-border bg-muted/50 px-2.5 py-1.5 text-sm text-muted-foreground">
+                          (no value needed)
+                        </div>
+                      )}
                       <button type="button" onClick={() => removeFilter(i)} className="text-muted-foreground hover:text-destructive p-1">
                         <svg className="shrink-0 h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />

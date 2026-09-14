@@ -414,7 +414,10 @@ export async function populateStackFromType(stackId: string): Promise<number> {
     .eq('record_type_id', stack.record_type_id)
 
   const criteria: FilterCriterion[] = stack.filter_criteria || []
-  for (const c of criteria) {
+  const dbFilters = criteria.filter(c => c.operator !== 'empty')
+  const emptyFilters = criteria.filter(c => c.operator === 'empty')
+
+  for (const c of dbFilters) {
     const col = `data->>${c.field}`
     switch (c.operator) {
       case 'eq': query = query.eq(col, c.value); break
@@ -429,14 +432,23 @@ export async function populateStackFromType(stackId: string): Promise<number> {
 
   const { data: records } = await query
 
-  const matchingIds = new Set((records || []).map(r => r.id))
+  // Apply empty filters in JS (PostgREST can't do IS NULL OR = '' easily)
+  let matchingRecords = records || []
+  for (const c of emptyFilters) {
+    matchingRecords = matchingRecords.filter(r => {
+      const val = (r.data as Record<string, any>)?.[c.field]
+      return val === null || val === undefined || val === ''
+    })
+  }
+
+  const matchingIds = new Set(matchingRecords.map(r => r.id))
 
   const toRemove = (existingCards || []).filter(c => !matchingIds.has(c.record_id))
   if (toRemove.length > 0) {
     await supabase.from('stack_cards').delete().in('id', toRemove.map(c => c.id))
   }
 
-  const filtered = (records || []).filter(r => !existingIds.has(r.id))
+  const filtered = matchingRecords.filter(r => !existingIds.has(r.id))
 
   const newCards = filtered.map((r, i) => ({
     stack_id: stackId,

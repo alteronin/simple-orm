@@ -12,7 +12,7 @@ export interface FieldDefinition {
 
 export interface FilterCriterion {
   field: string
-  operator: 'eq' | 'neq' | 'contains' | 'gt' | 'lt' | 'gte' | 'lte'
+  operator: 'eq' | 'neq' | 'contains' | 'gt' | 'lt' | 'gte' | 'lte' | 'empty'
   value: string
 }
 

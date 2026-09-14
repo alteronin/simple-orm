@@ -66,7 +66,10 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
   const handleUpdate = async (data: { name: string; display_fields: string[]; quick_update_fields?: string[]; filter_criteria?: any }) => {
     if (!editingStack) return
     try {
-      await updateStack(editingStack.id, data)
+      await updateStack(editingStack.id, {
+        ...data,
+        filter_criteria: data.filter_criteria ?? [],
+      })
       const count = await populateStackFromType(editingStack.id)
       await loadData()
       addToast(count > 0 ? `Stack updated — synced ${count} record${count === 1 ? '' : 's'}` : 'Stack updated', 'success')
