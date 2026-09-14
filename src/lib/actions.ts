@@ -386,13 +386,12 @@ export async function removeCardFromStack(stackId: string, recordId: string): Pr
 }
 
 export async function reorderStackCards(stackId: string, cardIds: string[]): Promise<void> {
-  const updates = cardIds.map((cardId, index) => ({
-    id: cardId,
-    stack_id: stackId,
-    position: index,
-  }))
-  const { error } = await supabase.from('stack_cards').upsert(updates, { onConflict: 'id' })
-  if (error) throw new Error(error.message)
+  const updates = cardIds.map((cardId, index) =>
+    supabase.from('stack_cards').update({ stack_id: stackId, position: index }).eq('id', cardId)
+  )
+  const results = await Promise.all(updates)
+  const error = results.find(r => r.error)
+  if (error) throw new Error(error.error!.message)
 }
 
 export async function populateStackFromType(stackId: string): Promise<number> {

@@ -1,21 +1,18 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import { StackWithCards, FilterCriterion, StackCard, AppRecord } from '@/types'
+import { StackWithCards, StackCard, AppRecord } from '@/types'
 import { StackCardItem } from './StackCardItem'
 
 interface StackColumnProps {
   stack: StackWithCards
-  sortField: string
-  sortDir: 'asc' | 'desc'
-  onSortChange: (field: string, dir: 'asc' | 'desc') => void
+  isDragging: boolean
+  isSyncing?: boolean
   onEdit: () => void
   onDelete: () => void
   onPopulate: () => void
-  isDragging: boolean
-  isSyncing?: boolean
   onCardClick: (recordId: string) => void
   onFieldUpdate?: (recordId: string, fieldName: string, value: any) => void
 }
@@ -30,12 +27,15 @@ function getCardSortValue(card: StackCard & { record: AppRecord }, fieldName: st
   return String(val).toLowerCase()
 }
 
-export function StackColumn({ stack, sortField, sortDir, onSortChange, onEdit, onDelete, onPopulate, isDragging, isSyncing, onCardClick, onFieldUpdate }: StackColumnProps) {
+export function StackColumn({ stack, isDragging, isSyncing, onEdit, onDelete, onPopulate, onCardClick, onFieldUpdate }: StackColumnProps) {
   const { setNodeRef, isOver } = useDroppable({ id: `stack-${stack.id}` })
   const fields = stack.record_type?.fields || []
   const displayFields = stack.display_fields || []
   const quickUpdateFields = stack.quick_update_fields || []
   const filters = stack.filter_criteria || []
+
+  const [sortField, setSortField] = useState<string>('')
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc')
 
   const sortedCards = useMemo(() => {
     if (!sortField) return stack.cards
@@ -51,9 +51,10 @@ export function StackColumn({ stack, sortField, sortDir, onSortChange, onEdit, o
 
   const toggleSort = (field: string) => {
     if (sortField === field) {
-      onSortChange(field, sortDir === 'asc' ? 'desc' : 'asc')
+      setSortDir(prev => prev === 'asc' ? 'desc' : 'asc')
     } else {
-      onSortChange(field, 'asc')
+      setSortField(field)
+      setSortDir('asc')
     }
   }
 
@@ -61,7 +62,7 @@ export function StackColumn({ stack, sortField, sortDir, onSortChange, onEdit, o
     <div
       className={`rounded-lg border bg-card transition-colors ${
         isDragging ? 'border-primary/50 bg-primary/5' : 'border-border'
-      } ${isOver ? 'border-accent-foreground/50' : ''}`}
+      } ${isOver ? 'border-accent-foreground/50 bg-accent/5' : ''}`}
     >
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <div className="min-w-0">
@@ -71,7 +72,7 @@ export function StackColumn({ stack, sortField, sortDir, onSortChange, onEdit, o
           </p>
           {filters.length > 0 && (
             <div className="flex flex-wrap gap-1 mt-1.5">
-              {filters.map((f, i) => (
+              {filters.map((f: any, i: number) => (
                 <span key={i} className="inline-flex items-center gap-0.5 rounded bg-secondary px-1.5 py-0.5 text-[10px] text-secondary-foreground">
                   {fields.find(ff => ff.name === f.field)?.label || f.field}
                   <span className="text-muted-foreground">{OP_LABELS[f.operator] || f.operator}</span>

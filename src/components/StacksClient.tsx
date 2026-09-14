@@ -170,6 +170,7 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
           onPopulate={handlePopulate}
           onCardClick={setModalRecordId}
           onFieldUpdate={handleFieldUpdate}
+          onReorder={setStacks}
           syncingStackId={syncingStackId}
         />
       )}

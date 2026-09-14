@@ -21,5 +21,6 @@ export default defineConfig({
     { name: 'e2e', testDir: './tests', testMatch: 'e2e.spec.ts' },
     { name: 'lighthouse', testDir: './tests', testMatch: 'lighthouse.spec.ts' },
     { name: 'live', testDir: './tests', testMatch: 'delete-live.spec.ts' },
+    { name: 'reorder', testDir: './tests', testMatch: 'reorder.spec.ts' },
   ],
 })
