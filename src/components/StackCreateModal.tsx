@@ -137,7 +137,7 @@ export function StackCreateModal({ recordTypes, stack, onSubmit, onClose }: Stac
       record_type_id: recordTypeId,
       display_fields: displayFields,
       quick_update_fields: quickUpdateFields,
-      filter_criteria: validFilters.length > 0 ? validFilters : undefined,
+      filter_criteria: validFilters.length > 0 ? validFilters : [],
     })
   }
 

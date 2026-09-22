@@ -4,8 +4,7 @@
       "C:\\Program Files\\nodejs\\node.exe",
       "D:\\Onin\\ocs\\simple-orm\\node_modules\\@playwright\\test\\cli.js",
       "test",
-      "--config=playwright.config.ts",
-      "tests/quick-toggle.spec.ts"
+      "--project=filter-fix"
     ],
     "configFile": "D:\\Onin\\ocs\\simple-orm\\playwright.config.ts",
     "rootDir": "D:/Onin/ocs/simple-orm/tests",
@@ -18,14 +17,18 @@
     "grep": {},
     "grepInvert": null,
     "maxFailures": 0,
-    "metadata": {},
+    "metadata": {
+      "actualWorkers": 1
+    },
     "preserveOutput": "always",
     "projects": [
       {
         "outputDir": "D:/Onin/ocs/simple-orm/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "metadata": {},
+        "metadata": {
+          "actualWorkers": 1
+        },
         "id": "api",
         "name": "api",
         "testDir": "D:/Onin/ocs/simple-orm/tests",
@@ -39,7 +42,9 @@
         "outputDir": "D:/Onin/ocs/simple-orm/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "metadata": {},
+        "metadata": {
+          "actualWorkers": 1
+        },
         "id": "crud",
         "name": "crud",
         "testDir": "D:/Onin/ocs/simple-orm/tests",
@@ -53,7 +58,9 @@
         "outputDir": "D:/Onin/ocs/simple-orm/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "metadata": {},
+        "metadata": {
+          "actualWorkers": 1
+        },
         "id": "e2e",
         "name": "e2e",
         "testDir": "D:/Onin/ocs/simple-orm/tests",
@@ -67,7 +74,9 @@
         "outputDir": "D:/Onin/ocs/simple-orm/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "metadata": {},
+        "metadata": {
+          "actualWorkers": 1
+        },
         "id": "lighthouse",
         "name": "lighthouse",
         "testDir": "D:/Onin/ocs/simple-orm/tests",
@@ -81,13 +90,47 @@
         "outputDir": "D:/Onin/ocs/simple-orm/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "metadata": {},
+        "metadata": {
+          "actualWorkers": 1
+        },
         "id": "live",
         "name": "live",
         "testDir": "D:/Onin/ocs/simple-orm/tests",
         "testIgnore": [],
         "testMatch": [
           "delete-live.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Onin/ocs/simple-orm/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "reorder",
+        "name": "reorder",
+        "testDir": "D:/Onin/ocs/simple-orm/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "reorder.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "D:/Onin/ocs/simple-orm/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "filter-fix",
+        "name": "filter-fix",
+        "testDir": "D:/Onin/ocs/simple-orm/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "filter-fix.spec.ts"
         ],
         "timeout": 60000
       }
@@ -124,17 +167,124 @@
     "workers": 6,
     "webServer": null
   },
-  "suites": [],
-  "errors": [
+  "suites": [
     {
-      "message": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments.",
-      "stack": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments."
+      "title": "filter-fix.spec.ts",
+      "file": "filter-fix.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Stack Filter Fixes",
+          "file": "filter-fix.spec.ts",
+          "line": 20,
+          "column": 6,
+          "specs": [
+            {
+              "title": "empty filter populates correct cards on page load",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "filter-fix",
+                  "projectName": "filter-fix",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9150,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Tasks without due_date: 23\n"
+                        },
+                        {
+                          "text": "Created stack: a5f62c23-0cb1-483c-a70e-7f9d9fb334f5\n"
+                        },
+                        {
+                          "text": "Cards populated: 23 (expected: 23)\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T19:39:34.649Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c2f9d70a426e0cef3ed3-0d011bdf5e84d5acf982",
+              "file": "filter-fix.spec.ts",
+              "line": 29,
+              "column": 7
+            },
+            {
+              "title": "removing filter populates all cards",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "filter-fix",
+                  "projectName": "filter-fix",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10142,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "Created stack with eq filter: e14457a3-bd78-4b08-91d2-581ab63c4982\n"
+                        },
+                        {
+                          "text": "Cards with eq filter: 33\n"
+                        },
+                        {
+                          "text": "Filter cleared\n"
+                        },
+                        {
+                          "text": "Cards after clearing filter: 33 (expected: 33)\n"
+                        },
+                        {
+                          "text": "Cleanup: deleted 2 stacks\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-09-14T19:39:43.967Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c2f9d70a426e0cef3ed3-094beb193be127144c46",
+              "file": "filter-fix.spec.ts",
+              "line": 53,
+              "column": 7
+            }
+          ]
+        }
+      ]
     }
   ],
+  "errors": [],
   "stats": {
-    "startTime": "2026-09-13T21:30:47.844Z",
-    "duration": 13.814999999999998,
-    "expected": 0,
+    "startTime": "2026-09-14T19:39:33.950Z",
+    "duration": 21642.172000000002,
+    "expected": 2,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

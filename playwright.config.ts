@@ -22,5 +22,6 @@ export default defineConfig({
     { name: 'lighthouse', testDir: './tests', testMatch: 'lighthouse.spec.ts' },
     { name: 'live', testDir: './tests', testMatch: 'delete-live.spec.ts' },
     { name: 'reorder', testDir: './tests', testMatch: 'reorder.spec.ts' },
+    { name: 'filter-fix', testDir: './tests', testMatch: 'filter-fix.spec.ts' },
   ],
 })
