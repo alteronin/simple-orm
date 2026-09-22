@@ -4,7 +4,10 @@
       "C:\\Program Files\\nodejs\\node.exe",
       "D:\\Onin\\ocs\\simple-orm\\node_modules\\@playwright\\test\\cli.js",
       "test",
-      "--project=filter-fix"
+      "--project=e2e",
+      "-g",
+      "stacks page",
+      "--headed"
     ],
     "configFile": "D:\\Onin\\ocs\\simple-orm\\playwright.config.ts",
     "rootDir": "D:/Onin/ocs/simple-orm/tests",
@@ -169,20 +172,20 @@
   },
   "suites": [
     {
-      "title": "filter-fix.spec.ts",
-      "file": "filter-fix.spec.ts",
+      "title": "e2e.spec.ts",
+      "file": "e2e.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Stack Filter Fixes",
-          "file": "filter-fix.spec.ts",
-          "line": 20,
+          "title": "Stacks",
+          "file": "e2e.spec.ts",
+          "line": 104,
           "column": 6,
           "specs": [
             {
-              "title": "empty filter populates correct cards on page load",
+              "title": "stacks page loads with board",
               "ok": true,
               "tags": [],
               "tests": [
@@ -190,29 +193,19 @@
                   "timeout": 60000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "filter-fix",
-                  "projectName": "filter-fix",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
                   "results": [
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 9150,
+                      "duration": 17929,
                       "errors": [],
-                      "stdout": [
-                        {
-                          "text": "Tasks without due_date: 23\n"
-                        },
-                        {
-                          "text": "Created stack: a5f62c23-0cb1-483c-a70e-7f9d9fb334f5\n"
-                        },
-                        {
-                          "text": "Cards populated: 23 (expected: 23)\n"
-                        }
-                      ],
+                      "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-14T19:39:34.649Z",
+                      "startTime": "2026-09-22T22:07:56.792Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -220,59 +213,152 @@
                   "status": "expected"
                 }
               ],
-              "id": "c2f9d70a426e0cef3ed3-0d011bdf5e84d5acf982",
-              "file": "filter-fix.spec.ts",
-              "line": 29,
+              "id": "b1c7859d981cc20c96be-3edbc8430c943d4d7b1a",
+              "file": "e2e.spec.ts",
+              "line": 105,
               "column": 7
-            },
+            }
+          ]
+        },
+        {
+          "title": "Performance",
+          "file": "e2e.spec.ts",
+          "line": 146,
+          "column": 6,
+          "specs": [
             {
-              "title": "removing filter populates all cards",
-              "ok": true,
+              "title": "stacks page loads in under 6s",
+              "ok": false,
               "tags": [],
               "tests": [
                 {
                   "timeout": 60000,
                   "annotations": [],
                   "expectedStatus": "passed",
-                  "projectId": "filter-fix",
-                  "projectName": "filter-fix",
+                  "projectId": "e2e",
+                  "projectName": "e2e",
                   "results": [
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 10142,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 15522,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m6000\u001b[39m\nReceived:   \u001b[31m15296\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m6000\u001b[39m\nReceived:   \u001b[31m15296\u001b[39m\n    at D:\\Onin\\ocs\\simple-orm\\tests\\e2e.spec.ts:162:21",
+                        "location": {
+                          "file": "D:\\Onin\\ocs\\simple-orm\\tests\\e2e.spec.ts",
+                          "column": 21,
+                          "line": 162
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 160 |\u001b[39m     \u001b[36mconst\u001b[39m elapsed \u001b[33m=\u001b[39m \u001b[33mDate\u001b[39m\u001b[33m.\u001b[39mnow() \u001b[33m-\u001b[39m start\n \u001b[90m 161 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Stacks page loaded in ${elapsed}ms`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 162 |\u001b[39m     expect(elapsed)\u001b[33m.\u001b[39mtoBeLessThan(\u001b[35m6000\u001b[39m)\n \u001b[90m     |\u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 163 |\u001b[39m   })\n \u001b[90m 164 |\u001b[39m\n \u001b[90m 165 |\u001b[39m   test(\u001b[32m'settings page loads in under 3s'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Onin\\ocs\\simple-orm\\tests\\e2e.spec.ts",
+                            "column": 21,
+                            "line": 162
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m6000\u001b[39m\nReceived:   \u001b[31m15296\u001b[39m\n\n  160 |     const elapsed = Date.now() - start\n  161 |     console.log(`Stacks page loaded in ${elapsed}ms`)\n> 162 |     expect(elapsed).toBeLessThan(6000)\n      |                     ^\n  163 |   })\n  164 |\n  165 |   test('settings page loads in under 3s', async ({ page }) => {\n    at D:\\Onin\\ocs\\simple-orm\\tests\\e2e.spec.ts:162:21"
+                        }
+                      ],
                       "stdout": [
                         {
-                          "text": "Created stack with eq filter: e14457a3-bd78-4b08-91d2-581ab63c4982\n"
-                        },
-                        {
-                          "text": "Cards with eq filter: 33\n"
-                        },
-                        {
-                          "text": "Filter cleared\n"
-                        },
-                        {
-                          "text": "Cards after clearing filter: 33 (expected: 33)\n"
-                        },
-                        {
-                          "text": "Cleanup: deleted 2 stacks\n"
+                          "text": "Stacks page loaded in 15296ms\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-09-14T19:39:43.967Z",
+                      "startTime": "2026-09-22T22:08:15.752Z",
                       "annotations": [],
-                      "attachments": []
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Onin\\ocs\\simple-orm\\test-results\\e2e-Performance-stacks-page-loads-in-under-6s-e2e\\test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Onin\\ocs\\simple-orm\\test-results\\e2e-Performance-stacks-page-loads-in-under-6s-e2e\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Onin\\ocs\\simple-orm\\test-results\\e2e-Performance-stacks-page-loads-in-under-6s-e2e\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Onin\\ocs\\simple-orm\\tests\\e2e.spec.ts",
+                        "column": 21,
+                        "line": 162
+                      }
+                    },
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 15585,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m6000\u001b[39m\nReceived:   \u001b[31m15312\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m6000\u001b[39m\nReceived:   \u001b[31m15312\u001b[39m\n    at D:\\Onin\\ocs\\simple-orm\\tests\\e2e.spec.ts:162:21",
+                        "location": {
+                          "file": "D:\\Onin\\ocs\\simple-orm\\tests\\e2e.spec.ts",
+                          "column": 21,
+                          "line": 162
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 160 |\u001b[39m     \u001b[36mconst\u001b[39m elapsed \u001b[33m=\u001b[39m \u001b[33mDate\u001b[39m\u001b[33m.\u001b[39mnow() \u001b[33m-\u001b[39m start\n \u001b[90m 161 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m`Stacks page loaded in ${elapsed}ms`\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 162 |\u001b[39m     expect(elapsed)\u001b[33m.\u001b[39mtoBeLessThan(\u001b[35m6000\u001b[39m)\n \u001b[90m     |\u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 163 |\u001b[39m   })\n \u001b[90m 164 |\u001b[39m\n \u001b[90m 165 |\u001b[39m   test(\u001b[32m'settings page loads in under 3s'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "D:\\Onin\\ocs\\simple-orm\\tests\\e2e.spec.ts",
+                            "column": 21,
+                            "line": 162
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: < \u001b[32m6000\u001b[39m\nReceived:   \u001b[31m15312\u001b[39m\n\n  160 |     const elapsed = Date.now() - start\n  161 |     console.log(`Stacks page loaded in ${elapsed}ms`)\n> 162 |     expect(elapsed).toBeLessThan(6000)\n      |                     ^\n  163 |   })\n  164 |\n  165 |   test('settings page loads in under 3s', async ({ page }) => {\n    at D:\\Onin\\ocs\\simple-orm\\tests\\e2e.spec.ts:162:21"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "Stacks page loaded in 15312ms\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-09-22T22:08:31.855Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "D:\\Onin\\ocs\\simple-orm\\test-results\\e2e-Performance-stacks-page-loads-in-under-6s-e2e-retry1\\test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "D:\\Onin\\ocs\\simple-orm\\test-results\\e2e-Performance-stacks-page-loads-in-under-6s-e2e-retry1\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "D:\\Onin\\ocs\\simple-orm\\test-results\\e2e-Performance-stacks-page-loads-in-under-6s-e2e-retry1\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "D:\\Onin\\ocs\\simple-orm\\tests\\e2e.spec.ts",
+                        "column": 21,
+                        "line": 162
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
-              "id": "c2f9d70a426e0cef3ed3-094beb193be127144c46",
-              "file": "filter-fix.spec.ts",
-              "line": 53,
+              "id": "b1c7859d981cc20c96be-2b82a5438c447d574768",
+              "file": "e2e.spec.ts",
+              "line": 156,
               "column": 7
             }
           ]
@@ -282,11 +368,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-09-14T19:39:33.950Z",
-    "duration": 21642.172000000002,
-    "expected": 2,
+    "startTime": "2026-09-22T22:07:56.203Z",
+    "duration": 51671.909999999996,
+    "expected": 1,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 1,
     "flaky": 0
   }
 }

@@ -38,7 +38,7 @@ export function StacksClient({ stacks: initialStacks, recordTypes }: StacksClien
         try {
           const count = await populateStackFromType(stack.id)
           if (count > 0) changed = true
-        } catch {}
+        } catch (e: any) { logError(e, { component: 'StacksClient', action: 'populateStackFromType', url: `stack/${stack.id}` }) }
       }
       if (!cancelled) {
         if (changed) await loadData()
